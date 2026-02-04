@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Hexagon, Activity } from 'lucide-react';
 import {
@@ -12,16 +12,25 @@ import {
   ResultDisplay,
 } from '@/components';
 import { AgentDetailModal } from '@/components/AgentDetailModal';
+import { ActivityFeed, ActivityItem } from '@/components/ActivityFeed';
 import { useWebSocket } from '@/hooks/useWebSocket';
 import type { SpecialistType } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+
+const SPECIALIST_NAMES: Record<string, string> = {
+  aura: 'Social Analyst Aura',
+  magos: 'Market Oracle Magos',
+  bankr: 'DeFi Specialist bankr',
+  general: 'General Assistant',
+};
 
 export default function CommandCenter() {
   const [isLoading, setIsLoading] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selectedAgent, setSelectedAgent] = useState<SpecialistType | null>(null);
+  const [activityItems, setActivityItems] = useState<ActivityItem[]>([]);
   
   const {
     isConnected,
@@ -34,10 +43,85 @@ export default function CommandCenter() {
     reset,
   } = useWebSocket();
 
+  // Add activity when task status changes
+  useEffect(() => {
+    if (taskStatus && currentTaskId) {
+      const specialist = currentStep?.specialist || 'dispatcher';
+      const specialistName = SPECIALIST_NAMES[specialist] || specialist;
+      
+      let message = '';
+      let type: ActivityItem['type'] = 'processing';
+      
+      switch (taskStatus) {
+        case 'routing':
+          message = `Analyzing request...`;
+          type = 'dispatch';
+          break;
+        case 'processing':
+          message = `Processing with ${specialistName}`;
+          type = 'processing';
+          break;
+        case 'completed':
+          message = `Task completed successfully`;
+          type = 'result';
+          break;
+        case 'failed':
+          message = `Task failed`;
+          type = 'error';
+          break;
+        default:
+          message = `Status: ${taskStatus}`;
+      }
+      
+      setActivityItems(prev => {
+        // Avoid duplicate status messages
+        const lastItem = prev[prev.length - 1];
+        if (lastItem?.message === message) return prev;
+        
+        return [...prev, {
+          id: `${Date.now()}-${taskStatus}`,
+          type,
+          message,
+          specialist,
+          timestamp: new Date(),
+        }];
+      });
+    }
+  }, [taskStatus, currentStep, currentTaskId]);
+
+  // Add activity for payments
+  useEffect(() => {
+    if (payments.length > 0) {
+      const latestPayment = payments[payments.length - 1];
+      setActivityItems(prev => {
+        // Check if we already have this payment
+        if (prev.some(item => item.id === `payment-${latestPayment.id}`)) return prev;
+        
+        return [...prev, {
+          id: `payment-${latestPayment.id}`,
+          type: 'payment',
+          message: `Paid ${latestPayment.amount} ${latestPayment.token}`,
+          specialist: latestPayment.to,
+          timestamp: new Date(),
+          link: latestPayment.txSignature 
+            ? `https://solscan.io/tx/${latestPayment.txSignature}?cluster=devnet`
+            : undefined,
+        }];
+      });
+    }
+  }, [payments]);
+
   const handleSubmit = useCallback(async (prompt: string) => {
     setIsLoading(true);
     setError(null);
     reset();
+    setActivityItems([{
+      id: `${Date.now()}-submit`,
+      type: 'dispatch',
+      message: `Dispatching: "${prompt.slice(0, 50)}${prompt.length > 50 ? '...' : ''}"`,
+      specialist: 'dispatcher',
+      timestamp: new Date(),
+    }]);
 
     try {
       const response = await fetch(`${API_URL}/dispatch`, {
@@ -58,6 +142,16 @@ export default function CommandCenter() {
       const data = await response.json();
       setCurrentTaskId(data.taskId);
       subscribe(data.taskId);
+      
+      // Add routing activity
+      const specialistName = SPECIALIST_NAMES[data.specialist] || data.specialist;
+      setActivityItems(prev => [...prev, {
+        id: `${Date.now()}-routed`,
+        type: 'dispatch',
+        message: `Routed to ${specialistName}`,
+        specialist: data.specialist,
+        timestamp: new Date(),
+      }]);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to submit task');
       setIsLoading(false);
@@ -131,20 +225,32 @@ export default function CommandCenter() {
 
         {/* Main Grid */}
         <div className="flex-1 grid grid-cols-12 gap-4 min-h-0">
-          {/* Left Column - Swarm Graph */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="col-span-12 lg:col-span-5 min-h-[400px]"
-          >
-            <SwarmGraph 
-              activeSpecialist={currentStep?.specialist || null}
-              currentStep={currentStep}
-              taskStatus={taskStatus}
-              onAgentClick={(specialist) => setSelectedAgent(specialist)}
-            />
-          </motion.div>
+          {/* Left Column - Swarm Graph + Activity */}
+          <div className="col-span-12 lg:col-span-5 flex flex-col gap-4">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="min-h-[300px]"
+            >
+              <SwarmGraph 
+                activeSpecialist={currentStep?.specialist || null}
+                currentStep={currentStep}
+                taskStatus={taskStatus}
+                onAgentClick={(specialist) => setSelectedAgent(specialist)}
+              />
+            </motion.div>
+            
+            {/* Activity Feed */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.25 }}
+              className="flex-1 min-h-[200px]"
+            >
+              <ActivityFeed items={activityItems} isProcessing={isLoading} />
+            </motion.div>
+          </div>
 
           {/* Right Column - Panels */}
           <div className="col-span-12 lg:col-span-7 grid grid-rows-[auto_1fr_1fr] gap-4">
