@@ -100,25 +100,18 @@ export default function CommandCenter() {
           </div>
           
           {/* Connection Status */}
-          <motion.button 
-            onClick={() => {
-              if (!isConnected) {
-                // Force reconnect by resetting
-                reset();
-                window.location.reload();
-              }
-            }}
-            className="flex items-center gap-2 px-3 py-2 rounded-full glass-panel-subtle cursor-pointer hover:bg-white/5 transition-colors"
+          <motion.div 
+            className="flex items-center gap-2 px-3 py-2 rounded-full glass-panel-subtle"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            title={isConnected ? 'WebSocket connected' : 'Click to reconnect'}
+            title={isConnected ? 'WebSocket connected to backend' : 'Backend not running - start with: cd hackathon/backend && npm run dev'}
           >
             <div className={`status-dot ${isConnected ? 'status-active' : 'status-error'}`} />
             <span className="text-xs text-[var(--text-secondary)]">
-              {isConnected ? 'Connected' : 'Click to Connect'}
+              {isConnected ? 'Connected' : 'Backend Offline'}
             </span>
-          </motion.button>
+          </motion.div>
         </motion.header>
 
         {/* Task Input */}
