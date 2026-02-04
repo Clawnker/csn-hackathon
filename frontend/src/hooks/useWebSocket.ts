@@ -1,10 +1,23 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { io, Socket } from 'socket.io-client';
-import type { WSEvent, AgentMessage, Payment, TaskStatus } from '@/types';
+import type { AgentMessage, Payment, TaskStatus } from '@/types';
 
-const WS_URL = process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3000';
+const WS_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:3000/ws';
+
+interface WSEvent {
+  type: 'task:status' | 'agent:message' | 'payment' | 'task:complete';
+  taskId: string;
+  status?: TaskStatus;
+  step?: { specialist: string; action: string };
+  from?: string;
+  to?: string;
+  payload?: unknown;
+  amount?: number;
+  token?: string;
+  txSignature?: string;
+  result?: unknown;
+}
 
 export interface UseWebSocketReturn {
   isConnected: boolean;
@@ -19,93 +32,115 @@ export interface UseWebSocketReturn {
 }
 
 export function useWebSocket(): UseWebSocketReturn {
-  const socketRef = useRef<Socket | null>(null);
+  const socketRef = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [taskStatus, setTaskStatus] = useState<TaskStatus | null>(null);
   const [currentStep, setCurrentStep] = useState<{ specialist: string; action: string } | null>(null);
   const [messages, setMessages] = useState<AgentMessage[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [result, setResult] = useState<unknown>(null);
+  const subscribedTaskRef = useRef<string | null>(null);
 
   useEffect(() => {
-    const socket = io(WS_URL, {
-      transports: ['websocket', 'polling'],
-      reconnection: true,
-      reconnectionDelay: 1000,
-      reconnectionAttempts: 5,
-    });
+    const connect = () => {
+      try {
+        const socket = new WebSocket(WS_URL);
 
-    socket.on('connect', () => {
-      console.log('WebSocket connected');
-      setIsConnected(true);
-    });
-
-    socket.on('disconnect', () => {
-      console.log('WebSocket disconnected');
-      setIsConnected(false);
-    });
-
-    socket.on('event', (event: WSEvent) => {
-      console.log('WS Event:', event);
-      
-      switch (event.type) {
-        case 'task:status':
-          setTaskStatus(event.status);
-          if (event.step) {
-            setCurrentStep(event.step);
+        socket.onopen = () => {
+          console.log('WebSocket connected');
+          setIsConnected(true);
+          // Re-subscribe if we had a task
+          if (subscribedTaskRef.current) {
+            socket.send(JSON.stringify({ 
+              type: 'subscribe', 
+              taskId: subscribedTaskRef.current 
+            }));
           }
-          break;
+        };
 
-        case 'agent:message':
-          setMessages(prev => [...prev, {
-            id: `${event.taskId}-${event.timestamp}-${Math.random()}`,
-            taskId: event.taskId,
-            from: event.from,
-            to: event.to,
-            payload: event.payload,
-            timestamp: event.timestamp,
-          }]);
-          break;
+        socket.onclose = () => {
+          console.log('WebSocket disconnected');
+          setIsConnected(false);
+          // Attempt reconnect after 2 seconds
+          setTimeout(connect, 2000);
+        };
 
-        case 'payment':
-          setPayments(prev => [...prev, {
-            id: `${event.txSignature}`,
-            taskId: event.taskId,
-            from: event.from,
-            to: event.to,
-            amount: event.amount,
-            token: event.token,
-            purpose: `${event.from} → ${event.to}`,
-            txSignature: event.txSignature,
-            status: 'confirmed',
-            createdAt: new Date().toISOString(),
-          }]);
-          break;
+        socket.onerror = (error) => {
+          console.error('WebSocket error:', error);
+        };
 
-        case 'task:complete':
-          setTaskStatus('completed');
-          setResult(event.result);
-          setCurrentStep(null);
-          break;
+        socket.onmessage = (event) => {
+          try {
+            const data: WSEvent = JSON.parse(event.data);
+            console.log('WS Event:', data);
+
+            switch (data.type) {
+              case 'task:status':
+                if (data.status) setTaskStatus(data.status);
+                if (data.step) setCurrentStep(data.step);
+                break;
+
+              case 'agent:message':
+                setMessages(prev => [...prev, {
+                  id: `${Date.now()}`,
+                  from: data.from || 'unknown',
+                  to: data.to || 'unknown',
+                  content: typeof data.payload === 'string' 
+                    ? data.payload 
+                    : JSON.stringify(data.payload),
+                  timestamp: new Date().toISOString(),
+                }]);
+                break;
+
+              case 'payment':
+                setPayments(prev => [...prev, {
+                  id: `${Date.now()}`,
+                  from: data.from || 'unknown',
+                  to: data.to || 'unknown',
+                  amount: data.amount || 0,
+                  token: data.token || 'USDC',
+                  txSignature: data.txSignature || '',
+                  timestamp: new Date().toISOString(),
+                }]);
+                break;
+
+              case 'task:complete':
+                setTaskStatus('completed');
+                setResult(data.result);
+                break;
+            }
+          } catch (err) {
+            console.error('Failed to parse WS message:', err);
+          }
+        };
+
+        socketRef.current = socket;
+      } catch (err) {
+        console.error('Failed to create WebSocket:', err);
+        setTimeout(connect, 2000);
       }
-    });
+    };
 
-    socketRef.current = socket;
+    connect();
 
     return () => {
-      socket.disconnect();
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
     };
   }, []);
 
   const subscribe = useCallback((taskId: string) => {
-    if (socketRef.current?.connected) {
-      socketRef.current.emit('subscribe', { taskId });
+    subscribedTaskRef.current = taskId;
+    if (socketRef.current?.readyState === WebSocket.OPEN) {
+      socketRef.current.send(JSON.stringify({ type: 'subscribe', taskId }));
     }
   }, []);
 
   const unsubscribe = useCallback((taskId: string) => {
-    if (socketRef.current?.connected) {
-      socketRef.current.emit('unsubscribe', { taskId });
+    subscribedTaskRef.current = null;
+    if (socketRef.current?.readyState === WebSocket.OPEN) {
+      socketRef.current.send(JSON.stringify({ type: 'unsubscribe', taskId }));
     }
   }, []);
 
