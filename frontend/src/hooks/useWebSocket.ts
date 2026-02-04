@@ -6,17 +6,18 @@ import type { AgentMessage, Payment, TaskStatus } from '@/types';
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:3000/ws';
 
 interface WSEvent {
-  type: 'task:status' | 'agent:message' | 'payment' | 'task:complete';
-  taskId: string;
+  type: 'task:status' | 'task_update' | 'agent:message' | 'payment' | 'task:complete' | 'welcome' | 'subscribed';
+  taskId?: string;
   status?: TaskStatus;
   step?: { specialist: string; action: string };
   from?: string;
   to?: string;
-  payload?: unknown;
+  payload?: any;
   amount?: number;
   token?: string;
   txSignature?: string;
   result?: unknown;
+  message?: string;
 }
 
 export interface UseWebSocketReturn {
@@ -75,9 +76,43 @@ export function useWebSocket(): UseWebSocketReturn {
             console.log('WS Event:', data);
 
             switch (data.type) {
+              case 'welcome':
+                console.log('WebSocket welcome:', data.message);
+                break;
+
+              case 'subscribed':
+                console.log('Subscribed to task:', data.taskId);
+                break;
+
               case 'task:status':
                 if (data.status) setTaskStatus(data.status);
                 if (data.step) setCurrentStep(data.step);
+                break;
+
+              case 'task_update':
+                // Handle backend task_update format
+                if (data.payload) {
+                  const task = data.payload;
+                  setTaskStatus(task.status as TaskStatus);
+                  if (task.specialist) {
+                    setCurrentStep({ specialist: task.specialist, action: 'processing' });
+                  }
+                  if (task.status === 'completed' && task.result) {
+                    setResult(task.result);
+                  }
+                  // Add payments if present
+                  if (task.payments?.length > 0) {
+                    setPayments(task.payments.map((p: any, i: number) => ({
+                      id: `${Date.now()}-${i}`,
+                      from: 'dispatcher',
+                      to: task.specialist || 'unknown',
+                      amount: parseFloat(p.amount) || 0,
+                      token: p.currency || 'SOL',
+                      txSignature: p.txHash || '',
+                      timestamp: p.timestamp || new Date().toISOString(),
+                    })));
+                  }
+                }
                 break;
 
               case 'agent:message':
