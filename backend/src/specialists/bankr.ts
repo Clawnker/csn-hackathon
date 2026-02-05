@@ -194,7 +194,10 @@ function parseIntent(prompt: string): {
   const amount = amountMatch ? amountMatch[1] : '0.1';
   
   // Detect intent
-  if (lower.includes('swap') || lower.includes('buy') || lower.includes('sell') || lower.includes('trade')) {
+  // Don't treat "buy" as swap if it's an advice query (e.g., "is it a good buy")
+  const isAdvice = lower.includes('good') || lower.includes('should') || lower.includes('recommend');
+  
+  if (!isAdvice && (lower.includes('swap') || lower.includes('buy') || lower.includes('sell') || lower.includes('trade'))) {
     const swapMatch = prompt.match(/(?:swap|buy|trade|sell)\s+(?:([\d.]+)\s+)?(\w+)\s+(?:for|to)\s+(\w+)/i);
     if (swapMatch) {
       return {
@@ -204,14 +207,18 @@ function parseIntent(prompt: string): {
         to: swapMatch[3].toUpperCase(),
       };
     }
-    return { type: 'swap', from: 'SOL', to: 'USDC', amount };
+    // Try to extract from/to even without the full pattern
+    const words = lower.split(/\s+/);
+    const from = words.includes('for') ? words[words.indexOf('for') - 1] : 'SOL';
+    return { type: 'swap', from: from.toUpperCase(), to: 'USDC', amount };
   }
   
-  if (lower.includes('transfer') || lower.includes('send')) {
+  if (lower.includes('transfer') || lower.includes('send') || lower.includes('pay')) {
+    // Improved address regex to be more robust
     const addressMatch = prompt.match(/[1-9A-HJ-NP-Za-km-z]{32,44}/);
     return { 
       type: 'transfer', 
-      address: addressMatch?.[0],
+      address: addressMatch ? addressMatch[0] : undefined,
       amount,
     };
   }
@@ -240,34 +247,50 @@ export const bankr = {
         case 'swap':
           // Swaps are simulated (no devnet DEX liquidity)
           data = await simulateSwap(intent.from!, intent.to!, intent.amount!);
+          (data as any).summary = `Simulated swap of ${intent.amount} ${intent.from} to ${intent.to}. Estimated output: ${data.details.estimatedOutput} ${intent.to}`;
           break;
           
         case 'transfer':
           if (intent.address) {
-            // Real devnet transfer via AgentWallet
-            const result = await executeAgentWalletTransfer(
-              intent.address,
-              intent.amount || '0.01',
-              'sol'
-            );
-            txSignature = result.txHash;
-            data = {
-              type: 'transfer',
-              status: 'confirmed',
-              txSignature,
-              details: {
-                to: intent.address,
-                amount: intent.amount,
-                explorer: result.explorer,
-                network: 'devnet',
-              },
-            };
+            try {
+              // Real devnet transfer via AgentWallet
+              const result = await executeAgentWalletTransfer(
+                intent.address,
+                intent.amount || '0.01',
+                'sol'
+              );
+              txSignature = result.txHash;
+              data = {
+                type: 'transfer',
+                status: 'confirmed',
+                txSignature,
+                details: {
+                  to: intent.address,
+                  amount: intent.amount,
+                  explorer: result.explorer,
+                  network: 'devnet',
+                },
+              };
+              (data as any).summary = `Successfully sent ${intent.amount} SOL to ${intent.address?.slice(0, 8)}...`;
+            } catch (transferError: any) {
+              console.error('[bankr] Transfer execution failed:', transferError.message);
+              data = {
+                type: 'transfer',
+                status: 'failed',
+                details: { 
+                  error: transferError.response?.data?.error || transferError.message,
+                  note: 'Check if devnet wallet has sufficient SOL for gas'
+                },
+              };
+              (data as any).summary = `Transfer failed: ${transferError.message}`;
+            }
           } else {
             data = {
               type: 'transfer',
               status: 'failed',
-              details: { error: 'No recipient address provided' },
+              details: { error: 'No recipient address provided. Please provide a valid Solana address.' },
             };
+            (data as any).summary = `Transfer failed: No recipient address provided.`;
           }
           break;
           
@@ -301,9 +324,11 @@ export const bankr = {
               base: {
                 usdc: baseUsdc,
               },
-              summary: `Solana (devnet): ${devnetSol.toFixed(4)} SOL | Base: ${baseUsdc} USDC`,
+              summary: `Your wallet balance is ${devnetSol.toFixed(4)} SOL on Solana (devnet) and ${baseUsdc} USDC on Base.`,
             },
           };
+          // Set top-level summary for the dispatcher to pick up easily
+          (data as any).summary = data.details.summary;
           break;
       }
       

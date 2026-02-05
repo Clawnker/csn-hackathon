@@ -15,6 +15,7 @@ import {
   SpecialistResult,
 } from './types';
 import { x402Fetch, getBalances, logTransaction, createPaymentRecord } from './x402';
+import { recordSuccess, recordFailure, getSuccessRate } from './reputation';
 import magos from './specialists/magos';
 import aura from './specialists/aura';
 import bankr from './specialists/bankr';
@@ -234,6 +235,13 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
   task.result = result;
   updateTaskStatus(task, result.success ? 'completed' : 'failed');
   
+  // Record reputation
+  if (result.success) {
+    recordSuccess(task.specialist);
+  } else {
+    recordFailure(task.specialist);
+  }
+  
   // Call webhook if provided
   if (task.callbackUrl) {
     try {
@@ -259,18 +267,28 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
  */
 function extractResponseContent(result: SpecialistResult): string {
   const data = result.data;
+  if (data?.combined) return data.combined;
   if (data?.insight) return data.insight;
   if (data?.summary) return data.summary;
   if (data?.reasoning) return data.reasoning;
+  if (data?.details?.summary) return data.details.summary;
   if (data?.details?.response) {
     return typeof data.details.response === 'string' 
       ? data.details.response 
       : JSON.stringify(data.details.response).slice(0, 200);
   }
+  
+  // Specialist specific fallbacks
+  if (data?.trending && Array.isArray(data.trending)) {
+    return `🔥 **Trending Topics**:\n${data.trending.slice(0, 3).map((t: any) => `• ${t.topic || t.name}`).join('\n')}`;
+  }
+  
   if (data?.type) {
     return `${data.type} ${data.status || 'completed'}${data.txSignature ? ` (tx: ${data.txSignature.slice(0, 16)}...)` : ''}`;
   }
-  return result.success ? 'Task completed' : 'Task failed';
+  return result.success 
+    ? "I'm not sure how to help with that. Try asking about wallet balances, market analysis, or social sentiment." 
+    : 'Task failed';
 }
 
 /**
@@ -317,6 +335,15 @@ function updateTaskStatus(task: Task, status: TaskStatus, extra?: Record<string,
 export function routePrompt(prompt: string): SpecialistType {
   const lower = prompt.toLowerCase();
   
+  // Specific intent detection for common mis-routings
+  if (lower.includes('good buy') || lower.includes('should i') || lower.includes('recommend') || /is \w+ a good/.test(lower)) {
+    return 'magos';
+  }
+  
+  if (lower.includes('talking about') || lower.includes('mentions') || lower.includes('discussing')) {
+    return 'aura';
+  }
+
   // Define routing rules with weights
   const rules: Array<{ specialist: SpecialistType; patterns: RegExp[]; weight: number }> = [
     {
@@ -345,7 +372,7 @@ export function routePrompt(prompt: string): SpecialistType {
         /transfer|send|withdraw|deposit/,
         /balance|wallet|holdings|portfolio/,
         /dca|dollar\s+cost|recurring|auto-buy/,
-        /solana|sol|token|transaction|tx/,
+        /solana|sol|transaction|tx/,
       ],
       weight: 1,
     },
@@ -420,7 +447,7 @@ async function callSpecialist(specialist: SpecialistType, prompt: string): Promi
         data: {
           magos: magosResult.data,
           aura: auraResult.data,
-          combined: `Analysis complete. Magos confidence: ${magosResult.confidence?.toFixed(2)}, Aura confidence: ${auraResult.confidence?.toFixed(2)}`,
+          combined: "I'm not sure how to help with that. Try asking about wallet balances, market analysis, or social sentiment.",
         },
         confidence: ((magosResult.confidence || 0) + (auraResult.confidence || 0)) / 2,
         timestamp: new Date(),
@@ -453,10 +480,29 @@ export function getRecentTasks(limit: number = 10): Task[] {
 }
 
 /**
- * Get specialist pricing
+ * Get specialist pricing with reputation
  */
-export function getSpecialistPricing(): Record<SpecialistType, { fee: string; description: string }> {
-  return SPECIALIST_PRICING;
+export function getSpecialistPricing(): Record<SpecialistType, { fee: string; description: string; success_rate: number }> {
+  const pricingWithRep: any = {};
+  for (const [key, value] of Object.entries(SPECIALIST_PRICING)) {
+    pricingWithRep[key] = {
+      ...value,
+      success_rate: getSuccessRate(key as SpecialistType)
+    };
+  }
+  return pricingWithRep;
+}
+
+/**
+ * Get full specialist list with reputation data
+ */
+export function getSpecialists(): any[] {
+  return Object.entries(SPECIALIST_PRICING).map(([name, info]) => ({
+    name,
+    description: info.description,
+    fee: info.fee,
+    success_rate: getSuccessRate(name as SpecialistType)
+  }));
 }
 
 export default {
@@ -465,6 +511,7 @@ export default {
   getTasksByUser,
   getRecentTasks,
   getSpecialistPricing,
+  getSpecialists,
   subscribeToTask,
   routePrompt,
 };

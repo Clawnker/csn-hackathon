@@ -50,7 +50,7 @@ export const aura = {
       return {
         success: true,
         data,
-        confidence: data.confidence || data.score ? Math.abs(data.score) : 0.7,
+        confidence: data.confidence ?? (data.score !== undefined ? Math.abs(data.score) : 0.7),
         timestamp: new Date(),
         executionTimeMs: Date.now() - startTime,
       };
@@ -72,14 +72,20 @@ function parseIntent(prompt: string): { type: string; topic?: string; category?:
   const lower = prompt.toLowerCase();
   
   // Extract topic (token, project, or general topic)
-  const topicMatch = prompt.match(/\b(SOL|BTC|ETH|BONK|WIF|JUP|Solana|Bitcoin|Ethereum|[A-Z][a-z]+(?:Fi|Swap|DAO)?)\b/i);
-  const topic = topicMatch ? topicMatch[1] : 'crypto';
+  const stopWords = ['what', 'how', 'when', 'where', 'why', 'who', 'is', 'are', 'the', 'this', 'that', 'sentiment', 'vibe', 'mood', 'tokens'];
+  const matches = prompt.match(/\b(SOL|BTC|ETH|BONK|WIF|JUP|Solana|Bitcoin|Ethereum|[A-Z][a-z]+(?:Fi|Swap|DAO)?)\b/g);
+  
+  let topic = 'crypto';
+  if (matches) {
+    const validTopic = matches.find(m => !stopWords.includes(m.toLowerCase()));
+    if (validTopic) topic = validTopic;
+  }
   
   // Determine intent type
   if (lower.includes('sentiment') || lower.includes('feeling') || lower.includes('mood')) {
     return { type: 'sentiment', topic };
   }
-  if (lower.includes('trending') || lower.includes('hot') || lower.includes('popular')) {
+  if (lower.includes('trending') || lower.includes('hot') || lower.includes('popular') || lower.includes('talking about')) {
     return { type: 'trending', category: lower.includes('meme') ? 'meme' : 'all' };
   }
   if (lower.includes('alpha') || lower.includes('opportunity') || lower.includes('gem')) {
@@ -181,6 +187,7 @@ async function getTrending(category: string = 'all'): Promise<{
       sentiment: t.sentiment,
       change24h: -20 + Math.random() * 60,
     })),
+    summary: `🔥 **Trending Topics**:\n${trendingTopics.slice(0, 3).map(t => `• ${t.topic} (${t.sentiment})`).join('\n')}`,
     timestamp: new Date(),
   };
 }
