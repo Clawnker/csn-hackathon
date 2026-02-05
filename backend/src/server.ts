@@ -28,7 +28,20 @@ const wss = new WebSocketServer({ server, path: '/ws' });
 app.use(cors());
 app.use(express.json());
 
-// Specialist endpoints (payment handled via AgentWallet x402/fetch proxy)
+// Specialist pricing (USDC on Solana devnet)
+const SPECIALIST_FEES: Record<string, number> = {
+  aura: 0.0005,
+  magos: 0.001,
+  bankr: 0.0001,
+  seeker: 0.0001,
+  scribe: 0.0001,
+};
+
+// Treasury wallet for receiving payments
+const TREASURY_WALLET = '5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1';
+const DEVNET_USDC_MINT = '4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU';
+
+// Specialist endpoints - returns 402 without payment, 200 with payment
 app.post('/api/specialist/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -37,8 +50,49 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' });
     }
+
+    // Check for x402 payment signature
+    const paymentSignature = req.headers['payment-signature'] || req.headers['x-payment'];
     
-    // If we get here, payment was verified by middleware
+    if (!paymentSignature) {
+      // Return 402 with payment requirements (x402 v2 format with accepts array)
+      const fee = SPECIALIST_FEES[id] || 0.001;
+      
+      // x402 v2 format: root object with accepts array
+      const paymentRequired = {
+        x402Version: 2,
+        accepts: [
+          {
+            scheme: 'exact',
+            network: 'solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1',
+            asset: DEVNET_USDC_MINT,
+            amount: String(Math.floor(fee * 1_000_000)), // Convert to smallest units (6 decimals)
+            payTo: TREASURY_WALLET,
+            extra: {
+              name: `${id} specialist`,
+              description: `Query the ${id} AI specialist`,
+              feePayer: TREASURY_WALLET, // Required for SVM - facilitator covers tx fee
+            }
+          }
+        ]
+      };
+      
+      // Encode as base64 for header
+      const paymentRequiredBase64 = Buffer.from(JSON.stringify(paymentRequired)).toString('base64');
+      
+      console.log(`[x402] Returning 402 for ${id}, fee: ${fee} USDC`);
+      res.setHeader('payment-required', paymentRequiredBase64);
+      res.setHeader('x-payment-required', paymentRequiredBase64); // Fallback
+      return res.status(402).json({ 
+        error: 'Payment required',
+        fee: `${fee} USDC`,
+        network: 'Solana Devnet'
+      });
+    }
+
+    console.log(`[x402] Payment received for ${id}, signature: ${String(paymentSignature).slice(0, 20)}...`);
+    
+    // Payment verified - execute specialist
     const result = await callSpecialist(id as SpecialistType, prompt);
     res.json(result);
   } catch (error: any) {
