@@ -1,0 +1,10 @@
+{
+  "magos": {
+    "successCount": 4,
+    "failureCount": 2
+  },
+  "aura": {
+    "successCount": 1,
+    "failureCount": 0
+  }
+}

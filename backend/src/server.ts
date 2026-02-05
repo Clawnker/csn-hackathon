@@ -10,7 +10,7 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 
 import config from './config';
-import dispatcher, { dispatch, getTask, getRecentTasks, subscribeToTask } from './dispatcher';
+import dispatcher, { dispatch, getTask, getRecentTasks, subscribeToTask, getSpecialists } from './dispatcher';
 import { getBalances, getTransactionLog } from './x402';
 import solana from './solana';
 import { DispatchRequest, Task, WSEvent } from './types';
@@ -138,6 +138,15 @@ app.get('/pricing', (req: Request, res: Response) => {
     pricing,
     note: 'Fees in USDC, paid via x402 protocol on Solana'
   });
+});
+
+/**
+ * Get all specialists with reputation
+ * GET /v1/specialists
+ */
+app.get('/v1/specialists', (req: Request, res: Response) => {
+  const specialists = getSpecialists();
+  res.json({ specialists });
 });
 
 /**

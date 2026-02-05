@@ -76,6 +76,20 @@ const SPECIALIST_INFO: Record<SpecialistType, {
     ],
     defaultPrompt: 'You are bankr, a Solana execution specialist. Execute trades and transfers on devnet. Use Jupiter for best swap rates. Always confirm before large transactions.',
   },
+  general: {
+    name: 'General Assistant',
+    description: 'Utility & Support',
+    fullDescription: 'Handles general queries, information retrieval, and provides support for common tasks within the Hivemind Protocol.',
+    icon: Sparkles,
+    color: '#F7B32B',
+    capabilities: [
+      'General knowledge queries',
+      'Protocol information',
+      'User support',
+      'System status checks',
+    ],
+    defaultPrompt: 'You are a General Assistant for Hivemind Protocol. Help users with general queries about the protocol and its specialists.',
+  },
 };
 
 export function AgentDetailModal({ specialist, onClose, onSavePrompt }: AgentDetailModalProps) {

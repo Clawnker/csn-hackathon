@@ -4,3 +4,4 @@ export { WalletPanel } from './WalletPanel';
 export { PaymentFeed } from './PaymentFeed';
 export { MessageLog } from './MessageLog';
 export { ResultDisplay } from './ResultDisplay';
+export { CostPreview } from './CostPreview';

@@ -58,6 +58,13 @@ const SPECIALISTS: Record<SpecialistType, {
     color: '#22c55e',
     glowColor: 'rgba(34, 197, 94, 0.6)',
   },
+  general: {
+    name: 'General',
+    description: 'Assistant',
+    icon: Sparkles,
+    color: '#F7B32B',
+    glowColor: 'rgba(247, 179, 43, 0.6)',
+  },
 };
 
 // Custom Agent Node Component

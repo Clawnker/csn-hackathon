@@ -44,7 +44,7 @@ export interface TaskStep {
 export type StepStatus = 'pending' | 'running' | 'completed' | 'failed';
 
 // Specialist Types
-export type SpecialistType = 'dispatcher' | 'aura' | 'magos' | 'bankr';
+export type SpecialistType = 'dispatcher' | 'aura' | 'magos' | 'bankr' | 'general';
 
 export interface Specialist {
   id: SpecialistType;
@@ -121,6 +121,17 @@ export interface WSTaskCompleteEvent {
 }
 
 export type WSEvent = WSTaskStatusEvent | WSAgentMessageEvent | WSPaymentEvent | WSTaskCompleteEvent;
+
+// Pricing Types
+export interface SpecialistPricing {
+  fee: string;
+  description: string;
+}
+
+export interface PricingResponse {
+  pricing: Record<string, SpecialistPricing>;
+  note: string;
+}
 
 // Agent Message for display
 export interface AgentMessage {

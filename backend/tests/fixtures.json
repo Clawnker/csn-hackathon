@@ -1,0 +1,28 @@
+{
+  "bankr": {
+    "prompt": "Check my balance",
+    "expected_specialist": "bankr",
+    "expected_summary_contains": "SOL"
+  },
+  "magos": {
+    "prompt": "Get price prediction for BONK",
+    "expected_specialist": "magos",
+    "expected_routing": "magos"
+  },
+  "aura": {
+    "prompt": "What is the social sentiment for SOL?",
+    "expected_specialist": "aura"
+  },
+  "edge_cases": [
+    {
+      "name": "empty_prompt",
+      "body": { "prompt": "" },
+      "expected_status": 400
+    },
+    {
+      "name": "gibberish",
+      "body": { "prompt": "asdfasdfasdfasdfasdf" },
+      "expected_specialist": "aura"
+    }
+  ]
+}
