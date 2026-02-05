@@ -112,6 +112,16 @@ export function useWebSocket(): UseWebSocketReturn {
                       timestamp: p.timestamp || new Date().toISOString(),
                     })));
                   }
+                  // Add messages if present
+                  if (task.messages?.length > 0) {
+                    setMessages(task.messages.map((m: any) => ({
+                      id: m.id || `${Date.now()}-${Math.random()}`,
+                      from: m.from || 'unknown',
+                      to: m.to || 'unknown',
+                      content: m.content || '',
+                      timestamp: m.timestamp || new Date().toISOString(),
+                    })));
+                  }
                 }
                 break;
 

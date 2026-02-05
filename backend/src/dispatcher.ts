@@ -47,6 +47,20 @@ function emitTaskUpdate(task: Task): void {
 }
 
 /**
+ * Add a message to the task
+ */
+function addMessage(task: Task, from: string, to: string, content: string): void {
+  task.messages.push({
+    id: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+    from,
+    to,
+    content,
+    timestamp: new Date().toISOString(),
+  });
+  emitTaskUpdate(task);
+}
+
+/**
  * Main dispatch function
  */
 export async function dispatch(request: DispatchRequest): Promise<DispatchResponse> {
@@ -63,6 +77,7 @@ export async function dispatch(request: DispatchRequest): Promise<DispatchRespon
     createdAt: new Date(),
     updatedAt: new Date(),
     payments: [],
+    messages: [],
     metadata: { dryRun: request.dryRun },
   };
   
@@ -92,12 +107,14 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
   await new Promise(resolve => setTimeout(resolve, 500));
   
   updateTaskStatus(task, 'routing');
+  addMessage(task, 'dispatcher', task.specialist, `Routing task: "${task.prompt.slice(0, 80)}..."`);
   
   // Check if payment is required for this specialist
   const requiresPayment = await checkPaymentRequired(task.specialist);
   
   if (requiresPayment && !dryRun) {
     updateTaskStatus(task, 'awaiting_payment');
+    addMessage(task, 'dispatcher', task.specialist, 'Checking x402 payment...');
     
     // Check balance
     const balances = await getBalances();
@@ -107,12 +124,17 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
   }
   
   updateTaskStatus(task, 'processing');
+  addMessage(task, 'dispatcher', task.specialist, `Processing with ${task.specialist}...`);
   
   // Demo delay before calling specialist
   await new Promise(resolve => setTimeout(resolve, 800));
   
   // Call the specialist
   const result = await callSpecialist(task.specialist, task.prompt);
+  
+  // Add specialist response message
+  const responseContent = extractResponseContent(result);
+  addMessage(task, task.specialist, 'dispatcher', responseContent);
   
   // Log any payments
   if (result.cost) {
@@ -124,6 +146,7 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
     );
     task.payments.push(record);
     logTransaction(record);
+    addMessage(task, 'x402', 'dispatcher', `Payment: ${result.cost.amount} ${result.cost.currency}`);
   }
   
   // Update task with result
@@ -131,6 +154,25 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
   updateTaskStatus(task, result.success ? 'completed' : 'failed');
   
   console.log(`[Dispatcher] Task ${task.id} ${task.status} in ${result.executionTimeMs}ms`);
+}
+
+/**
+ * Extract human-readable content from specialist result
+ */
+function extractResponseContent(result: SpecialistResult): string {
+  const data = result.data;
+  if (data?.insight) return data.insight;
+  if (data?.summary) return data.summary;
+  if (data?.reasoning) return data.reasoning;
+  if (data?.details?.response) {
+    return typeof data.details.response === 'string' 
+      ? data.details.response 
+      : JSON.stringify(data.details.response).slice(0, 200);
+  }
+  if (data?.type) {
+    return `${data.type} ${data.status || 'completed'}${data.txSignature ? ` (tx: ${data.txSignature.slice(0, 16)}...)` : ''}`;
+  }
+  return result.success ? 'Task completed' : 'Task failed';
 }
 
 /**

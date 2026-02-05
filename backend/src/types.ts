@@ -15,7 +15,16 @@ export interface Task {
   updatedAt: Date;
   result?: SpecialistResult;
   payments: PaymentRecord[];
+  messages: AgentMessage[];
   metadata?: Record<string, any>;
+}
+
+export interface AgentMessage {
+  id: string;
+  from: string;
+  to: string;
+  content: string;
+  timestamp: string;
 }
 
 export type TaskStatus = 
