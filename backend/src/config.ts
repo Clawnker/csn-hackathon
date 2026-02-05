@@ -104,6 +104,11 @@ export const config = {
     seeker: process.env.WALLET_SEEKER || '9vK86u6Ndf2sScb9jS6s55VnB7rN68f3T4E4E4E4E4E4',
     scribe: process.env.WALLET_SCRIBE || 'CvK86u6Ndf2sScb9jS6s55VnB7rN68f3T4E4E4E4E4E4',
   } as Record<string, string>,
+
+  x402: {
+    facilitator: 'https://x402.org/facilitator',
+    network: 'solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1',
+  }
 };
 
 export default config;
