@@ -1,152 +1,126 @@
-/**
- * x402 Protocol v2 Implementation
- * Uses official x402-solana package and x402.org testnet facilitator
- */
-
-import { createX402Client } from 'x402-solana/dist/client';
 import axios from 'axios';
 import config from './config';
-import { PaymentRecord } from './types';
 import { logTransaction } from './x402';
 
-// x402.org testnet facilitator (free, no API key needed)
-export const X402_FACILITATOR = 'https://x402.org/facilitator';
-
-// Solana devnet CAIP-2 identifier
-export const SOLANA_DEVNET = 'solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1';
-
-// Devnet USDC (test token)
-const DEVNET_USDC_MINT = 'Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr'; // Common devnet USDC
+const AGENTWALLET_API = 'https://agentwallet.mcpay.tech/api';
 
 /**
- * Create a 402 Payment Required response
- * This is what specialists return when payment is needed
+ * Execute real x402 payment via AgentWallet's x402/fetch proxy
+ * This is the ONE-STEP solution that handles 402 detection, signing, and retry
  */
-export function createPaymentRequiredResponse(
-  payTo: string,
-  amount: string,
-  resource: string,
-  description: string
-) {
-  return {
-    x402Version: 2,
-    accepts: [
-      {
-        scheme: 'exact',
-        network: SOLANA_DEVNET,
-        amount: amount,  // In atomic units (e.g., "1000" = 0.001 USDC)
-        payTo: payTo,
-        asset: DEVNET_USDC_MINT,
-        resource: resource,
-        description: description,
-      }
-    ],
-    error: 'Payment Required',
-    description: description,
-  };
-}
-
-/**
- * Verify a payment signature via the facilitator
- */
-export async function verifyPayment(
-  paymentSignature: string,
-  expectedPayTo: string,
-  expectedAmount: string,
-): Promise<{ valid: boolean; txHash?: string }> {
-  try {
-    const response = await axios.post(
-      `${X402_FACILITATOR}/verify`,
-      {
-        paymentSignature,
-        network: SOLANA_DEVNET,
-        payTo: expectedPayTo,
-        amount: expectedAmount,
-      }
-    );
-    
-    return {
-      valid: response.data.valid,
-      txHash: response.data.txHash,
-    };
-  } catch (error: any) {
-    console.error('[x402] Verification failed:', error.message);
-    return { valid: false };
+export async function executeDemoPayment(
+  specialistEndpoint: string,  // e.g., "http://localhost:3000/api/specialist/aura"
+  requestBody: any,
+  amountUsdc: number
+): Promise<{ success: boolean; txSignature?: string; response?: any }> {
+  const username = config.agentWallet.username || 'claw';
+  const token = config.agentWallet.token;
+  
+  if (!token) {
+    console.error('[x402] No AgentWallet token configured');
+    return { success: false };
   }
-}
 
-/**
- * Settle a payment via the facilitator
- * This actually executes the on-chain transfer
- */
-export async function settlePayment(
-  paymentSignature: string,
-): Promise<{ success: boolean; txHash?: string }> {
+  console.log(`[x402] Calling x402/fetch for: ${specialistEndpoint}`);
+  
   try {
     const response = await axios.post(
-      `${X402_FACILITATOR}/settle`,
+      `${AGENTWALLET_API}/wallets/${username}/actions/x402/fetch`,
       {
-        paymentSignature,
-        network: SOLANA_DEVNET,
+        url: specialistEndpoint,
+        method: 'POST',
+        body: requestBody,
+        preferredChain: 'evm',  // Base Sepolia for testnet
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        timeout: 60000,  // 60s timeout
       }
     );
-    
-    console.log('[x402] Settlement response:', response.data);
-    
-    return {
-      success: true,
-      txHash: response.data.txHash || response.data.signature,
-    };
+
+    console.log('[x402] Response:', JSON.stringify(response.data).slice(0, 300));
+
+    if (response.data.success && response.data.paid) {
+      const payment = response.data.payment;
+      const txSignature = payment?.txHash || payment?.signature;
+      
+      // Log the real transaction
+      logTransaction({
+        amount: payment?.amountFormatted || amountUsdc.toString(),
+        currency: 'USDC',
+        network: payment?.chain?.includes('solana') ? 'solana' : 'base',
+        recipient: payment?.recipient || 'unknown',
+        txHash: txSignature,
+        status: 'completed',
+        timestamp: new Date(),
+      });
+
+      return {
+        success: true,
+        txSignature,
+        response: response.data.response?.body,
+      };
+    }
+
+    // Payment not required or failed
+    if (response.data.success && !response.data.paid) {
+      console.log('[x402] No payment required for this endpoint');
+      return { success: true, response: response.data.response?.body };
+    }
+
+    console.error('[x402] Payment failed:', response.data);
+    return { success: false };
+
   } catch (error: any) {
-    console.error('[x402] Settlement failed:', error.response?.data || error.message);
+    console.error('[x402] x402/fetch error:', error.response?.data || error.message);
     return { success: false };
   }
 }
 
 /**
- * Generate a realistic Solana devnet transaction signature
- * For demo: creates a signature that looks real and links to Solscan
+ * Check payment cost without paying (dry run)
  */
-function generateDevnetTxSignature(): string {
-  // Base58 alphabet (Solana tx signatures are base58 encoded, 87-88 chars)
-  const base58Chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
-  let sig = '';
-  for (let i = 0; i < 88; i++) {
-    sig += base58Chars[Math.floor(Math.random() * base58Chars.length)];
+export async function checkPaymentCost(
+  specialistEndpoint: string,
+  requestBody: any
+): Promise<{ required: boolean; amount?: string; chain?: string }> {
+  const username = config.agentWallet.username || 'claw';
+  const token = config.agentWallet.token;
+  
+  if (!token) {
+    return { required: false };
   }
-  return sig;
-}
 
-/**
- * Demo payment execution
- * For hackathon demo: Fast simulated x402 flow with realistic tx signatures
- * Links to Solscan devnet (tx won't exist but shows the integration)
- * In production: would use real wallet signing + facilitator settlement
- */
-export async function executeDemoPayment(
-  to: string,
-  amountUsdc: number
-): Promise<{ success: boolean; txSignature?: string }> {
-  // Generate realistic devnet tx signature
-  const txSignature = generateDevnetTxSignature();
-  
-  console.log(`[x402] Demo payment: ${amountUsdc} USDC to ${to.slice(0, 8)}...`);
-  console.log(`[x402] Tx signature: ${txSignature}`);
-  console.log(`[x402] Solscan: https://solscan.io/tx/${txSignature}?cluster=devnet`);
-  
-  // Log the transaction
-  logTransaction({
-    amount: amountUsdc.toString(),
-    currency: 'USDC',
-    network: 'solana',
-    recipient: to,
-    txHash: txSignature,
-    status: 'completed',
-    timestamp: new Date(),
-  });
-  
-  // Small delay to simulate network latency
-  await new Promise(r => setTimeout(r, 500));
-  
-  return { success: true, txSignature };
+  try {
+    const response = await axios.post(
+      `${AGENTWALLET_API}/wallets/${username}/actions/x402/fetch`,
+      {
+        url: specialistEndpoint,
+        method: 'POST',
+        body: requestBody,
+        dryRun: true,
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (response.data.payment?.required) {
+      return {
+        required: true,
+        amount: response.data.payment.amountFormatted,
+        chain: response.data.payment.chain,
+      };
+    }
+
+    return { required: false };
+  } catch (error) {
+    return { required: false };
+  }
 }
