@@ -7,10 +7,14 @@
 import axios from 'axios';
 import { BankrAction, SpecialistResult } from '../types';
 import config from '../config';
+import solana from '../solana';
 
 const AGENTWALLET_API = 'https://agentwallet.mcpay.tech/api';
 const AGENTWALLET_USERNAME = config.agentWallet.username;
 const AGENTWALLET_TOKEN = config.agentWallet.fundToken;
+
+// AgentWallet Solana address (devnet)
+const SOLANA_ADDRESS = '5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1';
 
 // Bankr API for complex operations (dry-run mode)
 const BANKR_CONFIG = (() => {
@@ -269,17 +273,35 @@ export const bankr = {
           
         case 'balance':
         default:
-          const balances = await getAgentWalletBalances();
+          // Use Helius for devnet balance (more accurate)
+          const devnetSol = await solana.getBalance(SOLANA_ADDRESS, 'devnet');
+          
+          // Also get AgentWallet balances for Base USDC
+          let baseUsdc = '0.00';
+          let evmAddress = '';
+          try {
+            const agentBalances = await getAgentWalletBalances();
+            baseUsdc = agentBalances.base?.usdc || '0.00';
+            evmAddress = agentBalances.evmAddress || '';
+          } catch (e) {
+            console.log('[bankr] AgentWallet API unavailable for EVM balances');
+          }
           
           data = {
             type: 'balance',
             status: 'confirmed',
             details: {
-              solanaAddress: balances.solanaAddress,
-              evmAddress: balances.evmAddress,
-              solana: balances.solana,
-              base: balances.base,
-              summary: `Solana: ${balances.solana.sol} SOL, ${balances.solana.usdc} USDC | Base: ${balances.base.usdc} USDC`,
+              solanaAddress: SOLANA_ADDRESS,
+              evmAddress,
+              solana: {
+                sol: devnetSol.toFixed(4),
+                usdc: '0.00', // Devnet USDC would need SPL token lookup
+                network: 'devnet',
+              },
+              base: {
+                usdc: baseUsdc,
+              },
+              summary: `Solana (devnet): ${devnetSol.toFixed(4)} SOL | Base: ${baseUsdc} USDC`,
             },
           };
           break;
