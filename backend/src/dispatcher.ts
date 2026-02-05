@@ -69,11 +69,13 @@ export async function dispatch(request: DispatchRequest): Promise<DispatchRespon
   tasks.set(taskId, task);
   console.log(`[Dispatcher] Created task ${taskId} for specialist: ${specialist}`);
   
-  // Execute asynchronously
-  executeTask(task, request.dryRun || false).catch(err => {
-    console.error(`[Dispatcher] Task ${taskId} failed:`, err);
-    updateTaskStatus(task, 'failed', { error: err.message });
-  });
+  // Small delay to allow WebSocket subscription before execution
+  setTimeout(() => {
+    executeTask(task, request.dryRun || false).catch(err => {
+      console.error(`[Dispatcher] Task ${taskId} failed:`, err);
+      updateTaskStatus(task, 'failed', { error: err.message });
+    });
+  }, 100);
   
   return {
     taskId,
@@ -86,6 +88,9 @@ export async function dispatch(request: DispatchRequest): Promise<DispatchRespon
  * Execute a task
  */
 async function executeTask(task: Task, dryRun: boolean): Promise<void> {
+  // Demo delay for visual effect
+  await new Promise(resolve => setTimeout(resolve, 500));
+  
   updateTaskStatus(task, 'routing');
   
   // Check if payment is required for this specialist
@@ -102,6 +107,9 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
   }
   
   updateTaskStatus(task, 'processing');
+  
+  // Demo delay before calling specialist
+  await new Promise(resolve => setTimeout(resolve, 800));
   
   // Call the specialist
   const result = await callSpecialist(task.specialist, task.prompt);
