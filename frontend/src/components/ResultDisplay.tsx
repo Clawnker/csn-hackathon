@@ -116,6 +116,53 @@ export function ResultDisplay({ taskStatus, result, error, className = '' }: Res
       );
     }
     
+    // Check for bankr balance
+    if (r.data?.type === 'balance') {
+      const details = r.data.details || {};
+      return (
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2 rounded-lg bg-[#22c55e]/20">
+              <Zap className="text-[#22c55e]" size={24} />
+            </div>
+            <div className="flex-1">
+              <h4 className="text-lg font-bold text-[#22c55e] mb-2">💰 Wallet Balance</h4>
+              <div className="grid grid-cols-2 gap-4">
+                {/* Solana Balance */}
+                <div className="glass-panel-subtle p-4 rounded-xl">
+                  <div className="text-xs text-[var(--text-muted)] mb-1">
+                    Solana {details.solana?.network && `(${details.solana.network})`}
+                  </div>
+                  <div className="text-2xl font-bold text-[var(--text-primary)]">
+                    {details.solana?.sol || '0'} <span className="text-sm text-[var(--text-secondary)]">SOL</span>
+                  </div>
+                  {details.solana?.usdc && details.solana.usdc !== '0.00' && (
+                    <div className="text-sm text-[var(--text-secondary)] mt-1">
+                      + {details.solana.usdc} USDC
+                    </div>
+                  )}
+                </div>
+                {/* Base Balance */}
+                {details.base && (
+                  <div className="glass-panel-subtle p-4 rounded-xl">
+                    <div className="text-xs text-[var(--text-muted)] mb-1">Base (L2)</div>
+                    <div className="text-2xl font-bold text-[var(--text-primary)]">
+                      {details.base.usdc || '0'} <span className="text-sm text-[var(--text-secondary)]">USDC</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {details.solanaAddress && (
+                <div className="mt-3 text-xs text-[var(--text-muted)] font-mono truncate">
+                  {details.solanaAddress}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
     // Check for bankr transaction
     if (r.data?.type === 'swap' || r.data?.type === 'transfer') {
       const details = r.data.details || {};

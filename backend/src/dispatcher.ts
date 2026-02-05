@@ -20,6 +20,14 @@ import bankr from './specialists/bankr';
 // In-memory task store (would use Redis/DB in production)
 const tasks: Map<string, Task> = new Map();
 
+// Specialist pricing (x402 fees in USDC)
+const SPECIALIST_PRICING: Record<SpecialistType, { fee: string; description: string }> = {
+  magos: { fee: '0.001', description: 'Market analysis & predictions' },
+  aura: { fee: '0.0005', description: 'Social sentiment analysis' },
+  bankr: { fee: '0.0001', description: 'Wallet operations' },
+  general: { fee: '0', description: 'General queries' },
+};
+
 // Event emitter for real-time updates
 type TaskUpdateCallback = (task: Task) => void;
 const subscribers: Map<string, TaskUpdateCallback[]> = new Map();
@@ -125,7 +133,10 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
   }
   
   updateTaskStatus(task, 'processing');
-  addMessage(task, 'dispatcher', task.specialist, `Processing with ${task.specialist}...`);
+  
+  // Get specialist fee
+  const pricing = SPECIALIST_PRICING[task.specialist];
+  addMessage(task, 'dispatcher', task.specialist, `Processing with ${task.specialist}... (fee: ${pricing.fee} USDC)`);
   
   // Demo delay before calling specialist
   await new Promise(resolve => setTimeout(resolve, 800));
@@ -137,7 +148,21 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
   const responseContent = extractResponseContent(result);
   addMessage(task, task.specialist, 'dispatcher', responseContent);
   
-  // Log any payments
+  // Log specialist fee as x402 payment
+  const specialistFee = parseFloat(pricing.fee);
+  if (specialistFee > 0) {
+    const feeRecord = createPaymentRecord(
+      pricing.fee,
+      'USDC',
+      'solana',
+      task.specialist
+    );
+    task.payments.push(feeRecord);
+    logTransaction(feeRecord);
+    addMessage(task, 'x402', 'dispatcher', `💰 x402 Fee: ${pricing.fee} USDC → ${task.specialist}`);
+  }
+  
+  // Log any additional payments from the specialist result
   if (result.cost) {
     const record = createPaymentRecord(
       result.cost.amount,
@@ -371,11 +396,19 @@ export function getRecentTasks(limit: number = 10): Task[] {
     .slice(0, limit);
 }
 
+/**
+ * Get specialist pricing
+ */
+export function getSpecialistPricing(): Record<SpecialistType, { fee: string; description: string }> {
+  return SPECIALIST_PRICING;
+}
+
 export default {
   dispatch,
   getTask,
   getTasksByUser,
   getRecentTasks,
+  getSpecialistPricing,
   subscribeToTask,
   routePrompt,
 };

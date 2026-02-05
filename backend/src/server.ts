@@ -129,6 +129,18 @@ app.get('/tasks', (req: Request, res: Response) => {
 });
 
 /**
+ * Get specialist pricing
+ * GET /pricing
+ */
+app.get('/pricing', (req: Request, res: Response) => {
+  const pricing = dispatcher.getSpecialistPricing();
+  res.json({ 
+    pricing,
+    note: 'Fees in USDC, paid via x402 protocol on Solana'
+  });
+});
+
+/**
  * Get wallet balances
  * GET /wallet/balances
  */
