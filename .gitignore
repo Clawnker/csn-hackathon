@@ -31,3 +31,8 @@ Thumbs.db
 # Test coverage
 coverage/
 .nyc_output/
+
+# Internal documentation (not for public)
+docs/
+demo-video/
+demo-audio/
