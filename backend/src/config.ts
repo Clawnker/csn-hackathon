@@ -81,8 +81,8 @@ export const config = {
       apiKey: process.env.MOLTX_API_KEY || '',
     },
     bankr: {
-      // bankr uses local CLI or OpenClaw skill
-      skillPath: process.env.BANKR_SKILL_PATH || '',
+      apiKey: process.env.BANKR_API_KEY || '',
+      apiUrl: 'https://api.bankr.bot',
     },
   },
   

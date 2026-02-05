@@ -189,7 +189,7 @@ export function getTransactionLog(): PaymentRecord[] {
 }
 
 /**
- * Execute a real x402 transfer on Solana devnet
+ * Execute a real x402 transfer using Bankr API
  */
 export async function executePayment(
   from: string,
@@ -197,38 +197,33 @@ export async function executePayment(
   amount: number,
 ): Promise<{ success: boolean; txSignature?: string }> {
   try {
-    const apiKey = process.env.AGENTWALLET_FUND_TOKEN || config.agentWallet.token;
-    const username = config.agentWallet.username || 'claw';
-    const apiUrl = config.agentWallet.apiUrl || 'https://agentwallet.mcpay.tech/api';
+    // Use Bankr API for real transfers
+    const bankrApiKey = process.env.BANKR_API_KEY || 'bk_SHV4FMGURSAWZ8MZYYNQXEK38YSN3AC4';
+    const bankrApiUrl = 'https://api.bankr.bot';
     
-    if (!apiKey) {
-      console.warn('[x402] No API key for payment execution');
-      return { success: false };
-    }
-
-    console.log(`[x402] Executing real payment: ${amount} USDC from ${username} to ${to}`);
+    console.log(`[x402] Executing real payment via Bankr: ${amount} USDC to ${to}`);
     
-    // Use the correct AgentWallet API endpoint
+    // Bankr uses natural language for commands
     const response = await axios.post(
-      `${apiUrl}/wallets/${username}/actions/transfer`,
+      `${bankrApiUrl}/v1/agent`,
       {
-        chain: 'solana',
-        network: 'devnet',
-        asset: 'usdc',
-        amount: amount.toString(),
-        recipient: to,
+        message: `Send ${amount} USDC to ${to} on Solana`,
       },
       {
         headers: {
-          'Authorization': `Bearer ${apiKey}`,
+          'Authorization': `Bearer ${bankrApiKey}`,
           'Content-Type': 'application/json',
         }
       }
     );
 
-    console.log('[x402] Transfer response:', response.data);
+    console.log('[x402] Bankr response:', JSON.stringify(response.data).slice(0, 200));
     
-    const txSignature = response.data?.txHash || response.data?.signature || response.data?.transactionHash;
+    // Extract tx signature from response
+    const txSignature = response.data?.txHash || 
+                        response.data?.signature ||
+                        response.data?.result?.txHash ||
+                        extractTxFromResponse(response.data);
     
     // Log the transaction
     logTransaction({
@@ -236,8 +231,8 @@ export async function executePayment(
       currency: 'USDC',
       network: 'solana',
       recipient: to,
-      txHash: txSignature,
-      status: 'completed',
+      txHash: txSignature || undefined,
+      status: txSignature ? 'completed' : 'pending',
       timestamp: new Date(),
     });
 
@@ -246,20 +241,18 @@ export async function executePayment(
       txSignature,
     };
   } catch (error: any) {
-    console.error('[x402] Payment failed:', error.response?.data || error.message);
-    
-    // Still log failed attempt
-    logTransaction({
-      amount: amount.toString(),
-      currency: 'USDC',
-      network: 'solana',
-      recipient: to,
-      status: 'failed',
-      timestamp: new Date(),
-    });
-    
+    console.error('[x402] Bankr payment failed:', error.response?.data || error.message);
     return { success: false };
   }
+}
+
+// Helper to extract tx from various response formats
+function extractTxFromResponse(data: any): string | undefined {
+  if (!data) return undefined;
+  const str = JSON.stringify(data);
+  // Look for Solana tx signature (base58, 88 chars)
+  const match = str.match(/[1-9A-HJ-NP-Za-km-z]{87,88}/);
+  return match ? match[0] : undefined;
 }
 
 export default {
