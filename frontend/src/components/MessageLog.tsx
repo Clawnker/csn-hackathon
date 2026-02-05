@@ -44,9 +44,10 @@ function MessageItem({ message, index }: { message: AgentMessage; index: number 
   };
 
   const getPreview = (payload: unknown): string => {
+    if (payload === undefined || payload === null) return '';
     const str = typeof payload === 'string' 
       ? payload 
-      : JSON.stringify(payload);
+      : JSON.stringify(payload) || '';
     return str.length > 60 ? str.slice(0, 60) + '...' : str;
   };
 
