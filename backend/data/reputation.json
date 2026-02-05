@@ -1,10 +1,10 @@
 {
   "magos": {
-    "successCount": 7,
+    "successCount": 8,
     "failureCount": 2
   },
   "aura": {
-    "successCount": 4,
+    "successCount": 6,
     "failureCount": 0
   },
   "general": {
@@ -12,11 +12,11 @@
     "failureCount": 0
   },
   "bankr": {
-    "successCount": 5,
+    "successCount": 8,
     "failureCount": 0
   },
   "seeker": {
-    "successCount": 3,
+    "successCount": 4,
     "failureCount": 0
   }
 }

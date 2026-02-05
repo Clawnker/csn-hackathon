@@ -3967,5 +3967,973 @@
       "timestamp": "2026-02-05T02:12:03.399Z",
       "executionTimeMs": 465
     }
+  },
+  "6de1f567-af04-46b1-94b7-91da3c203463": {
+    "id": "6de1f567-af04-46b1-94b7-91da3c203463",
+    "prompt": "Buy 0.1 SOL of top token",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-05T02:27:49.183Z",
+    "updatedAt": "2026-02-05T02:27:51.699Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:27:51.698Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770258469787-qpnu",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"Buy 0.1 SOL of top token...\"",
+        "timestamp": "2026-02-05T02:27:49.787Z"
+      },
+      {
+        "id": "msg-1770258469789-a6nv",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:27:49.789Z"
+      },
+      {
+        "id": "msg-1770258470348-67lu",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T02:27:50.348Z"
+      },
+      {
+        "id": "msg-1770258471607-1b60",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC",
+        "timestamp": "2026-02-05T02:27:51.607Z"
+      },
+      {
+        "id": "msg-1770258471699-b7kj",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-05T02:27:51.699Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "simulated",
+        "details": {
+          "from": "SOL",
+          "to": "USDC",
+          "amount": "0.1",
+          "estimatedOutput": "12.487250",
+          "note": "Simulated swap (demo mode)",
+          "estimatedFee": "0.000005 SOL"
+        },
+        "summary": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC"
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-05T02:27:51.607Z",
+      "executionTimeMs": 458
+    }
+  },
+  "c78fcc78-57d3-4350-b365-a3f731450815": {
+    "id": "c78fcc78-57d3-4350-b365-a3f731450815",
+    "prompt": "Find me a gem token to buy using social media sentiment",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "aura",
+    "createdAt": "2026-02-05T02:29:20.642Z",
+    "updatedAt": "2026-02-05T02:29:22.726Z",
+    "payments": [
+      {
+        "amount": "0.0005",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "aura",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:29:22.725Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770258561246-p08g",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "Routing task: \"Find me a gem token to buy using social media sentiment...\"",
+        "timestamp": "2026-02-05T02:29:21.246Z"
+      },
+      {
+        "id": "msg-1770258561247-gq1s",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:29:21.247Z"
+      },
+      {
+        "id": "msg-1770258561753-vk5m",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "Processing with aura... (fee: 0.0005 USDC)",
+        "timestamp": "2026-02-05T02:29:21.753Z"
+      },
+      {
+        "id": "msg-1770258562717-3xxp",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "Find is facing significant FUD. Negative narratives spreading rapidly - verify claims before acting.",
+        "timestamp": "2026-02-05T02:29:22.717Z"
+      },
+      {
+        "id": "msg-1770258562725-g5fa",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0005 USDC → aura",
+        "timestamp": "2026-02-05T02:29:22.725Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "topic": "Find",
+        "sentiment": "fud",
+        "score": -0.8387669957096726,
+        "volume": 7881,
+        "trending": true,
+        "sources": [
+          "X/Twitter",
+          "Discord",
+          "Telegram"
+        ],
+        "summary": "Find is facing significant FUD. Negative narratives spreading rapidly - verify claims before acting."
+      },
+      "confidence": 0.8387669957096726,
+      "timestamp": "2026-02-05T02:29:22.717Z",
+      "executionTimeMs": 163
+    }
+  },
+  "b4e64327-c591-411b-b29c-7be4fecbee1e": {
+    "id": "b4e64327-c591-411b-b29c-7be4fecbee1e",
+    "prompt": "buy the top trending solana token on social media",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "aura",
+    "createdAt": "2026-02-05T02:30:20.694Z",
+    "updatedAt": "2026-02-05T02:30:22.751Z",
+    "payments": [
+      {
+        "amount": "0.0005",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "aura",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:30:22.750Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770258621299-hqnb",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "Routing task: \"buy the top trending solana token on social media...\"",
+        "timestamp": "2026-02-05T02:30:21.299Z"
+      },
+      {
+        "id": "msg-1770258621309-wftz",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:30:21.309Z"
+      },
+      {
+        "id": "msg-1770258621942-v4mi",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "Processing with aura... (fee: 0.0005 USDC)",
+        "timestamp": "2026-02-05T02:30:21.942Z"
+      },
+      {
+        "id": "msg-1770258622743-vgdu",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "🔥 **Trending Topics**:\n• SOL (bullish)\n• BONK (fomo)\n• WIF (bullish)",
+        "timestamp": "2026-02-05T02:30:22.743Z"
+      },
+      {
+        "id": "msg-1770258622751-pm6i",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0005 USDC → aura",
+        "timestamp": "2026-02-05T02:30:22.751Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "category": "all",
+        "trending": [
+          {
+            "rank": 1,
+            "topic": "SOL",
+            "mentions": 15785,
+            "sentiment": "bullish",
+            "change24h": -0.216999563908292
+          },
+          {
+            "rank": 2,
+            "topic": "BONK",
+            "mentions": 9500,
+            "sentiment": "fomo",
+            "change24h": 32.73721605860663
+          },
+          {
+            "rank": 3,
+            "topic": "WIF",
+            "mentions": 7291,
+            "sentiment": "bullish",
+            "change24h": -1.8156446011508933
+          },
+          {
+            "rank": 4,
+            "topic": "JUP",
+            "mentions": 5087,
+            "sentiment": "neutral",
+            "change24h": 6.051774203115979
+          },
+          {
+            "rank": 5,
+            "topic": "RENDER",
+            "mentions": 4421,
+            "sentiment": "bullish",
+            "change24h": 2.0551014710750515
+          }
+        ],
+        "summary": "🔥 **Trending Topics**:\n• SOL (bullish)\n• BONK (fomo)\n• WIF (bullish)",
+        "timestamp": "2026-02-05T02:30:22.743Z"
+      },
+      "confidence": 0.7,
+      "timestamp": "2026-02-05T02:30:22.743Z",
+      "executionTimeMs": 0
+    }
+  },
+  "c822572b-4972-410f-bec9-a562221480fb": {
+    "id": "c822572b-4972-410f-bec9-a562221480fb",
+    "prompt": "Find trending meme coins",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-05T02:32:39.048Z",
+    "updatedAt": "2026-02-05T02:32:40.933Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:32:40.932Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770258759652-h00k",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find trending meme coins...\"",
+        "timestamp": "2026-02-05T02:32:39.652Z"
+      },
+      {
+        "id": "msg-1770258759662-zk5g",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:32:39.662Z"
+      },
+      {
+        "id": "msg-1770258760123-9w2f",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T02:32:40.123Z"
+      },
+      {
+        "id": "msg-1770258760924-3hpz",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-05T02:32:40.924Z"
+      },
+      {
+        "id": "msg-1770258760933-nhv1",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-05T02:32:40.933Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "Find trending meme coins",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-05T02:32:40.924Z",
+      "executionTimeMs": 0
+    }
+  },
+  "510e8f2f-747a-43e2-93fa-38c54860d125": {
+    "id": "510e8f2f-747a-43e2-93fa-38c54860d125",
+    "prompt": "buy the top trending solana token",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-05T02:33:21.954Z",
+    "updatedAt": "2026-02-05T02:33:24.154Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:33:24.153Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770258802556-3a9n",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"buy the top trending solana token...\"",
+        "timestamp": "2026-02-05T02:33:22.556Z"
+      },
+      {
+        "id": "msg-1770258802565-sx0z",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:33:22.566Z"
+      },
+      {
+        "id": "msg-1770258802925-p4f2",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T02:33:22.925Z"
+      },
+      {
+        "id": "msg-1770258804094-pu3y",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC",
+        "timestamp": "2026-02-05T02:33:24.094Z"
+      },
+      {
+        "id": "msg-1770258804154-gc7d",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-05T02:33:24.154Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "simulated",
+        "details": {
+          "from": "SOL",
+          "to": "USDC",
+          "amount": "0.1",
+          "estimatedOutput": "12.487250",
+          "note": "Simulated swap (demo mode)",
+          "estimatedFee": "0.000005 SOL"
+        },
+        "summary": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC"
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-05T02:33:24.094Z",
+      "executionTimeMs": 368
+    }
+  },
+  "bd9482c9-e1d8-4c47-bb7e-d34d03ca272c": {
+    "id": "bd9482c9-e1d8-4c47-bb7e-d34d03ca272c",
+    "prompt": "Buy the top trending solana token",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-05T02:41:01.498Z",
+    "updatedAt": "2026-02-05T02:41:03.849Z",
+    "payments": [
+      {
+        "amount": "0.0005",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "aura",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:41:02.248Z"
+      },
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:41:03.849Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770259262101-hmcc",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-05T02:41:02.101Z"
+      },
+      {
+        "id": "msg-1770259262111-ps7x",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-05T02:41:02.111Z"
+      },
+      {
+        "id": "msg-1770259262111-6l3s",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "🔥 **Trending Topics**:\n• SOL (bullish)\n• BONK (fomo)\n• WIF (bullish)",
+        "timestamp": "2026-02-05T02:41:02.112Z"
+      },
+      {
+        "id": "msg-1770259262248-8v9s",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0005 USDC → aura",
+        "timestamp": "2026-02-05T02:41:02.248Z"
+      },
+      {
+        "id": "msg-1770259262249-c36n",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-05T02:41:02.249Z"
+      },
+      {
+        "id": "msg-1770259263450-m4d6",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-05T02:41:03.450Z"
+      },
+      {
+        "id": "msg-1770259263839-6wk1",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC",
+        "timestamp": "2026-02-05T02:41:03.839Z"
+      },
+      {
+        "id": "msg-1770259263849-l7h1",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-05T02:41:03.849Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "currentStep": 2,
+      "totalSteps": 2
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "simulated",
+        "details": {
+          "from": "SOL",
+          "to": "USDC",
+          "amount": "0.1",
+          "estimatedOutput": "12.487250",
+          "note": "Simulated swap (demo mode)",
+          "estimatedFee": "0.000005 SOL"
+        },
+        "summary": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "🔥 **Trending Topics**:\n• SOL (bullish)\n• BONK (fomo)\n• WIF (bullish)"
+          },
+          {
+            "specialist": "bankr",
+            "summary": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-05T02:41:03.839Z",
+      "executionTimeMs": 388
+    }
+  },
+  "a486a1af-c23b-4778-b27c-9fbbbe9e478b": {
+    "id": "a486a1af-c23b-4778-b27c-9fbbbe9e478b",
+    "prompt": "WIF sentiment analysis",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-05T02:42:19.530Z",
+    "updatedAt": "2026-02-05T02:42:24.696Z",
+    "payments": [
+      {
+        "amount": "0.001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "magos",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:42:24.695Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770259340133-c08a",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"WIF sentiment analysis...\"",
+        "timestamp": "2026-02-05T02:42:20.133Z"
+      },
+      {
+        "id": "msg-1770259340143-sd3d",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:42:20.143Z"
+      },
+      {
+        "id": "msg-1770259340669-f279",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-05T02:42:20.669Z"
+      },
+      {
+        "id": "msg-1770259344688-6ikt",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "Sentiment for **WIF**: NEUTRAL (0 bullish signals, 0 bearish). Mixed signals, wait for confirmation.",
+        "timestamp": "2026-02-05T02:42:24.688Z"
+      },
+      {
+        "id": "msg-1770259344696-y4lb",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.001 USDC → magos",
+        "timestamp": "2026-02-05T02:42:24.696Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "insight": "Sentiment for **WIF**: NEUTRAL (0 bullish signals, 0 bearish). Mixed signals, wait for confirmation.",
+        "confidence": 0.5,
+        "sentiment": "neutral",
+        "score": 0,
+        "relatedTokens": [
+          "WIF"
+        ]
+      },
+      "confidence": 0.5,
+      "timestamp": "2026-02-05T02:42:24.688Z",
+      "executionTimeMs": 3218
+    }
+  },
+  "13dba57f-65e7-4de7-b52b-8fb80c6dfbaf": {
+    "id": "13dba57f-65e7-4de7-b52b-8fb80c6dfbaf",
+    "prompt": "Buy the top trending solana token",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-05T02:46:36.862Z",
+    "updatedAt": "2026-02-05T02:46:39.483Z",
+    "payments": [
+      {
+        "amount": "0.0005",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "aura",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:46:37.745Z"
+      },
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:46:39.473Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770259597471-yuty",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-05T02:46:37.471Z"
+      },
+      {
+        "id": "msg-1770259597472-mbof",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-05T02:46:37.472Z"
+      },
+      {
+        "id": "msg-1770259597473-f2l5",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "🔥 **Trending Topics**:\n• SOL (bullish)\n• BONK (fomo)\n• WIF (bullish)",
+        "timestamp": "2026-02-05T02:46:37.473Z"
+      },
+      {
+        "id": "msg-1770259597755-si4l",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0005 USDC → aura",
+        "timestamp": "2026-02-05T02:46:37.755Z"
+      },
+      {
+        "id": "msg-1770259597755-db9t",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-05T02:46:37.755Z"
+      },
+      {
+        "id": "msg-1770259598957-5pqo",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-05T02:46:38.957Z"
+      },
+      {
+        "id": "msg-1770259599359-yyiu",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC",
+        "timestamp": "2026-02-05T02:46:39.359Z"
+      },
+      {
+        "id": "msg-1770259599483-ccm0",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-05T02:46:39.483Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "currentStep": 2,
+      "totalSteps": 2
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "simulated",
+        "details": {
+          "from": "SOL",
+          "to": "USDC",
+          "amount": "0.1",
+          "estimatedOutput": "12.487250",
+          "note": "Simulated swap (demo mode)",
+          "estimatedFee": "0.000005 SOL"
+        },
+        "summary": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "🔥 **Trending Topics**:\n• SOL (bullish)\n• BONK (fomo)\n• WIF (bullish)"
+          },
+          {
+            "specialist": "bankr",
+            "summary": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-05T02:46:39.359Z",
+      "executionTimeMs": 401
+    }
+  },
+  "fd92a8c6-cd7d-4f21-bea9-f377ecff3576": {
+    "id": "fd92a8c6-cd7d-4f21-bea9-f377ecff3576",
+    "prompt": "Send 0.0005 USDC to Bq48PaxtoWv62QHeX3WYfmHHw9E7hJp38sx5t6tugDyd on Solana",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-05T02:50:28.623Z",
+    "updatedAt": "2026-02-05T02:50:32.433Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:50:32.423Z"
+      },
+      {
+        "amount": "0.000005",
+        "currency": "SOL",
+        "network": "solana",
+        "recipient": "network",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:50:32.424Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770259829226-e6i8",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"Send 0.0005 USDC to Bq48PaxtoWv62QHeX3WYfmHHw9E7hJp38sx5t6tugDyd on Solana...\"",
+        "timestamp": "2026-02-05T02:50:29.226Z"
+      },
+      {
+        "id": "msg-1770259829236-vccp",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:50:29.236Z"
+      },
+      {
+        "id": "msg-1770259829648-52ey",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T02:50:29.648Z"
+      },
+      {
+        "id": "msg-1770259832008-65av",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "Successfully sent 0.0005 SOL to Bq48Paxt...",
+        "timestamp": "2026-02-05T02:50:32.008Z"
+      },
+      {
+        "id": "msg-1770259832424-i8ej",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-05T02:50:32.424Z"
+      },
+      {
+        "id": "msg-1770259832433-zpx9",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "Payment: 0.000005 SOL",
+        "timestamp": "2026-02-05T02:50:32.433Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "type": "transfer",
+        "status": "confirmed",
+        "txSignature": "5BcFVoPkZJcxh4pUuc6HJWAB8WY2YFn1CiMebWLdFTAUj3Xv6xiFPmQH6bxPf7PJEXbcK9Z7qPfEAQuEHtjNkZeS",
+        "details": {
+          "to": "Bq48PaxtoWv62QHeX3WYfmHHw9E7hJp38sx5t6tugDyd",
+          "amount": "0.0005",
+          "explorer": "https://solscan.io/tx/5BcFVoPkZJcxh4pUuc6HJWAB8WY2YFn1CiMebWLdFTAUj3Xv6xiFPmQH6bxPf7PJEXbcK9Z7qPfEAQuEHtjNkZeS?cluster=devnet",
+          "network": "devnet"
+        },
+        "summary": "Successfully sent 0.0005 SOL to Bq48Paxt..."
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-05T02:50:32.008Z",
+      "executionTimeMs": 1559,
+      "cost": {
+        "amount": "0.000005",
+        "currency": "SOL",
+        "network": "solana",
+        "recipient": "network"
+      }
+    }
+  },
+  "978c343b-fd5c-41e5-bd76-991576780482": {
+    "id": "978c343b-fd5c-41e5-bd76-991576780482",
+    "prompt": "buy the top trending token on solana with 0.1 sol",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-05T03:04:06.078Z",
+    "updatedAt": "2026-02-05T03:06:12.596Z",
+    "payments": [
+      {
+        "amount": "0.0005",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "aura",
+        "status": "pending",
+        "timestamp": "2026-02-05T03:05:09.162Z"
+      },
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-05T03:06:12.595Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770260646687-rmgs",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-05T03:04:06.687Z"
+      },
+      {
+        "id": "msg-1770260646688-l1oh",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-05T03:04:06.688Z"
+      },
+      {
+        "id": "msg-1770260646689-bog4",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "🔥 **Trending Topics**:\n• SOL (bullish)\n• BONK (fomo)\n• WIF (bullish)",
+        "timestamp": "2026-02-05T03:04:06.689Z"
+      },
+      {
+        "id": "msg-1770260709162-uhjz",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0005 USDC → aura",
+        "timestamp": "2026-02-05T03:05:09.162Z"
+      },
+      {
+        "id": "msg-1770260709163-d5ni",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-05T03:05:09.163Z"
+      },
+      {
+        "id": "msg-1770260710369-kc23",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-05T03:05:10.369Z"
+      },
+      {
+        "id": "msg-1770260710513-4qgq",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC",
+        "timestamp": "2026-02-05T03:05:10.513Z"
+      },
+      {
+        "id": "msg-1770260772595-shsr",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-05T03:06:12.595Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "currentStep": 2,
+      "totalSteps": 2
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "simulated",
+        "details": {
+          "from": "SOL",
+          "to": "USDC",
+          "amount": "0.1",
+          "estimatedOutput": "12.487250",
+          "note": "Simulated swap (demo mode)",
+          "estimatedFee": "0.000005 SOL"
+        },
+        "summary": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "🔥 **Trending Topics**:\n• SOL (bullish)\n• BONK (fomo)\n• WIF (bullish)"
+          },
+          {
+            "specialist": "bankr",
+            "summary": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-05T03:05:10.513Z",
+      "executionTimeMs": 144
+    }
   }
 }
