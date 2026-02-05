@@ -11,10 +11,11 @@ import * as dotenv from 'dotenv';
 
 import config from './config';
 import { authMiddleware } from './middleware/auth';
-import dispatcher, { dispatch, getTask, getRecentTasks, subscribeToTask, getSpecialists } from './dispatcher';
+import dispatcher, { dispatch, getTask, getRecentTasks, subscribeToTask, getSpecialists, callSpecialist } from './dispatcher';
 import { getBalances, getTransactionLog } from './x402';
 import solana from './solana';
-import { DispatchRequest, Task, WSEvent } from './types';
+import { DispatchRequest, Task, WSEvent, SpecialistType } from './types';
+import { x402PaymentMiddleware } from './x402-middleware';
 
 dotenv.config();
 
@@ -25,6 +26,25 @@ const wss = new WebSocketServer({ server, path: '/ws' });
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Specialist endpoints (behind x402 paywall)
+app.post('/api/specialist/:id', x402PaymentMiddleware, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { prompt } = req.body;
+    
+    if (!prompt) {
+      return res.status(400).json({ error: 'Prompt is required' });
+    }
+    
+    // If we get here, payment was verified by middleware
+    const result = await callSpecialist(id as SpecialistType, prompt);
+    res.json(result);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.use(authMiddleware);
 
 // Request logging
