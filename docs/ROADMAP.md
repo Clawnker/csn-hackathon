@@ -18,7 +18,8 @@
 | Automated test suite | ✅ Done | QA | 17 tests passing |
 | Frontend polish | 🔄 In Progress | - | Balance display, animations |
 | README.md for judges | ⏳ Pending | PM | Critical for submission |
-| Demo video | ⏳ Pending | - | "One prompt. A thousand minds." |
+| Demo video | ⏳ Pending | - | Agent-created (TTS + Puppeteer) |
+| Agent Marketplace UI | ⏳ Pending | - | Browse/hire specialists |
 
 ---
 
@@ -31,6 +32,14 @@
 | `/v1/registry/search` API | P1 | Filter by capability, reputation, price |
 | Marketplace UI | P1 | Browse/discover specialists |
 | Agent self-registration | P2 | Providers submit their own agents |
+
+### Automated Demo Video (Agent-Created)
+| Feature | Priority | Description |
+|---------|----------|-------------|
+| TTS voiceover | P1 | ElevenLabs via sag skill |
+| Browser automation | P1 | Puppeteer/Playwright recording |
+| Video stitching | P2 | FFmpeg composition |
+| Auto-regenerate on changes | P3 | CI/CD pipeline for demo updates |
 
 ### Enhanced Reputation
 | Feature | Priority | Description |

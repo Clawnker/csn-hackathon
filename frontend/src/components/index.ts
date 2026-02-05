@@ -5,3 +5,5 @@ export { PaymentFeed } from './PaymentFeed';
 export { MessageLog } from './MessageLog';
 export { ResultDisplay } from './ResultDisplay';
 export { CostPreview } from './CostPreview';
+export { Marketplace } from './Marketplace';
+export { AgentCard } from './AgentCard';

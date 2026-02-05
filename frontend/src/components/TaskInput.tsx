@@ -10,6 +10,8 @@ interface TaskInputProps {
   onSubmit: (prompt: string) => void;
   isLoading: boolean;
   disabled?: boolean;
+  initialAgentId?: string | null;
+  onClearPreSelect?: () => void;
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
@@ -37,12 +39,21 @@ const SUGGESTED_PROMPTS = [
   },
 ];
 
-export function TaskInput({ onSubmit, isLoading, disabled }: TaskInputProps) {
+export function TaskInput({ onSubmit, isLoading, disabled, initialAgentId, onClearPreSelect }: TaskInputProps) {
   const [prompt, setPrompt] = useState('');
   const [showPreview, setShowPreview] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [pricing, setPricing] = useState<Record<string, SpecialistPricing> | null>(null);
   const [selectedSpecialist, setSelectedSpecialist] = useState<SpecialistType>('general');
+
+  // Handle pre-selected agent from marketplace
+  useEffect(() => {
+    if (initialAgentId) {
+      setSelectedSpecialist(initialAgentId as SpecialistType);
+      setShowPreview(true);
+      setIsConfirmed(false);
+    }
+  }, [initialAgentId]);
 
   // Fetch pricing on mount
   useEffect(() => {
