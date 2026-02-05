@@ -80,24 +80,10 @@ export function TaskInput({ onSubmit, isLoading, disabled, initialAgentId, onCle
       return;
     }
 
-    if (!prompt.trim()) {
-      setSelectedSpecialist('general');
-      setIsDebouncing(false);
-      return;
-    }
-
-    setIsDebouncing(true);
-    if (debounceTimer.current) clearTimeout(debounceTimer.current);
-    
-    debounceTimer.current = setTimeout(() => {
-      setSelectedSpecialist(routePrompt(prompt));
-      setIsDebouncing(false);
-    }, 400);
-
-    return () => {
-      if (debounceTimer.current) clearTimeout(debounceTimer.current);
-    };
-  }, [prompt, routePrompt, initialAgentId]);
+    // Default to general assistant when typing
+    setSelectedSpecialist('general');
+    setIsDebouncing(false);
+  }, [initialAgentId]);
 
   const handleDispatch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -151,16 +137,12 @@ export function TaskInput({ onSubmit, isLoading, disabled, initialAgentId, onCle
                       exit={{ opacity: 0 }}
                       className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none"
                     >
-                      {isDebouncing ? (
-                        <Loader2 size={16} className="text-[var(--accent-gold)] animate-spin" />
-                      ) : (
-                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10">
-                          <div className={`w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] shadow-[0_0_8px_var(--accent-gold)]`} />
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-white/60">
-                            {SPECIALIST_NAMES[selectedSpecialist] || selectedSpecialist}
-                          </span>
-                        </div>
-                      )}
+                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10">
+                        <div className={`w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] shadow-[0_0_8px_var(--accent-gold)]`} />
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-white/60">
+                          Ready to dispatch
+                        </span>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -215,12 +197,12 @@ export function TaskInput({ onSubmit, isLoading, disabled, initialAgentId, onCle
                   <div className="flex items-center gap-4">
                     <span className="text-[11px] text-white/40 uppercase tracking-widest font-medium">Estimated Cost</span>
                     <span className="text-sm font-mono text-[var(--accent-gold)]">
-                      {currentPricing ? parseFloat(currentPricing.fee).toFixed(4) : '0.0000'} USDC
+                      {currentPricing ? parseFloat(currentPricing.fee).toFixed(4) : '0.0001'} USDC
                     </span>
                     <span className="text-white/20">•</span>
-                    <span className="text-[11px] text-white/40 uppercase tracking-widest font-medium">Specialist</span>
+                    <span className="text-[11px] text-white/40 uppercase tracking-widest font-medium">System</span>
                     <span className="text-sm text-white/70">
-                      {SPECIALIST_NAMES[selectedSpecialist] || selectedSpecialist}
+                      Hivemind Routing Enabled
                     </span>
                   </div>
                   
