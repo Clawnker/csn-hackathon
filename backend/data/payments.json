@@ -505,5 +505,23 @@
     "txHash": "8c147270-c593-4eac-9373-85d9417ae197",
     "status": "completed",
     "timestamp": "2026-02-05T03:56:53.934Z"
+  },
+  {
+    "amount": "0.00 USDC",
+    "currency": "USDC",
+    "network": "solana",
+    "recipient": "5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1",
+    "txHash": "80d69cdb-e281-4e61-8664-20cc0a8029dc",
+    "status": "completed",
+    "timestamp": "2026-02-05T04:22:20.382Z"
+  },
+  {
+    "amount": "0.00 USDC",
+    "currency": "USDC",
+    "network": "solana",
+    "recipient": "5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1",
+    "txHash": "817bb140-c577-457a-a20f-21c8d1c387ab",
+    "status": "completed",
+    "timestamp": "2026-02-05T04:22:23.834Z"
   }
 ]

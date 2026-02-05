@@ -5554,5 +5554,179 @@
       "timestamp": "2026-02-05T03:56:53.149Z",
       "executionTimeMs": 207
     }
+  },
+  "968ca67b-28c4-4b21-87b6-8bb292a03245": {
+    "id": "968ca67b-28c4-4b21-87b6-8bb292a03245",
+    "prompt": "What is the price of SOL?",
+    "userId": "test-key",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-05T04:22:17.132Z",
+    "updatedAt": "2026-02-05T04:22:20.382Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "txHash": "80d69cdb-e281-4e61-8664-20cc0a8029dc",
+        "status": "completed",
+        "timestamp": "2026-02-05T04:22:20.382Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770265337735-ugae",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"What is the price of SOL?...\"",
+        "timestamp": "2026-02-05T04:22:17.735Z"
+      },
+      {
+        "id": "msg-1770265337746-bplq",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T04:22:17.746Z"
+      },
+      {
+        "id": "msg-1770265338229-aex3",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T04:22:18.229Z"
+      },
+      {
+        "id": "msg-1770265339031-b5vf",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"What is the price of SOL?\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-05T04:22:19.031Z"
+      },
+      {
+        "id": "msg-1770265340382-ik47",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee: 0.0001 USDC → seeker",
+        "timestamp": "2026-02-05T04:22:20.382Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"What is the price of SOL?\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "What is the price of SOL?",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-05T04:22:19.031Z",
+      "executionTimeMs": 0
+    }
+  },
+  "2b248f7c-2e42-4074-a3dc-2d3ede035e11": {
+    "id": "2b248f7c-2e42-4074-a3dc-2d3ede035e11",
+    "prompt": "What is the sentiment on Bitcoin?",
+    "userId": "test-key",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-05T04:22:21.242Z",
+    "updatedAt": "2026-02-05T04:22:23.834Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "txHash": "817bb140-c577-457a-a20f-21c8d1c387ab",
+        "status": "completed",
+        "timestamp": "2026-02-05T04:22:23.834Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770265341846-dg2s",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"What is the sentiment on Bitcoin?...\"",
+        "timestamp": "2026-02-05T04:22:21.846Z"
+      },
+      {
+        "id": "msg-1770265341848-um7m",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T04:22:21.848Z"
+      },
+      {
+        "id": "msg-1770265342320-b1yy",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T04:22:22.320Z"
+      },
+      {
+        "id": "msg-1770265343121-ilen",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"What is the sentiment on Bitcoin?\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-05T04:22:23.121Z"
+      },
+      {
+        "id": "msg-1770265343834-84xg",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee: 0.0001 USDC → seeker",
+        "timestamp": "2026-02-05T04:22:23.834Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"What is the sentiment on Bitcoin?\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "What is the sentiment on Bitcoin?",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-05T04:22:23.121Z",
+      "executionTimeMs": 1
+    }
   }
 }
