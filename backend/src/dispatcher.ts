@@ -15,7 +15,7 @@ import {
   SpecialistResult,
 } from './types';
 import config from './config';
-import { x402Fetch, getBalances, logTransaction, createPaymentRecord } from './x402';
+import { x402Fetch, getBalances, logTransaction, createPaymentRecord, executePayment } from './x402';
 import { recordSuccess, recordFailure, getSuccessRate } from './reputation';
 import magos from './specialists/magos';
 import aura from './specialists/aura';
@@ -218,18 +218,38 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
   const responseContent = extractResponseContent(result);
   addMessage(task, task.specialist, 'dispatcher', responseContent);
   
-  // Log specialist fee as x402 payment
+  // Execute real x402 payment
   const specialistFee = parseFloat(pricing.fee);
-  if (specialistFee > 0) {
-    const feeRecord = createPaymentRecord(
-      pricing.fee,
-      'USDC',
-      'solana',
-      task.specialist
+  if (specialistFee > 0 && !dryRun) {
+    const recipient = config.specialistWallets[task.specialist] || task.specialist;
+    const paymentResult = await executePayment(
+      config.agentWallet.solanaAddress,
+      recipient,
+      specialistFee
     );
-    task.payments.push(feeRecord);
-    logTransaction(feeRecord);
-    addMessage(task, 'x402', 'dispatcher', `💰 x402 Fee: ${pricing.fee} USDC → ${task.specialist}`);
+
+    if (paymentResult.success && paymentResult.txSignature) {
+      const feeRecord = createPaymentRecord(
+        pricing.fee,
+        'USDC',
+        'solana',
+        recipient,
+        paymentResult.txSignature
+      );
+      task.payments.push(feeRecord);
+      addMessage(task, 'x402', 'dispatcher', `💰 x402 Fee: ${pricing.fee} USDC → ${task.specialist}`);
+    } else {
+      console.warn(`[Dispatcher] Payment failed for ${task.specialist}, logging mock record`);
+      const feeRecord = createPaymentRecord(
+        pricing.fee,
+        'USDC',
+        'solana',
+        task.specialist
+      );
+      task.payments.push(feeRecord);
+      logTransaction(feeRecord);
+      addMessage(task, 'x402', 'dispatcher', `💰 x402 Fee (Mock): ${pricing.fee} USDC → ${task.specialist}`);
+    }
   }
   
   // Log any additional payments from the specialist result

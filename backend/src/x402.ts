@@ -188,10 +188,71 @@ export function getTransactionLog(): PaymentRecord[] {
   return [...transactionLog];
 }
 
+/**
+ * Execute a real x402 transfer on Solana devnet
+ */
+export async function executePayment(
+  from: string, // dispatcher wallet
+  to: string,   // specialist wallet address
+  amount: number, // USDC amount
+): Promise<{ success: boolean; txSignature?: string }> {
+  try {
+    // Prefer AGENTWALLET_API_KEY if available, fallback to config token
+    const apiKey = process.env.AGENTWALLET_API_KEY || config.agentWallet.token;
+    
+    if (!apiKey) {
+      console.warn('[x402] No API key for payment execution');
+      return { success: false };
+    }
+
+    console.log(`[x402] Executing real payment: ${amount} USDC to ${to}`);
+    
+    const response = await axios.post('https://api.agentwallet.ai/v1/transfer', {
+      amount: amount.toString(),
+      token: 'USDC',
+      recipient: to,
+      chain: 'solana',
+      network: 'devnet',
+    }, {
+      headers: {
+        'X-API-Key': apiKey,
+      }
+    });
+    
+    const txHash = response.data.txHash || response.data.signature;
+    
+    if (txHash) {
+      console.log(`[x402] Payment successful: ${txHash}`);
+      
+      // Log it
+      logTransaction(createPaymentRecord(
+        amount.toString(),
+        'USDC',
+        'solana',
+        to,
+        txHash
+      ));
+
+      return {
+        success: true,
+        txSignature: txHash,
+      };
+    } else {
+      throw new Error('No transaction hash returned from API');
+    }
+  } catch (error: any) {
+    console.error('[x402] Payment execution failed:', error.response?.data || error.message);
+    return {
+      success: false,
+    };
+  }
+}
+
 export default {
   getBalances,
   x402Fetch,
   createPaymentRecord,
   logTransaction,
   getTransactionLog,
+  executePayment,
 };

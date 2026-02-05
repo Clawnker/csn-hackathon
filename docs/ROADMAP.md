@@ -52,6 +52,7 @@
 ### Smart Routing & Agent Discovery
 | Feature | Priority | Description |
 |---------|----------|-------------|
+| **Multi-hop queries** | P1 | Chain specialists for complex tasks (Aura→Magos→Bankr) |
 | Smart dispatcher routing | P1 | Suggest high-trust agents for complex tasks |
 | "Add to swarm?" prompts | P1 | Dispatcher recommends marketplace agents |
 | Trust-based routing | P2 | Prefer verified/staked agents |

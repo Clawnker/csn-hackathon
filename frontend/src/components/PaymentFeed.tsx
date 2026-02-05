@@ -38,7 +38,7 @@ function PaymentCard({ payment, index }: { payment: Payment; index: number }) {
   
   const openExplorer = () => {
     window.open(
-      `https://explorer.solana.com/tx/${payment.txSignature}?cluster=devnet`,
+      `https://solscan.io/tx/${payment.txSignature}?cluster=devnet`,
       '_blank'
     );
   };

@@ -56,3 +56,9 @@ export type TaskStatus =
   | 'planning'
   | 'completed'
   | 'failed';
+
+export interface WalletBalance {
+  address: string;
+  SOL: number;
+  USDC: number;
+}

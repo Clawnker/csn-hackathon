@@ -497,7 +497,7 @@ export default function CommandCenter() {
                 </div>
 
                 {/* Right Column - Panels */}
-                <div className="col-span-12 lg:col-span-7 grid grid-rows-[auto_1fr_1fr] gap-4">
+                <div className="col-span-12 lg:col-span-7 flex flex-col gap-4">
                   {/* Wallet Panel */}
                   <motion.div
                     initial={{ opacity: 0, x: 20 }}
@@ -512,7 +512,6 @@ export default function CommandCenter() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="min-h-[200px]"
                   >
                     <PaymentFeed payments={payments} />
                   </motion.div>
@@ -522,7 +521,6 @@ export default function CommandCenter() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="min-h-[200px]"
                   >
                     <MessageLog messages={messages} />
                   </motion.div>
