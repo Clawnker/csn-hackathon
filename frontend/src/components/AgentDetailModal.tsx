@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Brain, Sparkles, LineChart, Wallet, Settings, Save } from 'lucide-react';
+import { X, Brain, Sparkles, LineChart, Wallet, Settings, Save, FileText, Search } from 'lucide-react';
 import type { SpecialistType } from '@/types';
+import { AgentBadge } from './AgentBadge';
 
 interface AgentDetailModalProps {
   specialist: SpecialistType | null;
@@ -150,6 +151,34 @@ const SPECIALIST_INFO: Record<SpecialistType, {
     ],
     defaultPrompt: 'You are WhaleSpy. Monitor and report on large transaction activities.',
   },
+  scribe: {
+    name: 'Scribe',
+    description: 'Documentation & Knowledge',
+    fullDescription: 'Specializes in summarizing long conversations, drafting documentation, and providing clear explanations for complex technical concepts.',
+    icon: FileText,
+    color: '#9CA3AF',
+    capabilities: [
+      'Document summarization',
+      'Code documentation',
+      'Q&A assistant',
+      'Knowledge base management',
+    ],
+    defaultPrompt: 'You are Scribe, a documentation and knowledge assistant. Provide clear, concise summaries and helpful answers to user queries.',
+  },
+  seeker: {
+    name: 'Seeker',
+    description: 'Web Research specialist',
+    fullDescription: 'Performs deep web research and information retrieval to find factual data, news, and market intelligence outside the immediate on-chain environment.',
+    icon: Search,
+    color: '#00F5FF',
+    capabilities: [
+      'Web search',
+      'Fact lookup',
+      'Market research',
+      'News aggregation',
+    ],
+    defaultPrompt: 'You are Seeker, a web research specialist. Use search results to provide accurate and detailed information to the user.',
+  },
 };
 
 export function AgentDetailModal({ 
@@ -203,9 +232,12 @@ export function AgentDetailModal({
                 <Icon size={32} style={{ color: info.color }} />
               </div>
               <div>
-                <h2 className="text-xl font-bold" style={{ color: info.color }}>
-                  {info.name}
-                </h2>
+                <div className="flex items-center gap-2 mb-1">
+                  <h2 className="text-xl font-bold" style={{ color: info.color }}>
+                    {info.name}
+                  </h2>
+                  <AgentBadge tier={['bankr', 'scribe', 'seeker', 'dispatcher'].includes(specialist) ? 'core' : 'community'} />
+                </div>
                 <p className="text-sm text-[var(--text-secondary)]">
                   {info.description}
                 </p>

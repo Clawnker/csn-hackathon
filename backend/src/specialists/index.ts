@@ -6,36 +6,54 @@
 import magos from './magos';
 import aura from './aura';
 import bankr from './bankr';
+import scribe from './scribe';
+import seeker from './seeker';
 
-export { magos, aura, bankr };
+export { magos, aura, bankr, scribe, seeker };
 
 export const specialists = {
   magos,
   aura,
   bankr,
+  scribe,
+  seeker,
 };
 
 export const specialistList = [
   {
     id: 'magos',
-    name: magos.name,
-    description: magos.description,
+    name: 'Magos',
+    description: 'Predictive Oracle',
     capabilities: ['predictions', 'risk-analysis', 'price-targets', 'technical-analysis'],
     paymentRequired: true,
   },
   {
     id: 'aura',
-    name: aura.name,
-    description: aura.description,
+    name: 'Aura',
+    description: 'Social Sentinel',
     capabilities: ['sentiment', 'trending', 'alpha-detection', 'influencer-tracking'],
-    paymentRequired: false,
+    paymentRequired: true,
   },
   {
     id: 'bankr',
-    name: bankr.name,
-    description: bankr.description,
+    name: 'Bankr',
+    description: 'Execution Engine',
     capabilities: ['swap', 'transfer', 'balance', 'dca', 'monitoring'],
-    paymentRequired: false, // Network fees only
+    paymentRequired: true,
+  },
+  {
+    id: 'scribe',
+    name: 'Scribe',
+    description: 'Documentation Assistant',
+    capabilities: ['summarization', 'documentation', 'Q&A'],
+    paymentRequired: true,
+  },
+  {
+    id: 'seeker',
+    name: 'Seeker',
+    description: 'Web Research Specialist',
+    capabilities: ['search', 'research', 'lookup'],
+    paymentRequired: true,
   },
 ];
 

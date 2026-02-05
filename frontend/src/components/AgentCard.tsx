@@ -10,6 +10,7 @@ import {
   CircleDollarSign,
   ArrowUpRight
 } from 'lucide-react';
+import { AgentBadge } from './AgentBadge';
 
 export interface AgentMarketplaceProps {
   id: string;
@@ -23,6 +24,7 @@ export interface AgentMarketplaceProps {
   tasksCompleted: number;
   isVerified?: boolean;
   color: string;
+  tier?: 'core' | 'community';
   onHire: (id: string) => void;
 }
 
@@ -38,6 +40,7 @@ export function AgentCard({
   tasksCompleted,
   isVerified = false,
   color,
+  tier = 'community',
   onHire
 }: AgentMarketplaceProps) {
   return (
@@ -51,12 +54,15 @@ export function AgentCard({
           <Icon className={`w-8 h-8 text-${color}`} style={{ color: `var(--accent-${color})` }} />
         </div>
         
-        {isVerified && (
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
-            <CheckCircle2 size={14} className="text-green-500" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-green-500">Verified</span>
-          </div>
-        )}
+        <div className="flex flex-col items-end gap-2">
+          <AgentBadge tier={tier} />
+          {isVerified && (
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20">
+              <CheckCircle2 size={14} className="text-green-500" />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-green-500">Verified</span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Card Body */}

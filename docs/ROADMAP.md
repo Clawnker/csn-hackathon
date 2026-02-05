@@ -49,6 +49,15 @@
 | Agent-to-agent vouching | P2 | Reputation graph (PageRank-style) |
 | User ratings & reviews | P2 | Post-task feedback |
 
+### Smart Routing & Agent Discovery
+| Feature | Priority | Description |
+|---------|----------|-------------|
+| Smart dispatcher routing | P1 | Suggest high-trust agents for complex tasks |
+| "Add to swarm?" prompts | P1 | Dispatcher recommends marketplace agents |
+| Trust-based routing | P2 | Prefer verified/staked agents |
+| Multi-agent collaboration | P2 | Route sub-tasks to specialized agents |
+| User routing preferences | P3 | "Always use X for crypto analysis" |
+
 ### OpenClaw Integration
 | Feature | Priority | Description |
 |---------|----------|-------------|

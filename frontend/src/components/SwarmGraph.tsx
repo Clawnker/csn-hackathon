@@ -12,7 +12,7 @@ import {
   BackgroundVariant,
 } from '@xyflow/react';
 import { motion } from 'framer-motion';
-import { Brain, Sparkles, LineChart, Wallet, Activity, Target, Shield, Newspaper, Eye } from 'lucide-react';
+import { Brain, Sparkles, LineChart, Wallet, Activity, Target, Shield, Newspaper, Eye, FileText, Search } from 'lucide-react';
 import type { SpecialistType } from '@/types';
 
 interface SwarmGraphProps {
@@ -93,6 +93,20 @@ const SPECIALISTS: Record<SpecialistType, {
     icon: Eye,
     color: '#8b5cf6',
     glowColor: 'rgba(139, 92, 246, 0.6)',
+  },
+  scribe: {
+    name: 'Scribe',
+    description: 'Documentation',
+    icon: FileText,
+    color: '#9CA3AF',
+    glowColor: 'rgba(156, 163, 175, 0.6)',
+  },
+  seeker: {
+    name: 'Seeker',
+    description: 'Research',
+    icon: Search,
+    color: '#00F5FF',
+    glowColor: 'rgba(0, 245, 255, 0.6)',
   },
 };
 

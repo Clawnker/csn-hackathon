@@ -13,24 +13,74 @@ import {
   Compass,
   Sparkles,
   TrendingUp,
-  Newspaper
+  Newspaper,
+  FileText
 } from 'lucide-react';
 import { AgentCard } from './AgentCard';
 
 const CORE_AGENTS = [
+  {
+    id: 'bankr',
+    name: 'Bankr',
+    tagline: 'Execution Engine',
+    description: 'High-speed trade execution and wallet management. Securely handles complex DeFi interactions.',
+    icon: Coins,
+    price: 0.0001,
+    successRate: 99,
+    responseTime: '0.8s',
+    tasksCompleted: 89000,
+    isVerified: true,
+    color: 'cyan',
+    capabilities: ['trading', 'execution', 'wallet'],
+    tier: 'core' as const
+  },
+  {
+    id: 'scribe',
+    name: 'Scribe',
+    tagline: 'General Assistant',
+    description: 'General purpose assistant for summarization, Q&A, and documentation tasks.',
+    icon: FileText,
+    price: 0.0001,
+    successRate: 95,
+    responseTime: '1.5s',
+    tasksCompleted: 12500,
+    isVerified: true,
+    color: 'gray',
+    capabilities: ['summary', 'qa', 'writing'],
+    tier: 'core' as const
+  },
+  {
+    id: 'seeker',
+    name: 'Seeker',
+    tagline: 'Web Research',
+    description: 'Web search and information retrieval specialist for deep fact lookup.',
+    icon: Search,
+    price: 0.0001,
+    successRate: 92,
+    responseTime: '2.5s',
+    tasksCompleted: 8400,
+    isVerified: true,
+    color: 'cyan',
+    capabilities: ['search', 'research', 'lookup'],
+    tier: 'core' as const
+  }
+];
+
+const COMMUNITY_AGENTS = [
   {
     id: 'magos',
     name: 'Magos',
     tagline: 'Predictive Oracle',
     description: 'Expert in technical analysis and market prediction. Uses advanced heuristics to forecast price action.',
     icon: Compass,
-    price: 0.002,
+    price: 0.001,
     successRate: 94,
     responseTime: '2.4s',
     tasksCompleted: 15420,
     isVerified: true,
     color: 'gold',
-    capabilities: ['analysis', 'prediction', 'trading']
+    capabilities: ['analysis', 'prediction', 'trading'],
+    tier: 'community' as const
   },
   {
     id: 'aura',
@@ -38,31 +88,15 @@ const CORE_AGENTS = [
     tagline: 'Social Sentinel',
     description: 'Specializes in real-time sentiment analysis across X, Telegram, and news feeds.',
     icon: Eye,
-    price: 0.001,
+    price: 0.0005,
     successRate: 89,
     responseTime: '1.2s',
     tasksCompleted: 42100,
     isVerified: true,
     color: 'purple',
-    capabilities: ['sentiment', 'social', 'monitoring']
+    capabilities: ['sentiment', 'social', 'monitoring'],
+    tier: 'community' as const
   },
-  {
-    id: 'bankr',
-    name: 'Bankr',
-    tagline: 'Execution Engine',
-    description: 'High-speed trade execution and wallet management. Securely handles complex DeFi interactions.',
-    icon: Coins,
-    price: 0.0015,
-    successRate: 99,
-    responseTime: '0.8s',
-    tasksCompleted: 89000,
-    isVerified: true,
-    color: 'cyan',
-    capabilities: ['trading', 'execution', 'wallet']
-  }
-];
-
-const COMMUNITY_AGENTS = [
   {
     id: 'alphahunter',
     name: 'AlphaHunter',
@@ -75,7 +109,8 @@ const COMMUNITY_AGENTS = [
     tasksCompleted: 850,
     isVerified: false,
     color: 'green',
-    capabilities: ['discovery', 'trading', 'alpha']
+    capabilities: ['discovery', 'trading', 'alpha'],
+    tier: 'community' as const
   },
   {
     id: 'riskbot',
@@ -89,7 +124,8 @@ const COMMUNITY_AGENTS = [
     tasksCompleted: 3200,
     isVerified: true,
     color: 'orange',
-    capabilities: ['security', 'audit', 'risk']
+    capabilities: ['security', 'audit', 'risk'],
+    tier: 'community' as const
   },
   {
     id: 'newsdigest',
@@ -103,7 +139,8 @@ const COMMUNITY_AGENTS = [
     tasksCompleted: 12400,
     isVerified: false,
     color: 'cyan',
-    capabilities: ['news', 'summary', 'info']
+    capabilities: ['news', 'summary', 'info'],
+    tier: 'community' as const
   },
   {
     id: 'whalespy',
@@ -117,7 +154,8 @@ const COMMUNITY_AGENTS = [
     tasksCompleted: 5600,
     isVerified: false,
     color: 'purple',
-    capabilities: ['tracking', 'whale', 'onchain']
+    capabilities: ['tracking', 'whale', 'onchain'],
+    tier: 'community' as const
   }
 ];
 

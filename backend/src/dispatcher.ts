@@ -20,6 +20,8 @@ import { recordSuccess, recordFailure, getSuccessRate } from './reputation';
 import magos from './specialists/magos';
 import aura from './specialists/aura';
 import bankr from './specialists/bankr';
+import scribe from './specialists/scribe';
+import seeker from './specialists/seeker';
 
 // Persistence settings
 const DATA_DIR = path.join(__dirname, '../data');
@@ -81,6 +83,8 @@ const SPECIALIST_PRICING: Record<SpecialistType, { fee: string; description: str
   magos: { fee: '0.001', description: 'Market analysis & predictions' },
   aura: { fee: '0.0005', description: 'Social sentiment analysis' },
   bankr: { fee: '0.0001', description: 'Wallet operations' },
+  scribe: { fee: '0.0001', description: 'General assistant & fallback' },
+  seeker: { fee: '0.0001', description: 'Web research & search' },
   general: { fee: '0', description: 'General queries' },
 };
 
@@ -425,6 +429,22 @@ export function routePrompt(prompt: string): SpecialistType {
       ],
       weight: 1,
     },
+    {
+      specialist: 'seeker',
+      patterns: [
+        /search|find|lookup|what is|who is|where is|news about|latest on/,
+        /research|google|brave|internet|web|look up/,
+      ],
+      weight: 1.2,
+    },
+    {
+      specialist: 'scribe',
+      patterns: [
+        /summarize|explain|write|draft|document/,
+        /help|question|how to|what can you/,
+      ],
+      weight: 0.5,
+    },
   ];
   
   // Score each specialist
@@ -432,6 +452,8 @@ export function routePrompt(prompt: string): SpecialistType {
     magos: 0,
     aura: 0,
     bankr: 0,
+    scribe: 0,
+    seeker: 0,
     general: 0,
   };
   
@@ -462,9 +484,9 @@ export function routePrompt(prompt: string): SpecialistType {
  * Check if specialist requires x402 payment
  */
 async function checkPaymentRequired(specialist: SpecialistType): Promise<boolean> {
-  // In production, this would check a registry or the specialist's x402 requirements
-  const paidSpecialists: SpecialistType[] = ['magos']; // Magos predictions may require payment
-  return paidSpecialists.includes(specialist);
+  // Specialists with non-zero fees require payment
+  const pricing = SPECIALIST_PRICING[specialist];
+  return pricing && parseFloat(pricing.fee) > 0;
 }
 
 /**
@@ -482,6 +504,12 @@ async function callSpecialist(specialist: SpecialistType, prompt: string): Promi
     
     case 'bankr':
       return bankr.handle(prompt);
+    
+    case 'scribe':
+      return scribe.handle(prompt);
+    
+    case 'seeker':
+      return seeker.handle(prompt);
     
     case 'general':
     default:

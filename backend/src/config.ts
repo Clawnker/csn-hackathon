@@ -85,6 +85,16 @@ export const config = {
       skillPath: process.env.BANKR_SKILL_PATH || '',
     },
   },
+  
+  // Specialist Fees (USDC)
+  fees: {
+    bankr: 0.0001,
+    scribe: 0.0001,
+    seeker: 0.0001,
+    magos: 0.001,
+    aura: 0.0005,
+    general: 0,
+  },
 };
 
 export default config;
