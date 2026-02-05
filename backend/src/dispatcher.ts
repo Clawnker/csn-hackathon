@@ -4,6 +4,8 @@
  */
 
 import { v4 as uuidv4 } from 'uuid';
+import * as fs from 'fs';
+import * as path from 'path';
 import {
   Task,
   TaskStatus,
@@ -17,8 +19,60 @@ import magos from './specialists/magos';
 import aura from './specialists/aura';
 import bankr from './specialists/bankr';
 
-// In-memory task store (would use Redis/DB in production)
+// Persistence settings
+const DATA_DIR = path.join(__dirname, '../data');
+const TASKS_FILE = path.join(DATA_DIR, 'tasks.json');
+
+// In-memory task store
 const tasks: Map<string, Task> = new Map();
+
+/**
+ * Load tasks from disk
+ */
+function loadTasks(): void {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    
+    if (fs.existsSync(TASKS_FILE)) {
+      const data = fs.readFileSync(TASKS_FILE, 'utf8');
+      const parsed = JSON.parse(data);
+      
+      // Convert dates back to Date objects
+      Object.values(parsed).forEach((task: any) => {
+        task.createdAt = new Date(task.createdAt);
+        task.updatedAt = new Date(task.updatedAt);
+        if (task.result?.timestamp) {
+          task.result.timestamp = new Date(task.result.timestamp);
+        }
+        task.payments?.forEach((p: any) => {
+          p.timestamp = new Date(p.timestamp);
+        });
+        tasks.set(task.id, task);
+      });
+      
+      console.log(`[Dispatcher] Loaded ${tasks.size} tasks from persistence`);
+    }
+  } catch (error: any) {
+    console.error(`[Dispatcher] Failed to load tasks:`, error.message);
+  }
+}
+
+/**
+ * Save tasks to disk
+ */
+function saveTasks(): void {
+  try {
+    const data = JSON.stringify(Object.fromEntries(tasks), null, 2);
+    fs.writeFileSync(TASKS_FILE, data, 'utf8');
+  } catch (error: any) {
+    console.error(`[Dispatcher] Failed to save tasks:`, error.message);
+  }
+}
+
+// Initial load
+loadTasks();
 
 // Specialist pricing (x402 fees in USDC)
 const SPECIALIST_PRICING: Record<SpecialistType, { fee: string; description: string }> = {
@@ -91,6 +145,7 @@ export async function dispatch(request: DispatchRequest): Promise<DispatchRespon
   };
   
   tasks.set(taskId, task);
+  saveTasks();
   console.log(`[Dispatcher] Created task ${taskId} for specialist: ${specialist}`);
   
   // Small delay to allow WebSocket subscription before execution
@@ -252,6 +307,7 @@ function updateTaskStatus(task: Task, status: TaskStatus, extra?: Record<string,
     task.metadata = { ...task.metadata, ...extra };
   }
   tasks.set(task.id, task);
+  saveTasks();
   emitTaskUpdate(task);
 }
 

@@ -9,12 +9,12 @@ import { BankrAction, SpecialistResult } from '../types';
 import config from '../config';
 import solana from '../solana';
 
-const AGENTWALLET_API = 'https://agentwallet.mcpay.tech/api';
+const AGENTWALLET_API = config.agentWallet.apiUrl;
 const AGENTWALLET_USERNAME = config.agentWallet.username;
-const AGENTWALLET_TOKEN = config.agentWallet.fundToken;
+const AGENTWALLET_TOKEN = config.agentWallet.token;
 
 // AgentWallet Solana address (devnet)
-const SOLANA_ADDRESS = '5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1';
+const SOLANA_ADDRESS = config.agentWallet.solanaAddress || '5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1';
 
 // Bankr API for complex operations (dry-run mode)
 const BANKR_CONFIG = (() => {

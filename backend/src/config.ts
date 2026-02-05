@@ -53,6 +53,7 @@ export const config = {
   agentWallet: {
     apiUrl: process.env.AGENTWALLET_API_URL || 'https://agentwallet.mcpay.tech/api',
     username: agentWalletConfig?.username || process.env.AGENTWALLET_USERNAME || 'claw',
+    token: agentWalletConfig?.apiToken || process.env.AGENTWALLET_FUND_TOKEN || process.env.AGENTWALLET_TOKEN || '',
     fundToken: agentWalletConfig?.apiToken || process.env.AGENTWALLET_FUND_TOKEN || process.env.AGENTWALLET_TOKEN || '',
     solanaAddress: agentWalletConfig?.solanaAddress || '',
     evmAddress: agentWalletConfig?.evmAddress || '',

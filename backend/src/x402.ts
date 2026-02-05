@@ -4,12 +4,18 @@
  */
 
 import axios from 'axios';
+import * as fs from 'fs';
+import * as path from 'path';
 import config from './config';
 import { X402Request, X402Response, PaymentRecord } from './types';
 
 const AGENTWALLET_API = config.agentWallet.apiUrl;
 const USERNAME = config.agentWallet.username;
 const TOKEN = config.agentWallet.token;
+
+// Persistence settings
+const DATA_DIR = path.join(__dirname, '../data');
+const PAYMENTS_FILE = path.join(DATA_DIR, 'payments.json');
 
 /**
  * Check wallet balances before making payments
@@ -65,6 +71,10 @@ export async function x402Fetch(request: X402Request): Promise<X402Response> {
   const startTime = Date.now();
   
   try {
+    if (!TOKEN) {
+      throw new Error('AGENTWALLET_TOKEN is not configured');
+    }
+
     const payload = {
       url: request.url,
       method: request.method,
@@ -129,8 +139,45 @@ export function createPaymentRecord(
  */
 const transactionLog: PaymentRecord[] = [];
 
+/**
+ * Load payments from disk
+ */
+function loadPayments(): void {
+  try {
+    if (fs.existsSync(PAYMENTS_FILE)) {
+      const data = fs.readFileSync(PAYMENTS_FILE, 'utf8');
+      const parsed = JSON.parse(data);
+      parsed.forEach((p: any) => {
+        p.timestamp = new Date(p.timestamp);
+        transactionLog.push(p);
+      });
+      console.log(`[x402] Loaded ${transactionLog.length} payments from persistence`);
+    }
+  } catch (error: any) {
+    console.error(`[x402] Failed to load payments:`, error.message);
+  }
+}
+
+/**
+ * Save payments to disk
+ */
+function savePayments(): void {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    fs.writeFileSync(PAYMENTS_FILE, JSON.stringify(transactionLog, null, 2), 'utf8');
+  } catch (error: any) {
+    console.error(`[x402] Failed to save payments:`, error.message);
+  }
+}
+
+// Initial load
+loadPayments();
+
 export function logTransaction(record: PaymentRecord): void {
   transactionLog.push(record);
+  savePayments();
   console.log(`[Payment] ${record.status}: ${record.amount} ${record.currency} on ${record.network}`);
   if (record.txHash) {
     console.log(`  TxHash: ${record.txHash}`);
