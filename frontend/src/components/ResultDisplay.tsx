@@ -191,13 +191,13 @@ export function ResultDisplay({ taskStatus, result, error, className = '' }: Res
           
           {r.data.txSignature && (
             <a
-              href={`https://solscan.io/tx/${r.data.txSignature}?cluster=devnet`}
+              href={`https://agentwallet.mcpay.tech/u/claw`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-xs text-[#00F0FF] hover:underline"
             >
               <TrendingUp size={12} />
-              View on Solscan: {r.data.txSignature.slice(0, 20)}...
+              x402 Receipt: {r.data.txSignature.slice(0, 16)}... (verify on AgentWallet)
             </a>
           )}
         </div>

@@ -5,6 +5,33 @@ import { logTransaction } from './x402';
 const AGENTWALLET_API = 'https://agentwallet.mcpay.tech/api';
 
 /**
+ * Fetch the most recent x402 payment event from AgentWallet activity
+ */
+async function getLatestPaymentEvent(username: string, token: string): Promise<{ eventId?: string; amount?: string } | null> {
+  try {
+    const response = await axios.get(
+      `${AGENTWALLET_API}/wallets/${username}/activity?limit=1`,
+      {
+        headers: { 'Authorization': `Bearer ${token}` },
+        timeout: 5000,
+      }
+    );
+    
+    const events = response.data?.events;
+    if (events && events.length > 0 && events[0].eventType === 'x402.fetch.completed') {
+      return {
+        eventId: events[0].id,
+        amount: events[0].amountWithSymbol,
+      };
+    }
+    return null;
+  } catch (error) {
+    console.error('[x402] Failed to fetch activity:', error);
+    return null;
+  }
+}
+
+/**
  * Execute real x402 payment via AgentWallet's x402/fetch proxy
  * This is the ONE-STEP solution that handles 402 detection, signing, and retry
  */
@@ -45,7 +72,14 @@ export async function executeDemoPayment(
 
     if (response.data.success && response.data.paid) {
       const payment = response.data.payment;
-      const txSignature = payment?.txHash || payment?.signature;
+      
+      // Fetch the actual event ID from AgentWallet activity
+      const latestEvent = await getLatestPaymentEvent(username, token);
+      const receiptId = latestEvent?.eventId || response.data.policyEvaluationId || `x402-${Date.now()}`;
+      
+      console.log(`[Payment] completed: ${payment?.amountFormatted} ${payment?.tokenSymbol} on ${payment?.chain?.includes('solana') ? 'solana' : 'base'}`);
+      console.log(`  Receipt: ${receiptId}`);
+      console.log(`  Verify: https://agentwallet.mcpay.tech/u/${username}`);
       
       // Log the real transaction
       logTransaction({
@@ -53,14 +87,14 @@ export async function executeDemoPayment(
         currency: 'USDC',
         network: payment?.chain?.includes('solana') ? 'solana' : 'base',
         recipient: payment?.recipient || 'unknown',
-        txHash: txSignature,
+        txHash: receiptId,
         status: 'completed',
         timestamp: new Date(),
       });
 
       return {
         success: true,
-        txSignature,
+        txSignature: receiptId,
         response: response.data.response?.body,
       };
     }

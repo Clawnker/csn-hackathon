@@ -463,5 +463,38 @@
     "recipient": "magos",
     "status": "pending",
     "timestamp": "2026-02-05T03:31:22.043Z"
+  },
+  {
+    "amount": "0.001",
+    "currency": "USDC",
+    "network": "solana",
+    "recipient": "magos",
+    "status": "pending",
+    "timestamp": "2026-02-05T03:41:10.566Z"
+  },
+  {
+    "amount": "0.00 USDC",
+    "currency": "USDC",
+    "network": "solana",
+    "recipient": "5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1",
+    "status": "completed",
+    "timestamp": "2026-02-05T03:42:41.574Z"
+  },
+  {
+    "amount": "0.00 USDC",
+    "currency": "USDC",
+    "network": "solana",
+    "recipient": "5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1",
+    "status": "completed",
+    "timestamp": "2026-02-05T03:43:23.572Z"
+  },
+  {
+    "amount": "0.00 USDC",
+    "currency": "USDC",
+    "network": "solana",
+    "recipient": "5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1",
+    "txHash": "11b03410-3e13-4596-aa32-88739bea9fe7",
+    "status": "completed",
+    "timestamp": "2026-02-05T03:50:52.672Z"
   }
 ]
