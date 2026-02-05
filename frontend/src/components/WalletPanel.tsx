@@ -195,16 +195,6 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
         {/* Quick Links */}
         <div className="flex items-center justify-between pt-2 border-t border-[var(--glass-border)]">
           <motion.button
-            onClick={openAgentWallet}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex items-center gap-1.5 text-xs text-[var(--accent-cyan)] hover:underline"
-          >
-            <Activity size={12} />
-            <span>View Activity</span>
-          </motion.button>
-          
-          <motion.button
             onClick={openSolscan}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -212,6 +202,16 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
           >
             <ExternalLink size={12} />
             <span>Solscan</span>
+          </motion.button>
+          
+          <motion.button
+            onClick={openAgentWallet}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="flex items-center gap-1.5 text-xs text-[var(--accent-cyan)] hover:underline"
+          >
+            <Activity size={12} />
+            <span>View Activity</span>
           </motion.button>
         </div>
 
