@@ -68,7 +68,29 @@ async function getAgentWalletBalances(): Promise<any> {
       },
     }
   );
-  return response.data;
+  
+  const data = response.data;
+  
+  // Extract Solana balances
+  const solanaBalances = data.solana?.balances || data.solanaWallets?.[0]?.balances || [];
+  const solBalance = solanaBalances.find((b: any) => b.asset === 'sol');
+  const solUsdcBalance = solanaBalances.find((b: any) => b.asset === 'usdc');
+  
+  // Extract Base USDC (for demo)
+  const evmBalances = data.evm?.balances || data.evmWallets?.[0]?.balances || [];
+  const baseUsdcBalance = evmBalances.find((b: any) => b.chain === 'base' && b.asset === 'usdc');
+  
+  return {
+    solanaAddress: data.solana?.address || data.solanaWallets?.[0]?.address,
+    evmAddress: data.evm?.address || data.evmWallets?.[0]?.address,
+    solana: {
+      sol: solBalance ? (parseInt(solBalance.rawValue) / 1e9).toFixed(4) : '0',
+      usdc: solUsdcBalance ? (parseInt(solUsdcBalance.rawValue) / 1e6).toFixed(2) : '0',
+    },
+    base: {
+      usdc: baseUsdcBalance ? (parseInt(baseUsdcBalance.rawValue) / 1e6).toFixed(2) : '0',
+    },
+  };
 }
 
 /**
@@ -248,17 +270,16 @@ export const bankr = {
         case 'balance':
         default:
           const balances = await getAgentWalletBalances();
-          const solBalance = balances.solana?.balances?.find((b: any) => b.asset === 'sol');
-          const usdcBalance = balances.solana?.balances?.find((b: any) => b.asset === 'usdc');
           
           data = {
             type: 'balance',
             status: 'confirmed',
             details: {
-              address: balances.solana?.address,
-              sol: solBalance ? (parseInt(solBalance.rawValue) / 1e9).toFixed(4) : '0',
-              usdc: usdcBalance ? (parseInt(usdcBalance.rawValue) / 1e6).toFixed(2) : '0',
-              network: 'devnet',
+              solanaAddress: balances.solanaAddress,
+              evmAddress: balances.evmAddress,
+              solana: balances.solana,
+              base: balances.base,
+              summary: `Solana: ${balances.solana.sol} SOL, ${balances.solana.usdc} USDC | Base: ${balances.base.usdc} USDC`,
             },
           };
           break;
