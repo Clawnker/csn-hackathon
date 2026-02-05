@@ -8,7 +8,8 @@ import {
   Clock, 
   BarChart3, 
   CircleDollarSign,
-  ArrowUpRight
+  ArrowUpRight,
+  CheckCircle
 } from 'lucide-react';
 import { AgentBadge } from './AgentBadge';
 
@@ -23,6 +24,7 @@ export interface AgentMarketplaceProps {
   responseTime: string;
   tasksCompleted: number;
   isVerified?: boolean;
+  isHired?: boolean;
   color: string;
   tier?: 'core' | 'marketplace';
   onHire: (id: string) => void;
@@ -39,6 +41,7 @@ export function AgentCard({
   responseTime,
   tasksCompleted,
   isVerified = false,
+  isHired = false,
   color,
   tier = 'marketplace',
   onHire
@@ -46,7 +49,7 @@ export function AgentCard({
   return (
     <motion.div
       whileHover={{ y: -5, scale: 1.02 }}
-      className="glass-panel gradient-border overflow-hidden flex flex-col h-full group"
+      className={`glass-panel gradient-border overflow-hidden flex flex-col h-full group ${isHired ? 'opacity-75' : ''}`}
     >
       {/* Card Header */}
       <div className="p-5 flex justify-between items-start">
@@ -110,15 +113,22 @@ export function AgentCard({
 
       {/* Card Footer */}
       <div className="p-5 bg-white/[0.02] border-t border-white/5 mt-auto">
-        <motion.button
-          onClick={() => onHire(id)}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full btn-primary flex items-center justify-center gap-2 group/btn"
-        >
-          <span>Hire Specialist</span>
-          <ArrowUpRight size={18} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-        </motion.button>
+        {isHired ? (
+          <div className="flex items-center gap-2 py-2 px-4 rounded-lg bg-green-500/20 text-green-400 border border-green-500/30">
+            <CheckCircle size={16} />
+            <span>In Your Swarm</span>
+          </div>
+        ) : (
+          <motion.button
+            onClick={() => onHire(id)}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full btn-primary flex items-center justify-center gap-2 group/btn"
+          >
+            <span>Hire Specialist</span>
+            <ArrowUpRight size={18} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+          </motion.button>
+        )}
       </div>
     </motion.div>
   );

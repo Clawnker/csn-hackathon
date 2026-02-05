@@ -567,7 +567,10 @@ export default function CommandCenter() {
               transition={{ duration: 0.2 }}
               className="flex-1"
             >
-              <Marketplace onHireAgent={handleHireAgent} />
+              <Marketplace 
+                hiredAgents={hiredAgents} 
+                onHire={handleHireAgent} 
+              />
             </motion.div>
           ) : (
             <motion.div

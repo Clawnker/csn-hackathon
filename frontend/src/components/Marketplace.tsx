@@ -162,10 +162,11 @@ const MARKETPLACE_AGENTS = [
 const ALL_AGENTS = [...CORE_AGENTS, ...MARKETPLACE_AGENTS];
 
 interface MarketplaceProps {
-  onHireAgent: (specialist: string) => void;
+  hiredAgents: string[];
+  onHire: (agentId: string) => void;
 }
 
-export function Marketplace({ onHireAgent }: MarketplaceProps) {
+export function Marketplace({ hiredAgents, onHire }: MarketplaceProps) {
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'popularity' | 'price' | 'reputation'>('popularity');
   const [filterType, setFilterType] = useState<string>('all');
@@ -262,7 +263,8 @@ export function Marketplace({ onHireAgent }: MarketplaceProps) {
               >
                 <AgentCard 
                   {...agent} 
-                  onHire={() => onHireAgent(agent.id)}
+                  isHired={hiredAgents.includes(agent.id)}
+                  onHire={() => onHire(agent.id)}
                 />
               </motion.div>
             ))}
