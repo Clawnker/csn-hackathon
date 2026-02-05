@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Hexagon, Activity } from 'lucide-react';
+import { Hexagon, Activity, History } from 'lucide-react';
 import {
   TaskInput,
   SwarmGraph,
@@ -12,11 +12,12 @@ import {
   ResultDisplay,
   Marketplace,
   ResultCard,
+  QueryHistory,
 } from '@/components';
 import { AgentDetailModal } from '@/components/AgentDetailModal';
 import { ActivityFeed, ActivityItem } from '@/components/ActivityFeed';
 import { useWebSocket } from '@/hooks/useWebSocket';
-import type { SpecialistType } from '@/types';
+import type { SpecialistType, QueryHistoryItem } from '@/types';
 import { LayoutGrid, Zap } from 'lucide-react';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
@@ -32,6 +33,7 @@ const SPECIALIST_NAMES: Record<string, string> = {
   whalespy: 'WhaleSpy',
   scribe: 'Scribe',
   seeker: 'Seeker',
+  dispatcher: 'Dispatcher',
 };
 
 const SPECIALIST_FEES: Record<string, number> = {
@@ -44,7 +46,7 @@ const SPECIALIST_FEES: Record<string, number> = {
 };
 
 export default function CommandCenter() {
-  const [activeView, setActiveView] = useState<'dispatch' | 'marketplace'>('dispatch');
+  const [activeView, setActiveView] = useState<'dispatch' | 'marketplace' | 'history'>('dispatch');
   const [isLoading, setIsLoading] = useState(false);
   const [currentTaskId, setCurrentTaskId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -53,6 +55,9 @@ export default function CommandCenter() {
   const [preSelectedAgent, setPreSelectedAgent] = useState<string | null>(null);
   const [hiredAgents, setHiredAgents] = useState<string[]>(['bankr', 'scribe', 'seeker']);
   const [customInstructions, setCustomInstructions] = useState<Record<string, string>>({});
+  const [queryHistory, setQueryHistory] = useState<QueryHistoryItem[]>([]);
+  const [currentPrompt, setCurrentPrompt] = useState<string>('');
+  const [reRunPrompt, setReRunPrompt] = useState<string>('');
   const [lastResult, setLastResult] = useState<{
     status: 'success' | 'failure';
     result: string;
@@ -70,6 +75,22 @@ export default function CommandCenter() {
     subscribe,
     reset,
   } = useWebSocket();
+
+  // Persistence for query history
+  useEffect(() => {
+    const saved = localStorage.getItem('queryHistory');
+    if (saved) {
+      try {
+        setQueryHistory(JSON.parse(saved));
+      } catch (e) {
+        console.error('Failed to parse query history', e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('queryHistory', JSON.stringify(queryHistory));
+  }, [queryHistory]);
 
   // Add activity when task status changes
   useEffect(() => {
@@ -106,12 +127,27 @@ export default function CommandCenter() {
             else if (r.data?.details?.response) content = typeof r.data.details.response === 'string' ? r.data.details.response : JSON.stringify(r.data.details.response);
             
             const totalCost = payments.reduce((sum, p) => sum + p.amount, 0);
+            const specialistId = currentStep?.specialist || 'dispatcher';
             
             setLastResult({
               status: 'success',
               result: content || 'Task completed',
               cost: totalCost,
-              specialist: SPECIALIST_NAMES[currentStep?.specialist || ''] || 'Specialist'
+              specialist: SPECIALIST_NAMES[specialistId] || specialistId
+            });
+
+            // Add to query history
+            setQueryHistory(prev => {
+              const newItem: QueryHistoryItem = {
+                id: currentTaskId,
+                prompt: currentPrompt,
+                specialist: specialistId,
+                cost: totalCost,
+                status: 'success' as const,
+                timestamp: new Date(),
+                result: content
+              };
+              return [newItem, ...prev].slice(0, 20);
             });
           }
           break;
@@ -119,11 +155,27 @@ export default function CommandCenter() {
           message = `Task failed`;
           type = 'error';
           setIsLoading(false);
+          const totalCostFailed = payments.reduce((sum, p) => sum + p.amount, 0);
+          const specialistIdFailed = currentStep?.specialist || 'dispatcher';
+
           setLastResult({
             status: 'failure',
             result: error || 'An unexpected error occurred',
-            cost: payments.reduce((sum, p) => sum + p.amount, 0),
-            specialist: SPECIALIST_NAMES[currentStep?.specialist || ''] || 'Specialist'
+            cost: totalCostFailed,
+            specialist: SPECIALIST_NAMES[specialistIdFailed] || specialistIdFailed
+          });
+
+          // Add to query history
+          setQueryHistory(prev => {
+            const newItem: QueryHistoryItem = {
+              id: currentTaskId || Date.now().toString(),
+              prompt: currentPrompt,
+              specialist: specialistIdFailed,
+              cost: totalCostFailed,
+              status: 'failed' as const,
+              timestamp: new Date(),
+            };
+            return [newItem, ...prev].slice(0, 20);
           });
           break;
         default:
@@ -144,7 +196,7 @@ export default function CommandCenter() {
         }];
       });
     }
-  }, [taskStatus, currentStep, currentTaskId]);
+  }, [taskStatus, currentStep, currentTaskId, result, payments, currentPrompt, error]);
 
   // Add activity for payments
   useEffect(() => {
@@ -187,35 +239,24 @@ export default function CommandCenter() {
       }
       
       if (content) {
-        const newMessage = {
-          id: `result-${Date.now()}`,
-          from: currentStep.specialist,
-          to: 'dispatcher',
-          content,
-          timestamp: new Date().toISOString(),
-        };
-        
-        // Check if we already have this message (avoid duplicates)
-        const isDuplicate = messages.some(m => m.content === content);
-        if (!isDuplicate) {
-          // Note: messages come from WebSocket, but we can add to activity
-          setActivityItems(prev => [...prev, {
-            id: `msg-${Date.now()}`,
-            type: 'result',
-            message: content.slice(0, 100) + (content.length > 100 ? '...' : ''),
-            specialist: currentStep.specialist,
-            timestamp: new Date(),
-            details: content,
-          }]);
-        }
+        // Note: messages come from WebSocket, but we can add to activity
+        setActivityItems(prev => [...prev, {
+          id: `msg-${Date.now()}`,
+          type: 'result',
+          message: content.slice(0, 100) + (content.length > 100 ? '...' : ''),
+          specialist: currentStep.specialist || 'dispatcher',
+          timestamp: new Date(),
+          details: content,
+        }]);
       }
     }
-  }, [result, currentStep, messages]);
+  }, [result, currentStep]);
 
   const handleSubmit = useCallback(async (prompt: string) => {
     setIsLoading(true);
     setError(null);
     setLastResult(null);
+    setCurrentPrompt(prompt);
     reset();
     setActivityItems([{
       id: `${Date.now()}-submit`,
@@ -260,11 +301,12 @@ export default function CommandCenter() {
       setError(err instanceof Error ? err.message : 'Failed to submit task');
       setIsLoading(false);
     }
-  }, [reset, subscribe]);
+  }, [reset, subscribe, customInstructions]);
 
   const handleNewQuery = useCallback(() => {
     setLastResult(null);
     setCurrentTaskId(null);
+    setReRunPrompt('');
     reset();
   }, [reset]);
 
@@ -288,6 +330,12 @@ export default function CommandCenter() {
       [agentId]: instructions
     }));
   }, []);
+
+  const handleReRun = useCallback((prompt: string) => {
+    setReRunPrompt(prompt);
+    setActiveView('dispatch');
+    handleSubmit(prompt);
+  }, [handleSubmit]);
 
   // Reset loading state when task completes
   if (isLoading && (taskStatus === 'completed' || taskStatus === 'failed')) {
@@ -350,6 +398,17 @@ export default function CommandCenter() {
                 <LayoutGrid size={16} />
                 <span>Marketplace</span>
               </button>
+              <button
+                onClick={() => setActiveView('history')}
+                className={`flex items-center gap-2 px-6 py-2 rounded-lg text-sm font-bold transition-all duration-300 cursor-pointer ${
+                  activeView === 'history' 
+                    ? 'bg-gradient-to-r from-[#F7B32B] to-[#f97316] text-[#0D0D0D] shadow-[0_0_20px_rgba(247,179,43,0.3)] scale-105' 
+                    : 'text-white/50 hover:text-white/90 hover:bg-white/10'
+                }`}
+              >
+                <History size={16} />
+                <span>History</span>
+              </button>
             </div>
           
             {/* Connection Status */}
@@ -400,6 +459,7 @@ export default function CommandCenter() {
                       isLoading={isLoading}
                       disabled={false}
                       initialAgentId={preSelectedAgent}
+                      initialPrompt={reRunPrompt}
                       onClearPreSelect={() => setPreSelectedAgent(null)}
                     />
                   )}
@@ -484,7 +544,7 @@ export default function CommandCenter() {
                 </motion.div>
               )}
             </motion.div>
-          ) : (
+          ) : activeView === 'marketplace' ? (
             <motion.div
               key="marketplace"
               initial={{ opacity: 0, x: 20 }}
@@ -494,6 +554,17 @@ export default function CommandCenter() {
               className="flex-1"
             >
               <Marketplace onHireAgent={handleHireAgent} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="history"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.2 }}
+              className="flex-1"
+            >
+              <QueryHistory history={queryHistory} onReRun={handleReRun} />
             </motion.div>
           )}
         </AnimatePresence>

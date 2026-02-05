@@ -3637,5 +3637,335 @@
       "timestamp": "2026-02-05T01:58:24.725Z",
       "executionTimeMs": 0
     }
+  },
+  "c3625b11-9df0-4d84-92f4-57eb7c5cadcc": {
+    "id": "c3625b11-9df0-4d84-92f4-57eb7c5cadcc",
+    "prompt": "What is the tallest mountain on earth?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-05T02:06:21.380Z",
+    "updatedAt": "2026-02-05T02:06:23.313Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:06:23.312Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770257181983-39ep",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"What is the tallest mountain on earth?...\"",
+        "timestamp": "2026-02-05T02:06:21.983Z"
+      },
+      {
+        "id": "msg-1770257181985-60tv",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:06:21.985Z"
+      },
+      {
+        "id": "msg-1770257182511-fvq2",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T02:06:22.511Z"
+      },
+      {
+        "id": "msg-1770257183312-j77e",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "The search indicates positive momentum in the Solana ecosystem and increasing adoption of autonomous agents.",
+        "timestamp": "2026-02-05T02:06:23.312Z"
+      },
+      {
+        "id": "msg-1770257183313-refs",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee: 0.0001 USDC → seeker",
+        "timestamp": "2026-02-05T02:06:23.313Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found several relevant results for your search query.",
+        "insight": "The search indicates positive momentum in the Solana ecosystem and increasing adoption of autonomous agents.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "What is the tallest mountain on earth?",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-05T02:06:23.312Z",
+      "executionTimeMs": 0
+    }
+  },
+  "24005fbd-09f7-4437-b539-8cae4038e0ca": {
+    "id": "24005fbd-09f7-4437-b539-8cae4038e0ca",
+    "prompt": "Find trending meme coins",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-05T02:08:54.701Z",
+    "updatedAt": "2026-02-05T02:08:56.559Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:08:56.559Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770257335304-e86o",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find trending meme coins...\"",
+        "timestamp": "2026-02-05T02:08:55.304Z"
+      },
+      {
+        "id": "msg-1770257335313-8j2y",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:08:55.313Z"
+      },
+      {
+        "id": "msg-1770257335757-wffk",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T02:08:55.757Z"
+      },
+      {
+        "id": "msg-1770257336559-s25t",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "The search indicates positive momentum in the Solana ecosystem and increasing adoption of autonomous agents.",
+        "timestamp": "2026-02-05T02:08:56.559Z"
+      },
+      {
+        "id": "msg-1770257336559-z4ho",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee: 0.0001 USDC → seeker",
+        "timestamp": "2026-02-05T02:08:56.559Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found several relevant results for your search query.",
+        "insight": "The search indicates positive momentum in the Solana ecosystem and increasing adoption of autonomous agents.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "Find trending meme coins",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-05T02:08:56.559Z",
+      "executionTimeMs": 0
+    }
+  },
+  "8ec8a04a-c475-4d88-8d98-8040d3aecf2b": {
+    "id": "8ec8a04a-c475-4d88-8d98-8040d3aecf2b",
+    "prompt": "what is the highest mountain?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-05T02:10:25.932Z",
+    "updatedAt": "2026-02-05T02:10:27.760Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:10:27.758Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770257426536-pph6",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"what is the highest mountain?...\"",
+        "timestamp": "2026-02-05T02:10:26.536Z"
+      },
+      {
+        "id": "msg-1770257426545-wjyy",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:10:26.545Z"
+      },
+      {
+        "id": "msg-1770257426957-m2qo",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T02:10:26.957Z"
+      },
+      {
+        "id": "msg-1770257427758-y6f5",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Mount Everest is the tallest mountain on Earth at 8,849 meters (29,032 feet) above sea level.",
+        "timestamp": "2026-02-05T02:10:27.758Z"
+      },
+      {
+        "id": "msg-1770257427759-s9hq",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee: 0.0001 USDC → seeker",
+        "timestamp": "2026-02-05T02:10:27.759Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Mount Everest is the tallest mountain on Earth at 8,849 meters (29,032 feet) above sea level.",
+        "results": [
+          {
+            "title": "Mount Everest",
+            "snippet": "Mount Everest is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas."
+          },
+          {
+            "title": "Height of Mount Everest",
+            "snippet": "The current official height is 8,848.86 m (29,031.7 ft), as established in 2020."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "what is the highest mountain?",
+          "count": 2
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-05T02:10:27.758Z",
+      "executionTimeMs": 0
+    }
+  },
+  "7f2de82a-0e9f-433d-96c5-4dffbb59e3fc": {
+    "id": "7f2de82a-0e9f-433d-96c5-4dffbb59e3fc",
+    "prompt": "Buy 0.1 SOL of top token",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-05T02:12:01.014Z",
+    "updatedAt": "2026-02-05T02:12:03.400Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-05T02:12:03.400Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770257521618-aidv",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"Buy 0.1 SOL of top token...\"",
+        "timestamp": "2026-02-05T02:12:01.618Z"
+      },
+      {
+        "id": "msg-1770257521622-d00a",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-05T02:12:01.622Z"
+      },
+      {
+        "id": "msg-1770257522133-1sm5",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-05T02:12:02.133Z"
+      },
+      {
+        "id": "msg-1770257523399-10x0",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC",
+        "timestamp": "2026-02-05T02:12:03.399Z"
+      },
+      {
+        "id": "msg-1770257523400-8lok",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee: 0.0001 USDC → bankr",
+        "timestamp": "2026-02-05T02:12:03.400Z"
+      }
+    ],
+    "metadata": {},
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "simulated",
+        "details": {
+          "from": "SOL",
+          "to": "USDC",
+          "amount": "0.1",
+          "estimatedOutput": "12.487250",
+          "note": "Simulated swap (demo mode)",
+          "estimatedFee": "0.000005 SOL"
+        },
+        "summary": "Simulated swap of 0.1 SOL to USDC. Estimated output: 12.487250 USDC"
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-05T02:12:03.399Z",
+      "executionTimeMs": 465
+    }
   }
 }

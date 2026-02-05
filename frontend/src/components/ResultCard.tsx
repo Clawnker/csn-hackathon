@@ -21,8 +21,10 @@ export function ResultCard({
   onNewQuery,
   onViewDetails
 }: ResultCardProps) {
+  const [isExpanded, setIsExpanded] = React.useState(false);
   const isSuccess = status === 'success';
   const summary = result.length > 200 ? result.substring(0, 200) + '...' : result;
+  const displayResult = isExpanded ? result : summary;
 
   return (
     <motion.div
@@ -48,8 +50,8 @@ export function ResultCard({
               <span className="text-xs font-mono text-[var(--text-secondary)]">{specialist}</span>
             </div>
           </div>
-          <p className="text-[var(--text-secondary)] leading-relaxed">
-            {summary}
+          <p className="text-[var(--text-secondary)] leading-relaxed whitespace-pre-wrap">
+            {displayResult}
           </p>
         </div>
       </div>
@@ -87,15 +89,17 @@ export function ResultCard({
           <span>Ask Another</span>
         </motion.button>
         
-        <motion.button
-          onClick={onViewDetails}
-          whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.1)' }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full sm:w-auto py-3 px-8 rounded-xl bg-white/5 border border-white/10 text-[var(--text-primary)] font-bold flex items-center justify-center gap-2 transition-colors"
-        >
-          <span>View Full Result</span>
-          <ArrowRight size={18} />
-        </motion.button>
+        {result.length > 200 && (
+          <motion.button
+            onClick={() => setIsExpanded(!isExpanded)}
+            whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.1)' }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full sm:w-auto py-3 px-8 rounded-xl bg-white/5 border border-white/10 text-[var(--text-primary)] font-bold flex items-center justify-center gap-2 transition-colors"
+          >
+            <span>{isExpanded ? 'Show Less' : 'View Full Result'}</span>
+            <ArrowRight size={18} className={isExpanded ? '-rotate-90 transition-transform' : 'transition-transform'} />
+          </motion.button>
+        )}
       </div>
     </motion.div>
   );

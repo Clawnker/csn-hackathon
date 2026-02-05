@@ -156,8 +156,8 @@ export function PaymentFeed({ payments, className = '' }: PaymentFeedProps) {
       {/* Payments List */}
       <div 
         ref={scrollRef}
-        className="flex-1 overflow-y-auto p-3"
-        style={{ maxHeight: '300px' }}
+        className="flex-1 overflow-y-auto p-2"
+        style={{ maxHeight: '250px' }}
       >
         <AnimatePresence mode="popLayout">
           {payments.length === 0 ? (

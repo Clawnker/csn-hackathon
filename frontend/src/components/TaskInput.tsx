@@ -11,6 +11,7 @@ interface TaskInputProps {
   disabled?: boolean;
   initialAgentId?: string | null;
   onClearPreSelect?: () => void;
+  initialPrompt?: string;
 }
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
@@ -35,7 +36,14 @@ const SPECIALIST_NAMES: Record<string, string> = {
   seeker: 'Seeker',
 };
 
-export function TaskInput({ onSubmit, isLoading, disabled, initialAgentId, onClearPreSelect }: TaskInputProps) {
+export function TaskInput({ 
+  onSubmit, 
+  isLoading, 
+  disabled, 
+  initialAgentId, 
+  onClearPreSelect,
+  initialPrompt,
+}: TaskInputProps) {
   const [prompt, setPrompt] = useState('');
   const [pricing, setPricing] = useState<Record<string, SpecialistPricing> | null>(null);
   const [selectedSpecialist, setSelectedSpecialist] = useState<SpecialistType>('general');
@@ -84,6 +92,12 @@ export function TaskInput({ onSubmit, isLoading, disabled, initialAgentId, onCle
     setSelectedSpecialist('general');
     setIsDebouncing(false);
   }, [initialAgentId]);
+
+  useEffect(() => {
+    if (initialPrompt) {
+      setPrompt(initialPrompt);
+    }
+  }, [initialPrompt]);
 
   const handleDispatch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();

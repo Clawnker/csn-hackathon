@@ -12,7 +12,11 @@
     "failureCount": 0
   },
   "bankr": {
-    "successCount": 4,
+    "successCount": 5,
+    "failureCount": 0
+  },
+  "seeker": {
+    "successCount": 3,
     "failureCount": 0
   }
 }
