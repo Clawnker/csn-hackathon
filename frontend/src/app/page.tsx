@@ -33,6 +33,15 @@ const SPECIALIST_NAMES: Record<string, string> = {
   seeker: 'Seeker',
 };
 
+const SPECIALIST_FEES: Record<string, number> = {
+  bankr: 0.0001,
+  scribe: 0.0001,
+  seeker: 0.0001,
+  magos: 0.001,
+  aura: 0.0005,
+  general: 0,
+};
+
 export default function CommandCenter() {
   const [activeView, setActiveView] = useState<'dispatch' | 'marketplace'>('dispatch');
   const [isLoading, setIsLoading] = useState(false);
@@ -472,6 +481,7 @@ export default function CommandCenter() {
             removeHiredAgent(selectedAgent);
             setSelectedAgent(null);
           }}
+          fee={SPECIALIST_FEES[selectedAgent]}
         />
       )}
     </div>

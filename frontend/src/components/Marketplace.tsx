@@ -171,7 +171,7 @@ export function Marketplace({ onHireAgent }: MarketplaceProps) {
   const [filterType, setFilterType] = useState<string>('all');
 
   const filteredAndSortedAgents = useMemo(() => {
-    let result = ALL_AGENTS.filter(agent => {
+    let result = COMMUNITY_AGENTS.filter(agent => {
       const matchesSearch = agent.name.toLowerCase().includes(search.toLowerCase()) || 
                             agent.description.toLowerCase().includes(search.toLowerCase()) ||
                             agent.capabilities.some(c => c.includes(search.toLowerCase()));
@@ -190,7 +190,7 @@ export function Marketplace({ onHireAgent }: MarketplaceProps) {
     return result;
   }, [search, sortBy, filterType]);
 
-  const allCapabilities = Array.from(new Set(ALL_AGENTS.flatMap(a => a.capabilities)));
+  const allCapabilities = Array.from(new Set(COMMUNITY_AGENTS.flatMap(a => a.capabilities)));
 
   return (
     <div className="flex flex-col h-full">

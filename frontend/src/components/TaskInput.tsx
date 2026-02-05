@@ -55,6 +55,12 @@ export function TaskInput({ onSubmit, isLoading, disabled, initialAgentId, onCle
   // Simplified routing logic (matching backend)
   const routePrompt = useCallback((p: string): SpecialistType => {
     const lower = p.toLowerCase();
+    
+    // Add pattern for "what's happening on X"
+    if (lower.includes('happening on') || lower.includes('on x today')) {
+      return 'aura';
+    }
+
     if (lower.includes('good buy') || lower.includes('should i') || lower.includes('recommend') || /is \w+ a good/.test(lower)) {
       return 'magos';
     }
@@ -188,7 +194,7 @@ export function TaskInput({ onSubmit, isLoading, disabled, initialAgentId, onCle
                     <span>Send</span>
                     {currentPricing && (
                       <span className="opacity-70 text-sm font-medium border-l border-black/20 pl-3">
-                        {currentPricing.fee} USDC
+                        {parseFloat(currentPricing.fee).toFixed(4)} USDC
                       </span>
                     )}
                     <ChevronRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
@@ -209,7 +215,7 @@ export function TaskInput({ onSubmit, isLoading, disabled, initialAgentId, onCle
                   <div className="flex items-center gap-4">
                     <span className="text-[11px] text-white/40 uppercase tracking-widest font-medium">Estimated Cost</span>
                     <span className="text-sm font-mono text-[var(--accent-gold)]">
-                      {currentPricing?.fee || '0.000'} USDC
+                      {currentPricing ? parseFloat(currentPricing.fee).toFixed(4) : '0.0000'} USDC
                     </span>
                     <span className="text-white/20">•</span>
                     <span className="text-[11px] text-white/40 uppercase tracking-widest font-medium">Specialist</span>

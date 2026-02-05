@@ -14,6 +14,7 @@ interface AgentDetailModalProps {
   customInstructions?: string;
   onUpdateInstructions?: (instructions: string) => void;
   onRemove?: () => void;
+  fee?: number;
 }
 
 const SPECIALIST_INFO: Record<SpecialistType, {
@@ -188,7 +189,8 @@ export function AgentDetailModal({
   isProcessing,
   customInstructions = '',
   onUpdateInstructions,
-  onRemove
+  onRemove,
+  fee
 }: AgentDetailModalProps) {
   const [tempInstructions, setTempInstructions] = useState(customInstructions);
   const [isHoveredRemove, setIsHoveredRemove] = useState(false);
@@ -238,6 +240,11 @@ export function AgentDetailModal({
                   </h2>
                   <AgentBadge tier={['bankr', 'scribe', 'seeker', 'dispatcher'].includes(specialist) ? 'core' : 'community'} />
                 </div>
+                {fee !== undefined && fee > 0 && (
+                  <div className="text-amber-400 text-sm font-medium mb-1">
+                    {fee.toFixed(4)} USDC per task
+                  </div>
+                )}
                 <p className="text-sm text-[var(--text-secondary)]">
                   {info.description}
                 </p>
