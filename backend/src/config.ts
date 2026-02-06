@@ -97,13 +97,13 @@ export const config = {
     ultraUrl: process.env.JUPITER_ULTRA_URL || 'https://api.jup.ag/ultra',
   },
   
-  // Specialist Fees (USDC)
+  // Specialist Fees (USDC) - Higher fees to ensure on-chain settlement
   fees: {
-    bankr: 0.0001,
-    scribe: 0.0001,
-    seeker: 0.0001,
-    magos: 0.001,
-    aura: 0.0005,
+    bankr: 0.10,
+    scribe: 0.10,
+    seeker: 0.10,
+    magos: 0.10,
+    aura: 0.10,
     general: 0,
   },
 
