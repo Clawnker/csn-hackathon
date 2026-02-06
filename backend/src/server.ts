@@ -183,17 +183,6 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
         accepts: [
           {
             scheme: 'exact',
-            network: 'base:8453',
-            asset: BASE_USDC_ADDRESS,
-            amount: String(Math.floor(fee * 1_000_000)), // Convert to smallest units (6 decimals)
-            payTo: TREASURY_WALLET_EVM,
-            extra: {
-              name: `${id} specialist`,
-              description: `Query the ${id} AI specialist`,
-            }
-          },
-          {
-            scheme: 'exact',
             network: 'solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1',
             asset: DEVNET_USDC_MINT,
             amount: String(Math.floor(fee * 1_000_000)),
@@ -216,7 +205,7 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
       return res.status(402).json({ 
         error: 'Payment required',
         fee: `${fee} USDC`,
-        networks: ['Base', 'Solana Devnet']
+        network: 'Solana Devnet'
       });
     }
 
