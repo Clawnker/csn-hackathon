@@ -11939,5 +11939,1029 @@
       "timestamp": "2026-02-06T02:55:56.038Z",
       "executionTimeMs": 760
     }
+  },
+  "f09e00e6-24b1-42ff-83f4-0344a2e6bbee": {
+    "id": "f09e00e6-24b1-42ff-83f4-0344a2e6bbee",
+    "prompt": "What is the price of SOL?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T14:37:23.708Z",
+    "updatedAt": "2026-02-06T14:37:27.170Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T14:37:27.168Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770388644317-6feh",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"What is the price of SOL?...\"",
+        "timestamp": "2026-02-06T14:37:24.317Z"
+      },
+      {
+        "id": "msg-1770388644328-6wlw",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T14:37:24.328Z"
+      },
+      {
+        "id": "msg-1770388645164-quzm",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T14:37:25.164Z"
+      },
+      {
+        "id": "msg-1770388646827-fgku",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "The live Solana price today is $80.48 USD with a 24-hour trading volume of $9,142,767,994.77 USD. We update our SOL to USD price in real-time.\n\nThe fully diluted valuation (FDV) of Solana (SOL) is BTC925,019.1222. This is a statistical representation of the maximum market cap, assuming total number of 620 Million ETH tokens are in circulation today. With a price increase of 4.80% in the last 7 days, Solana (SOL) is outperforming the ... Solana has a current supply of 617,683,182.7169075 with 563,400,368.73916292 in circulation. The last known price of Solana is 133.58615483 USD and is down -0.42 over the last 24 hours. It is currently trading on 1070 active market(s) with $3,735,328,879.20 traded over the last 24 hours.",
+        "timestamp": "2026-02-06T14:37:26.827Z"
+      },
+      {
+        "id": "msg-1770388647170-jcfs",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T14:37:27.170Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "**What is the price of SOL?**\n\nThe live Solana price today is $80.48 USD with a 24-hour trading volume of $9,142,767,994.77 USD. We update our SOL to USD price in real-time.\n\nThe fully diluted valuation (FDV) of Solana (SOL) is BTC925,019.1222. This is a statistical representation of the maximum market cap, assuming total number of 620 Million ETH tokens are in circulation today. With a price increase of 4.80% in the last 7 days, Solana (SOL) is outperforming the ... Solana has a current supply of 617,683,182.7169075 with 563,400,368.73916292 in circulation. The last known price of Solana is 133.58615483 USD and is down -0.42 over the last 24 hours. It is currently trading on 1070 active market(s) with $3,735,328,879.20 traded over the last 24 hours.\n\n**Sources:**\n• [Solana price today, SOL to USD live price, marketcap and chart | CoinMarketCap](https://coinmarketcap.com/currencies/solana/)\n• [Solana Price: SOL Live Price Chart, Market Cap & News Today | CoinGecko](https://www.coingecko.com/en/coins/solana)\n• [Solana SOL (SOL-USD) Live Price, News, Chart & Price History - Yahoo Finance](https://finance.yahoo.com/quote/SOL-USD/)\n",
+        "insight": "The live Solana price today is $80.48 USD with a 24-hour trading volume of $9,142,767,994.77 USD. We update our SOL to USD price in real-time.\n\nThe fully diluted valuation (FDV) of Solana (SOL) is BTC925,019.1222. This is a statistical representation of the maximum market cap, assuming total number of 620 Million ETH tokens are in circulation today. With a price increase of 4.80% in the last 7 days, Solana (SOL) is outperforming the ... Solana has a current supply of 617,683,182.7169075 with 563,400,368.73916292 in circulation. The last known price of Solana is 133.58615483 USD and is down -0.42 over the last 24 hours. It is currently trading on 1070 active market(s) with $3,735,328,879.20 traded over the last 24 hours.",
+        "results": [
+          {
+            "title": "Solana price today, SOL to USD live price, marketcap and chart | CoinMarketCap",
+            "url": "https://coinmarketcap.com/currencies/solana/",
+            "description": "The live Solana price today is $80.48 USD with a 24-hour trading volume of $9,142,767,994.77 USD. We update our SOL to USD price in real-time."
+          },
+          {
+            "title": "Solana Price: SOL Live Price Chart, Market Cap & News Today | CoinGecko",
+            "url": "https://www.coingecko.com/en/coins/solana",
+            "description": "The fully diluted valuation (FDV) of Solana (SOL) is BTC925,019.1222. This is a statistical representation of the maximum market cap, assuming total number of 620 Million ETH tokens are in circulation today. With a price increase of 4.80% in the last 7 days, Solana (SOL) is outperforming the ..."
+          },
+          {
+            "title": "Solana SOL (SOL-USD) Live Price, News, Chart & Price History - Yahoo Finance",
+            "url": "https://finance.yahoo.com/quote/SOL-USD/",
+            "description": "Solana has a current supply of 617,683,182.7169075 with 563,400,368.73916292 in circulation. The last known price of Solana is 133.58615483 USD and is down -0.42 over the last 24 hours. It is currently trading on 1070 active market(s) with $3,735,328,879.20 traded over the last 24 hours."
+          },
+          {
+            "title": "SOLUSD — Solana to USD Price Chart — TradingView",
+            "url": "https://www.tradingview.com/symbols/SOLUSD/",
+            "description": "To see this number in a context check out our list of crypto coins ranked by their market caps or see crypto market cap charts. ... Solana (SOL) trading volume in 24 hours is ‪8.39 B‬ USD. See how often other coins are traded in this list. ... Solana price has fallen by −31.47% over the ..."
+          },
+          {
+            "title": "Solana price today, SOL to USD live price, marketcap and chart | CoinDesk",
+            "url": "https://www.coindesk.com/price/solana",
+            "description": "The price of Solana (SOL) is $84.49 today as of Feb 5, 2026, 10:58 am EST, with a 24-hour trading volume of $5.14B."
+          }
+        ],
+        "confidence": 0.85,
+        "details": {
+          "type": "search",
+          "query": "What is the price of SOL",
+          "count": 5
+        }
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T14:37:26.827Z",
+      "executionTimeMs": 862
+    }
+  },
+  "a2412494-d7a2-48a2-8304-490e6c9f4413": {
+    "id": "a2412494-d7a2-48a2-8304-490e6c9f4413",
+    "prompt": "What's the sentiment on SOL and should I buy?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-06T14:42:52.523Z",
+    "updatedAt": "2026-02-06T14:42:55.098Z",
+    "payments": [
+      {
+        "amount": "0.0005",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "aura",
+        "status": "pending",
+        "timestamp": "2026-02-06T14:42:53.442Z"
+      },
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-06T14:42:55.098Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770388973130-130l",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-06T14:42:53.130Z"
+      },
+      {
+        "id": "msg-1770388973139-tul4",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-06T14:42:53.139Z"
+      },
+      {
+        "id": "msg-1770388973140-5myz",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "SOL sentiment is strongly bearish. Negative sentiment dominates social channels with concerns about recent developments.",
+        "timestamp": "2026-02-06T14:42:53.140Z"
+      },
+      {
+        "id": "msg-1770388973442-8vt9",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0005 USDC → aura",
+        "timestamp": "2026-02-06T14:42:53.442Z"
+      },
+      {
+        "id": "msg-1770388973443-sp49",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-06T14:42:53.443Z"
+      },
+      {
+        "id": "msg-1770388974646-05fw",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-06T14:42:54.646Z"
+      },
+      {
+        "id": "msg-1770388974976-dh6z",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.099500 SOL\n• Route: Mock routing (Jupiter API unavailable)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "timestamp": "2026-02-06T14:42:54.976Z"
+      },
+      {
+        "id": "msg-1770388975098-obkl",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-06T14:42:55.098Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true,
+      "currentStep": 2,
+      "totalSteps": 2
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "SOL",
+          "amount": "0.1",
+          "estimatedOutput": "0.099500",
+          "route": "Mock routing (Jupiter API unavailable)",
+          "network": "devnet (simulated)",
+          "balancesAfter": {
+            "SOL": "3.7890"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.099500 SOL\n• Route: Mock routing (Jupiter API unavailable)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "SOL sentiment is strongly bearish. Negative sentiment dominates social channels with concerns about recent developments."
+          },
+          {
+            "specialist": "bankr",
+            "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.099500 SOL\n• Route: Mock routing (Jupiter API unavailable)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T14:42:54.976Z",
+      "executionTimeMs": 330
+    }
+  },
+  "6a9d0a48-36dd-494f-a25f-475bca3d7aa2": {
+    "id": "6a9d0a48-36dd-494f-a25f-475bca3d7aa2",
+    "prompt": "What's the sentiment on SOL and should I buy?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-06T14:43:43.079Z",
+    "updatedAt": "2026-02-06T14:43:45.311Z",
+    "payments": [
+      {
+        "amount": "0.0005",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "aura",
+        "status": "pending",
+        "timestamp": "2026-02-06T14:43:43.970Z"
+      },
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-06T14:43:45.311Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770389023685-58we",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-06T14:43:43.685Z"
+      },
+      {
+        "id": "msg-1770389023688-jvxx",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-06T14:43:43.688Z"
+      },
+      {
+        "id": "msg-1770389023689-xalg",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "SOL is experiencing FOMO territory! Intense buying pressure signals and hype across social platforms.",
+        "timestamp": "2026-02-06T14:43:43.689Z"
+      },
+      {
+        "id": "msg-1770389023970-bafg",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0005 USDC → aura",
+        "timestamp": "2026-02-06T14:43:43.970Z"
+      },
+      {
+        "id": "msg-1770389023970-hjto",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-06T14:43:43.970Z"
+      },
+      {
+        "id": "msg-1770389025174-v0ln",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-06T14:43:45.174Z"
+      },
+      {
+        "id": "msg-1770389025175-4j4e",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "timestamp": "2026-02-06T14:43:45.175Z"
+      },
+      {
+        "id": "msg-1770389025311-1mez",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-06T14:43:45.311Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true,
+      "currentStep": 2,
+      "totalSteps": 2
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "SOL",
+          "amount": "0.1",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "So11111111111111111111111111111111111111112",
+          "estimatedOutput": "0.1",
+          "route": "Direct (same token)",
+          "network": "devnet (simulated)",
+          "balancesAfter": {
+            "SOL": "3.7890"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "SOL is experiencing FOMO territory! Intense buying pressure signals and hype across social platforms."
+          },
+          {
+            "specialist": "bankr",
+            "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T14:43:45.175Z",
+      "executionTimeMs": 1
+    }
+  },
+  "ec61ca68-d4ba-4c02-a1ba-e1313d0406f9": {
+    "id": "ec61ca68-d4ba-4c02-a1ba-e1313d0406f9",
+    "prompt": "What's the sentiment on SOL and should I buy?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-06T14:44:25.314Z",
+    "updatedAt": "2026-02-06T14:44:27.130Z",
+    "payments": [],
+    "messages": [
+      {
+        "id": "msg-1770389065922-8412",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-06T14:44:25.922Z"
+      },
+      {
+        "id": "msg-1770389065925-kadg",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-06T14:44:25.925Z"
+      },
+      {
+        "id": "msg-1770389065925-shgh",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "SOL sentiment is strongly bullish. Social chatter indicates growing optimism with multiple positive catalysts being discussed.",
+        "timestamp": "2026-02-06T14:44:25.925Z"
+      },
+      {
+        "id": "msg-1770389065926-7pji",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-06T14:44:25.926Z"
+      },
+      {
+        "id": "msg-1770389067129-rs86",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-06T14:44:27.129Z"
+      },
+      {
+        "id": "msg-1770389067130-0elu",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "timestamp": "2026-02-06T14:44:27.130Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true,
+      "currentStep": 2,
+      "totalSteps": 2
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "SOL",
+          "amount": "0.1",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "So11111111111111111111111111111111111111112",
+          "estimatedOutput": "0.1",
+          "route": "Direct (same token)",
+          "network": "devnet (simulated)",
+          "balancesAfter": {
+            "SOL": "3.7890"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "SOL sentiment is strongly bullish. Social chatter indicates growing optimism with multiple positive catalysts being discussed."
+          },
+          {
+            "specialist": "bankr",
+            "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T14:44:27.130Z",
+      "executionTimeMs": 1
+    }
+  },
+  "eed16581-8a4c-4f51-9c2b-374856bf3bda": {
+    "id": "eed16581-8a4c-4f51-9c2b-374856bf3bda",
+    "prompt": "What's the sentiment on SOL and should I buy?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-06T14:45:16.060Z",
+    "updatedAt": "2026-02-06T14:45:17.887Z",
+    "payments": [],
+    "messages": [
+      {
+        "id": "msg-1770389116671-tkmi",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-06T14:45:16.671Z"
+      },
+      {
+        "id": "msg-1770389116680-e5xw",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-06T14:45:16.680Z"
+      },
+      {
+        "id": "msg-1770389116681-8gph",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "SOL is facing significant FUD. Negative narratives spreading rapidly - verify claims before acting.",
+        "timestamp": "2026-02-06T14:45:16.681Z"
+      },
+      {
+        "id": "msg-1770389116681-np3g",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-06T14:45:16.681Z"
+      },
+      {
+        "id": "msg-1770389117885-93tr",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-06T14:45:17.885Z"
+      },
+      {
+        "id": "msg-1770389117887-7lgk",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "timestamp": "2026-02-06T14:45:17.887Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true,
+      "currentStep": 2,
+      "totalSteps": 2
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "SOL",
+          "amount": "0.1",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "So11111111111111111111111111111111111111112",
+          "estimatedOutput": "0.1",
+          "route": "Direct (same token)",
+          "network": "devnet (simulated)",
+          "balancesAfter": {
+            "SOL": "3.7890"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "SOL is facing significant FUD. Negative narratives spreading rapidly - verify claims before acting."
+          },
+          {
+            "specialist": "bankr",
+            "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T14:45:17.887Z",
+      "executionTimeMs": 2
+    }
+  },
+  "a5f8cb60-3fe0-4c06-bbd0-59fd00556a3e": {
+    "id": "a5f8cb60-3fe0-4c06-bbd0-59fd00556a3e",
+    "prompt": "What's the sentiment on SOL and should I buy?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-06T14:46:42.970Z",
+    "updatedAt": "2026-02-06T14:46:44.789Z",
+    "payments": [],
+    "messages": [
+      {
+        "id": "msg-1770389203579-ivqf",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-06T14:46:43.579Z"
+      },
+      {
+        "id": "msg-1770389203583-1h7y",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-06T14:46:43.583Z"
+      },
+      {
+        "id": "msg-1770389203583-huyf",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "SOL sentiment is strongly bullish. Social chatter indicates growing optimism with multiple positive catalysts being discussed.",
+        "timestamp": "2026-02-06T14:46:43.583Z"
+      },
+      {
+        "id": "msg-1770389203584-qooh",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-06T14:46:43.584Z"
+      },
+      {
+        "id": "msg-1770389204788-0yai",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-06T14:46:44.788Z"
+      },
+      {
+        "id": "msg-1770389204789-3leg",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "timestamp": "2026-02-06T14:46:44.789Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true,
+      "currentStep": 2,
+      "totalSteps": 2,
+      "activeSpecialist": "bankr"
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "SOL",
+          "amount": "0.1",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "So11111111111111111111111111111111111111112",
+          "estimatedOutput": "0.1",
+          "route": "Direct (same token)",
+          "network": "devnet (simulated)",
+          "balancesAfter": {
+            "SOL": "3.7890"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "SOL sentiment is strongly bullish. Social chatter indicates growing optimism with multiple positive catalysts being discussed."
+          },
+          {
+            "specialist": "bankr",
+            "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T14:46:44.789Z",
+      "executionTimeMs": 1
+    }
+  },
+  "98e46cd9-199f-4be9-930a-338f34a582d2": {
+    "id": "98e46cd9-199f-4be9-930a-338f34a582d2",
+    "prompt": "What is the sentiment on SOL and should I buy?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-06T14:47:31.640Z",
+    "updatedAt": "2026-02-06T14:47:33.462Z",
+    "payments": [],
+    "messages": [
+      {
+        "id": "msg-1770389252248-4j5v",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-06T14:47:32.248Z"
+      },
+      {
+        "id": "msg-1770389252250-db0y",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-06T14:47:32.250Z"
+      },
+      {
+        "id": "msg-1770389252250-esh1",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "SOL sentiment is strongly bullish. Social chatter indicates growing optimism with multiple positive catalysts being discussed.",
+        "timestamp": "2026-02-06T14:47:32.250Z"
+      },
+      {
+        "id": "msg-1770389252251-15pt",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-06T14:47:32.251Z"
+      },
+      {
+        "id": "msg-1770389253461-rxp4",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-06T14:47:33.461Z"
+      },
+      {
+        "id": "msg-1770389253462-1a5r",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "timestamp": "2026-02-06T14:47:33.462Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura",
+        "multi-hop"
+      ],
+      "wasApproved": false,
+      "currentStep": 2,
+      "totalSteps": 2,
+      "activeSpecialist": "bankr"
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "SOL",
+          "amount": "0.1",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "So11111111111111111111111111111111111111112",
+          "estimatedOutput": "0.1",
+          "route": "Direct (same token)",
+          "network": "devnet (simulated)",
+          "balancesAfter": {
+            "SOL": "3.7890"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "SOL sentiment is strongly bullish. Social chatter indicates growing optimism with multiple positive catalysts being discussed."
+          },
+          {
+            "specialist": "bankr",
+            "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T14:47:33.462Z",
+      "executionTimeMs": 1
+    }
+  },
+  "e83f1d3a-ccc8-44a1-9178-cd8b98c167ea": {
+    "id": "e83f1d3a-ccc8-44a1-9178-cd8b98c167ea",
+    "prompt": "What is the sentiment on SOL and should I buy?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-06T14:47:49.466Z",
+    "updatedAt": "2026-02-06T14:47:51.292Z",
+    "payments": [],
+    "messages": [
+      {
+        "id": "msg-1770389270076-s61r",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: aura → bankr",
+        "timestamp": "2026-02-06T14:47:50.076Z"
+      },
+      {
+        "id": "msg-1770389270087-xw29",
+        "from": "dispatcher",
+        "to": "aura",
+        "content": "[Step 1/2] Routing to aura...",
+        "timestamp": "2026-02-06T14:47:50.087Z"
+      },
+      {
+        "id": "msg-1770389270088-tnh9",
+        "from": "aura",
+        "to": "dispatcher",
+        "content": "SOL sentiment is strongly bearish. Negative sentiment dominates social channels with concerns about recent developments.",
+        "timestamp": "2026-02-06T14:47:50.088Z"
+      },
+      {
+        "id": "msg-1770389270088-hslp",
+        "from": "dispatcher",
+        "to": "system",
+        "content": "Next step: Buy 0.1 SOL of SOL",
+        "timestamp": "2026-02-06T14:47:50.088Z"
+      },
+      {
+        "id": "msg-1770389271291-w5nv",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "[Step 2/2] Routing to bankr...",
+        "timestamp": "2026-02-06T14:47:51.291Z"
+      },
+      {
+        "id": "msg-1770389271292-jpf6",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "timestamp": "2026-02-06T14:47:51.292Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "aura",
+        "bankr"
+      ],
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura",
+        "multi-hop"
+      ],
+      "wasApproved": false,
+      "currentStep": 2,
+      "totalSteps": 2,
+      "activeSpecialist": "bankr"
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "SOL",
+          "amount": "0.1",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "So11111111111111111111111111111111111111112",
+          "estimatedOutput": "0.1",
+          "route": "Direct (same token)",
+          "network": "devnet (simulated)",
+          "balancesAfter": {
+            "SOL": "3.7890"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890",
+        "isMultiHop": true,
+        "hops": [
+          "aura",
+          "bankr"
+        ],
+        "steps": [
+          {
+            "specialist": "aura",
+            "summary": "SOL sentiment is strongly bearish. Negative sentiment dominates social channels with concerns about recent developments."
+          },
+          {
+            "specialist": "bankr",
+            "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 0.1 SOL\n• Route: Direct (same token)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• SOL: 3.7890\n• SOL: 3.7890"
+          }
+        ]
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T14:47:51.292Z",
+      "executionTimeMs": 1
+    }
+  },
+  "1163f916-cf3d-4eff-9839-5cfb419500b9": {
+    "id": "1163f916-cf3d-4eff-9839-5cfb419500b9",
+    "prompt": "Research the latest Bitcoin news and give me a summary",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "multi-hop",
+    "createdAt": "2026-02-06T14:47:56.350Z",
+    "updatedAt": "2026-02-06T14:47:59.038Z",
+    "payments": [],
+    "messages": [
+      {
+        "id": "msg-1770389276958-822k",
+        "from": "dispatcher",
+        "to": "multi-hop",
+        "content": "Executing multi-hop workflow: seeker → scribe",
+        "timestamp": "2026-02-06T14:47:56.958Z"
+      },
+      {
+        "id": "msg-1770389276968-t11y",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "[Step 1/2] Routing to seeker...",
+        "timestamp": "2026-02-06T14:47:56.968Z"
+      },
+      {
+        "id": "msg-1770389277832-ql0i",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "A single Bitcoin went as low as $60,000 (£44,000), its lowest level since September 2024, before rallying slightly.",
+        "timestamp": "2026-02-06T14:47:57.832Z"
+      },
+      {
+        "id": "msg-1770389279038-7h0g",
+        "from": "dispatcher",
+        "to": "scribe",
+        "content": "[Step 2/2] Routing to scribe...",
+        "timestamp": "2026-02-06T14:47:59.038Z"
+      },
+      {
+        "id": "msg-1770389279038-64f9",
+        "from": "scribe",
+        "to": "dispatcher",
+        "content": "Research the latest Bitcoin news and give me a summary",
+        "timestamp": "2026-02-06T14:47:59.038Z"
+      }
+    ],
+    "metadata": {
+      "hops": [
+        "seeker",
+        "scribe"
+      ],
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura",
+        "multi-hop"
+      ],
+      "wasApproved": false,
+      "currentStep": 2,
+      "totalSteps": 2,
+      "activeSpecialist": "scribe"
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "📝 **Summary**\n\n**TL;DR**: Research the latest Bitcoin news and give me a summary\n\n**Key Points**:\n• Research the latest Bitcoin news and give me a summary",
+        "insight": "Research the latest Bitcoin news and give me a summary",
+        "keyPoints": [
+          "Research the latest Bitcoin news and give me a summary"
+        ],
+        "wordCount": {
+          "original": 10,
+          "summary": 10
+        },
+        "confidence": 0.85,
+        "details": {
+          "type": "summary",
+          "response": "📝 **Summary**\n\n**TL;DR**: Research the latest Bitcoin news and give me a summary\n\n**Key Points**:\n• Research the latest Bitcoin news and give me a summary"
+        },
+        "isMultiHop": true,
+        "hops": [
+          "seeker",
+          "scribe"
+        ],
+        "steps": [
+          {
+            "specialist": "seeker",
+            "summary": "A single Bitcoin went as low as $60,000 (£44,000), its lowest level since September 2024, before rallying slightly."
+          },
+          {
+            "specialist": "scribe",
+            "summary": "Research the latest Bitcoin news and give me a summary"
+          }
+        ]
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T14:47:59.038Z",
+      "executionTimeMs": 0
+    }
   }
 }

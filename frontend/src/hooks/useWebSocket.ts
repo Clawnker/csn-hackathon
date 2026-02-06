@@ -102,8 +102,12 @@ export function useWebSocket(): UseWebSocketReturn {
                 if (data.payload) {
                   const task = data.payload;
                   setTaskStatus(task.status as TaskStatus);
-                  if (task.specialist) {
-                    setCurrentStep({ specialist: task.specialist, action: 'processing' });
+                  
+                  // Use activeSpecialist from metadata if available (for multi-hop)
+                  const specialist = task.metadata?.activeSpecialist || task.specialist;
+                  
+                  if (specialist) {
+                    setCurrentStep({ specialist, action: 'processing' });
                   }
                   if (task.status === 'completed' && task.result) {
                     setResult(task.result);

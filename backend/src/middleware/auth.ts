@@ -11,7 +11,8 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     return next();
   }
 
-  const apiKey = (req.headers['x-api-key'] as string) || (req.query.apiKey as string);
+  // Security: Only accept API key from headers, not query params (prevents logging exposure)
+  const apiKey = req.headers['x-api-key'] as string;
   const apiKeysEnv = process.env.API_KEYS || '';
   const validKeys = apiKeysEnv.split(',').map(k => k.trim()).filter(k => k.length > 0);
 

@@ -1,8 +1,8 @@
 {
-  "lastRealBalanceCheck": 1770347232997,
+  "lastRealBalanceCheck": 1770388974647,
   "realSOL": 4.8895,
   "balances": {
-    "SOL": 3.7895000000000003,
+    "SOL": 3.789,
     "USDC": 15.296454,
     "BONK": 434237.73032999993,
     "TOP": 0.199
@@ -133,6 +133,15 @@
       "amountOut": 0,
       "timestamp": 1770343045821,
       "route": "Bq48Paxt..."
+    },
+    {
+      "type": "swap",
+      "from": "SOL",
+      "to": "SOL",
+      "amountIn": 0.1,
+      "amountOut": 0.0995,
+      "timestamp": 1770388974976,
+      "route": "Mock"
     }
   ]
 }

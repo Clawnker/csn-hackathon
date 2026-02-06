@@ -297,6 +297,25 @@ export default function CommandCenter() {
     }
   }, [payments]);
 
+  // Add activity for agent messages
+  useEffect(() => {
+    if (messages.length > 0) {
+      const latestMessage = messages[messages.length - 1];
+      setActivityItems(prev => {
+        // Avoid duplicates
+        if (prev.some(item => item.id === latestMessage.id)) return prev;
+        
+        return [...prev, {
+          id: latestMessage.id,
+          type: 'processing',
+          message: latestMessage.content,
+          specialist: latestMessage.from,
+          timestamp: new Date(latestMessage.timestamp),
+        }];
+      });
+    }
+  }, [messages]);
+
   // Add agent message when result comes in
   useEffect(() => {
     if (result && currentStep?.specialist) {

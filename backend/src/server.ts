@@ -8,6 +8,8 @@ import { createServer } from 'http';
 import { WebSocketServer, WebSocket } from 'ws';
 import cors from 'cors';
 import * as dotenv from 'dotenv';
+import * as fs from 'fs';
+import * as path from 'path';
 
 import config from './config';
 import { authMiddleware } from './middleware/auth';
@@ -62,12 +64,40 @@ const rateLimiter = (req: Request, res: Response, next: NextFunction) => {
 
 app.use(rateLimiter);
 
-// Replay protection: track used payment signatures
-const usedSignatures = new Set<string>();
-// Cleanup old signatures every hour to prevent memory bloat
+// Persistent Replay Protection
+const USED_SIGNATURES_FILE = path.join(__dirname, '../data/used-signatures.json');
+let usedSignatures = new Set<string>();
+
+function loadUsedSignatures() {
+  try {
+    if (fs.existsSync(USED_SIGNATURES_FILE)) {
+      const data = fs.readFileSync(USED_SIGNATURES_FILE, 'utf8');
+      usedSignatures = new Set(JSON.parse(data));
+      console.log(`[x402] Loaded ${usedSignatures.size} used signatures from persistence`);
+    }
+  } catch (err) {
+    console.error('[x402] Failed to load used signatures:', err);
+  }
+}
+
+function saveUsedSignatures() {
+  try {
+    const dir = path.dirname(USED_SIGNATURES_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(USED_SIGNATURES_FILE, JSON.stringify(Array.from(usedSignatures)), 'utf8');
+  } catch (err) {
+    console.error('[x402] Failed to save used signatures:', err);
+  }
+}
+
+loadUsedSignatures();
+
+// Cleanup old signatures (keep only most recent 10,000 for performance)
 setInterval(() => {
   if (usedSignatures.size > 10000) {
-    usedSignatures.clear();
+    const list = Array.from(usedSignatures);
+    usedSignatures = new Set(list.slice(-5000));
+    saveUsedSignatures();
   }
 }, 3600000);
 
@@ -207,17 +237,13 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
           return res.status(402).json({ error: `Insufficient payment: expected ${fee}, got ${paidAmount}` });
         }
 
-        // Mark signature as used
+        // Mark signature as used and persist
         usedSignatures.add(sig);
+        saveUsedSignatures();
         console.log(`[x402] Payment verified: ${paidAmount} USDC`);
       } catch (verifyError: any) {
         console.error(`[x402] Verification failed:`, verifyError.message);
-        // For hackathon demo purposes, we might allow it if Helius is down, 
-        // but in production this MUST fail.
-        if (process.env.NODE_ENV === 'production') {
-          return res.status(402).json({ error: 'Payment verification failed' });
-        }
-        console.warn(`[x402] Allowing unverified payment due to error in dev mode`);
+        return res.status(402).json({ error: 'Payment verification failed' });
       }
     }
     

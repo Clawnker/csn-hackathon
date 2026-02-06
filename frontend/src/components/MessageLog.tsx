@@ -52,9 +52,14 @@ function MessageItem({ message, index }: { message: AgentMessage; index: number 
             </span>
           </div>
         </div>
+
+        {/* Message Content */}
+        <div className="mt-1 text-sm text-[var(--text-secondary)] break-words">
+          {message.content}
+        </div>
         
         {/* Timestamp */}
-        <div className="flex items-center gap-1 text-xs text-[var(--text-muted)] shrink-0 ml-2">
+        <div className="flex items-center gap-1 text-xs text-[var(--text-muted)] shrink-0 ml-2 mt-2">
           <Clock size={10} />
           <span>{formatTime(message.timestamp)}</span>
         </div>

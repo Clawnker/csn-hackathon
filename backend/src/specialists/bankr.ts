@@ -278,6 +278,29 @@ async function executeJupiterSwap(
   const outputMint = TOKEN_MINTS[to.toUpperCase()] || to;
   const decimals = from.toUpperCase() === 'SOL' ? 9 : 6;
   
+  // Prevent circular arbitrage (same token)
+  if (inputMint === outputMint) {
+    const state = await syncWithRealBalance();
+    return {
+      type: 'swap',
+      status: 'executed',
+      details: {
+        from,
+        to,
+        amount,
+        inputMint,
+        outputMint,
+        estimatedOutput: amount,
+        route: 'Direct (same token)',
+        network: 'devnet (simulated)',
+        balancesAfter: {
+          [from]: state.balances[from.toUpperCase()]?.toFixed(4) || '0',
+          [to]: state.balances[to.toUpperCase()]?.toFixed(4) || '0',
+        },
+      },
+    };
+  }
+
   // Sync with real balance first
   let state = await syncWithRealBalance();
   const amountIn = parseFloat(amount);

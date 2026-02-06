@@ -112,13 +112,18 @@ function detectMultiHop(prompt: string): SpecialistType[] | null {
   const lower = prompt.toLowerCase();
   
   // Pattern: "buy" + "trending" = aura → bankr
-  if (lower.includes('buy') && (lower.includes('trending') || lower.includes('popular') || lower.includes('hot'))) {
+  if (lower.includes('buy') && (lower.includes('trending') || lower.includes('popular') || lower.includes('hot') || lower.includes('sentiment'))) {
     return ['aura', 'bankr'];
   }
   
   // Pattern: "analyze" + "buy" = magos → bankr  
   if ((lower.includes('analyze') || lower.includes('research')) && lower.includes('buy')) {
     return ['magos', 'bankr'];
+  }
+
+  // Pattern: "research" + "summary" = seeker → scribe
+  if ((lower.includes('research') || lower.includes('search') || lower.includes('news')) && (lower.includes('summary') || lower.includes('summarize'))) {
+    return ['seeker', 'scribe'];
   }
   
   return null; // Single-hop
@@ -164,6 +169,7 @@ function emitTaskUpdate(task: Task): void {
  * Add a message to the task
  */
 function addMessage(task: Task, from: string, to: string, content: string): void {
+  console.log(`[Dispatcher] Adding message from ${from} to ${to}: ${content}`);
   task.messages.push({
     id: `msg-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
     from,
@@ -305,7 +311,11 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
       const specialist = hops[i];
       const step = i + 1;
       
-      updateTaskStatus(task, 'processing', { currentStep: step, totalSteps: hops.length });
+      updateTaskStatus(task, 'processing', { 
+        currentStep: step, 
+        totalSteps: hops.length,
+        activeSpecialist: specialist
+      });
       addMessage(task, 'dispatcher', specialist, `[Step ${step}/${hops.length}] Routing to ${specialist}...`);
       
       // Call the specialist via x402-gated endpoint
