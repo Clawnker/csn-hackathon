@@ -18,7 +18,7 @@ interface MCPServer {
 interface MCPTool {
   name: string;
   description: string;
-  inputSchema: any;
+  inputSchema: Record<string, unknown>;
 }
 
 // MCP server configurations
@@ -43,6 +43,7 @@ const clientCache: Map<string, Client> = new Map();
 
 /**
  * Connect to an MCP server
+ * @param serverName - Name of the server to connect to
  */
 export async function connectToServer(serverName: string): Promise<Client | null> {
   // Check cache first
@@ -78,14 +79,16 @@ export async function connectToServer(serverName: string): Promise<Client | null
     console.log(`[MCP] Connected to ${serverName}`);
     
     return client;
-  } catch (error: any) {
-    console.error(`[MCP] Failed to connect to ${serverName}:`, error.message);
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error(`[MCP] Failed to connect to ${serverName}:`, msg);
     return null;
   }
 }
 
 /**
  * List available tools from an MCP server
+ * @param serverName - Name of the server
  */
 export async function listTools(serverName: string): Promise<MCPTool[]> {
   const client = await connectToServer(serverName);
@@ -96,22 +99,28 @@ export async function listTools(serverName: string): Promise<MCPTool[]> {
     return result.tools.map(t => ({
       name: t.name,
       description: t.description || '',
-      inputSchema: t.inputSchema,
+      inputSchema: t.inputSchema as Record<string, unknown>,
     }));
-  } catch (error: any) {
-    console.error(`[MCP] Failed to list tools from ${serverName}:`, error.message);
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error(`[MCP] Failed to list tools from ${serverName}:`, msg);
     return [];
   }
 }
 
 /**
- * Call a tool on an MCP server
+ * Call a tool on an MCP server with timeout protection
+ * @param serverName - Name of the server
+ * @param toolName - Name of the tool
+ * @param args - Tool arguments
+ * @param timeoutMs - Timeout in milliseconds (default: 30s)
  */
 export async function callTool(
   serverName: string, 
   toolName: string, 
-  args: Record<string, any>
-): Promise<any> {
+  args: Record<string, unknown>,
+  timeoutMs: number = 30000
+): Promise<unknown> {
   const client = await connectToServer(serverName);
   if (!client) {
     throw new Error(`Could not connect to MCP server: ${serverName}`);
@@ -120,10 +129,17 @@ export async function callTool(
   try {
     console.log(`[MCP] Calling ${serverName}/${toolName} with:`, args);
     
-    const result = await client.callTool({
+    // Simple timeout wrapper
+    const timeoutPromise = new Promise((_, reject) => 
+      setTimeout(() => reject(new Error(`MCP tool call timed out after ${timeoutMs}ms`)), timeoutMs)
+    );
+
+    const callPromise = client.callTool({
       name: toolName,
-      arguments: args,
+      arguments: args as any,
     });
+    
+    const result = await Promise.race([callPromise, timeoutPromise]) as any;
     
     // Extract text content from result
     if (result.content && Array.isArray(result.content)) {
@@ -144,8 +160,9 @@ export async function callTool(
     }
     
     return result;
-  } catch (error: any) {
-    console.error(`[MCP] Tool call failed:`, error.message);
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error(`[MCP] Tool call failed:`, msg);
     throw error;
   }
 }

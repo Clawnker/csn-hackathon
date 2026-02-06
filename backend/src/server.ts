@@ -411,6 +411,10 @@ wss.on('connection', (ws: WebSocket) => {
   console.log('[WS] Client connected');
   wsClients.set(ws, new Set());
 
+  // Heartbeat state
+  (ws as any).isAlive = true;
+  ws.on('pong', () => { (ws as any).isAlive = true; });
+
   ws.on('message', (data: Buffer) => {
     try {
       const message = JSON.parse(data.toString());
@@ -431,6 +435,22 @@ wss.on('connection', (ws: WebSocket) => {
     message: 'Connected to Hivemind Protocol',
     timestamp: new Date().toISOString(),
   }));
+});
+
+// Periodic heartbeat check (every 30s)
+const interval = setInterval(() => {
+  wss.clients.forEach((ws: WebSocket) => {
+    if ((ws as any).isAlive === false) {
+      wsClients.delete(ws);
+      return ws.terminate();
+    }
+    (ws as any).isAlive = false;
+    ws.ping();
+  });
+}, 30000);
+
+wss.on('close', () => {
+  clearInterval(interval);
 });
 
 function handleWSMessage(ws: WebSocket, message: any) {

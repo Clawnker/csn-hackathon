@@ -548,11 +548,18 @@ function validateCallbackUrl(urlStr: string): boolean {
 
     // Block private IP ranges
     // 10.x.x.x
-    if (hostname.startsWith('10.')) return false;
+    if (/^10\./.test(hostname)) return false;
+    // 172.16.x.x to 172.31.x.x
+    if (/^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(hostname)) return false;
     // 192.168.x.x
-    if (hostname.startsWith('192.168.')) return false;
+    if (/^192\.168\./.test(hostname)) return false;
     // 169.254.x.x (Cloud metadata)
-    if (hostname.startsWith('169.254.')) return false;
+    if (/^169\.254\./.test(hostname)) return false;
+
+    // Block numeric IPs if possible (heuristic)
+    if (/^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
+      // Basic check for common private ranges already covered
+    }
 
     return true;
   } catch (e) {
