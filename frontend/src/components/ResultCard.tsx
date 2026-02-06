@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, XCircle, ArrowRight, RotateCcw, Coins, Sparkles } from 'lucide-react';
+import { CheckCircle2, XCircle, ArrowRight, RotateCcw, Coins, Sparkles, ThumbsUp, ThumbsDown } from 'lucide-react';
 
 interface ResultCardProps {
   query: string;
@@ -10,10 +10,13 @@ interface ResultCardProps {
   result: string;
   cost: number;
   specialist: string;
+  taskId?: string;
   onNewQuery: () => void;
   onViewDetails?: () => void;
   isMultiHop?: boolean;
 }
+
+const USER_ID = 'demo-user'; // In production, this would come from auth
 
 export function ResultCard({
   query,
@@ -21,14 +24,72 @@ export function ResultCard({
   result,
   cost,
   specialist,
+  taskId,
   onNewQuery,
   onViewDetails,
   isMultiHop
 }: ResultCardProps) {
-  const [isExpanded, setIsExpanded] = React.useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [userVote, setUserVote] = useState<'up' | 'down' | null>(null);
+  const [voteStats, setVoteStats] = useState({ upvotes: 0, downvotes: 0, successRate: 100 });
+  const [isVoting, setIsVoting] = useState(false);
+  
   const isSuccess = status === 'success';
   const summary = result.length > 200 ? result.substring(0, 200) + '...' : result;
   const displayResult = isExpanded ? result : summary;
+
+  // Fetch existing vote and stats on mount
+  useEffect(() => {
+    if (taskId && specialist) {
+      // Get existing vote
+      fetch(`http://localhost:3000/api/vote/${taskId}/${USER_ID}`)
+        .then(res => res.json())
+        .then(data => setUserVote(data.vote))
+        .catch(() => {});
+      
+      // Get reputation stats
+      fetch(`http://localhost:3000/api/reputation/${specialist}`)
+        .then(res => res.json())
+        .then(data => setVoteStats({
+          upvotes: data.upvotes || 0,
+          downvotes: data.downvotes || 0,
+          successRate: data.successRate || 100,
+        }))
+        .catch(() => {});
+    }
+  }, [taskId, specialist]);
+
+  const handleVote = async (vote: 'up' | 'down') => {
+    if (!taskId || isVoting) return;
+    
+    setIsVoting(true);
+    try {
+      const response = await fetch('http://localhost:3000/api/vote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          taskId,
+          specialist,
+          voterId: USER_ID,
+          voterType: 'human',
+          vote,
+        }),
+      });
+      
+      const data = await response.json();
+      if (data.success) {
+        setUserVote(vote);
+        setVoteStats({
+          upvotes: data.upvotes,
+          downvotes: data.downvotes,
+          successRate: data.newRate,
+        });
+      }
+    } catch (error) {
+      console.error('Vote failed:', error);
+    }
+    setIsVoting(false);
+  };
 
   return (
     <motion.div
@@ -65,7 +126,7 @@ export function ResultCard({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-8">
+      <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="glass-panel-subtle p-4 flex flex-col gap-1 border-white/5">
           <div className="flex items-center gap-2 text-[var(--text-muted)] text-[10px] font-bold uppercase tracking-wider">
             <Coins size={14} />
@@ -86,6 +147,59 @@ export function ResultCard({
           </span>
         </div>
       </div>
+
+      {/* Voting Section */}
+      {taskId && (
+        <div className="mb-6 p-4 rounded-xl bg-white/[0.02] border border-white/5">
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-[var(--text-muted)]">
+              <span className="font-medium text-[var(--text-secondary)]">Rate this response</span>
+              <span className="ml-2 text-xs">
+                ({voteStats.upvotes} 👍 / {voteStats.downvotes} 👎 • {voteStats.successRate}% approval)
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <motion.button
+                onClick={() => handleVote('up')}
+                disabled={isVoting}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={`p-2 rounded-lg transition-all ${
+                  userVote === 'up'
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/50'
+                    : 'bg-white/5 text-gray-400 hover:text-green-400 hover:bg-green-500/10 border border-transparent'
+                } ${isVoting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                title="Helpful response"
+              >
+                <ThumbsUp size={18} />
+              </motion.button>
+              <motion.button
+                onClick={() => handleVote('down')}
+                disabled={isVoting}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={`p-2 rounded-lg transition-all ${
+                  userVote === 'down'
+                    ? 'bg-red-500/20 text-red-400 border border-red-500/50'
+                    : 'bg-white/5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 border border-transparent'
+                } ${isVoting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                title="Unhelpful response"
+              >
+                <ThumbsDown size={18} />
+              </motion.button>
+            </div>
+          </div>
+          {userVote && (
+            <motion.p
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-xs text-[var(--text-muted)] mt-2"
+            >
+              ✓ Your feedback helps improve agent quality globally
+            </motion.p>
+          )}
+        </div>
+      )}
 
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <motion.button

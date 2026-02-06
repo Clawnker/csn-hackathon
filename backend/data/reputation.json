@@ -1,22 +1,50 @@
 {
-  "magos": {
-    "successCount": 32,
-    "failureCount": 2
+  "specialists": {
+    "magos": {
+      "successCount": 32,
+      "failureCount": 2,
+      "upvotes": 32,
+      "downvotes": 2,
+      "votes": []
+    },
+    "aura": {
+      "successCount": 6,
+      "failureCount": 0,
+      "upvotes": 6,
+      "downvotes": 0,
+      "votes": []
+    },
+    "general": {
+      "successCount": 8,
+      "failureCount": 0,
+      "upvotes": 8,
+      "downvotes": 0,
+      "votes": []
+    },
+    "bankr": {
+      "successCount": 20,
+      "failureCount": 0,
+      "upvotes": 20,
+      "downvotes": 1,
+      "votes": [
+        {
+          "taskId": "test-123",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "down",
+          "timestamp": 1770342247850
+        }
+      ]
+    },
+    "seeker": {
+      "successCount": 13,
+      "failureCount": 0,
+      "upvotes": 13,
+      "downvotes": 0,
+      "votes": []
+    }
   },
-  "aura": {
-    "successCount": 6,
-    "failureCount": 0
-  },
-  "general": {
-    "successCount": 8,
-    "failureCount": 0
-  },
-  "bankr": {
-    "successCount": 17,
-    "failureCount": 0
-  },
-  "seeker": {
-    "successCount": 13,
-    "failureCount": 0
+  "voterTaskIndex": {
+    "demo-user:test-123": "down"
   }
 }

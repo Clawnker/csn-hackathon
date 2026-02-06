@@ -2,9 +2,9 @@
   "lastRealBalanceCheck": 1770341637761,
   "realSOL": 4.8995,
   "balances": {
-    "SOL": 4.199500000000002,
+    "SOL": 4.274097963000003,
     "USDC": 15.296454,
-    "BONK": 534237.73033,
+    "BONK": 434237.73033000005,
     "TOP": 0.0995
   },
   "transactions": [
@@ -70,6 +70,24 @@
       "amountOut": 133899.995188,
       "timestamp": 1770341726392,
       "route": "Meteora DLMM"
+    },
+    {
+      "type": "swap",
+      "from": "BONK",
+      "to": "USDC",
+      "amountIn": 0,
+      "amountOut": 0,
+      "timestamp": 1770341819130,
+      "route": "Mock"
+    },
+    {
+      "type": "swap",
+      "from": "BONK",
+      "to": "SOL",
+      "amountIn": 100000,
+      "amountOut": 0.074597963,
+      "timestamp": 1770341843727,
+      "route": "Bonkswap → SolFi V2 → PancakeSwap"
     }
   ]
 }

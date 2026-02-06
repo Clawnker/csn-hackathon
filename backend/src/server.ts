@@ -14,6 +14,7 @@ import { authMiddleware } from './middleware/auth';
 import dispatcher, { dispatch, getTask, getRecentTasks, subscribeToTask, getSpecialists, callSpecialist } from './dispatcher';
 import { getBalances, getTransactionLog } from './x402';
 import { getSimulatedBalances } from './specialists/bankr';
+import { submitVote, getVote, getReputationStats, getAllReputation } from './reputation';
 import solana from './solana';
 import { DispatchRequest, Task, WSEvent, SpecialistType } from './types';
 
@@ -107,6 +108,68 @@ app.get('/api/wallet/balances', async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({ error: error.message, solana: { sol: 0, usdc: 0 }, evm: { eth: 0, usdc: 0 } });
   }
+});
+
+// ============================================
+// Reputation Voting API (Public)
+// ============================================
+
+/**
+ * POST /api/vote - Submit a vote on a task response
+ * Body: { taskId, specialist, voterId, voterType, vote }
+ */
+app.post('/api/vote', (req: Request, res: Response) => {
+  try {
+    const { taskId, specialist, voterId, voterType, vote } = req.body;
+    
+    if (!taskId || !specialist || !voterId || !vote) {
+      return res.status(400).json({ 
+        error: 'Missing required fields: taskId, specialist, voterId, vote' 
+      });
+    }
+    
+    if (vote !== 'up' && vote !== 'down') {
+      return res.status(400).json({ error: 'Vote must be "up" or "down"' });
+    }
+    
+    const result = submitVote(
+      specialist,
+      taskId,
+      voterId,
+      voterType || 'human',
+      vote
+    );
+    
+    res.json(result);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/vote/:taskId/:voterId - Get existing vote for a task
+ */
+app.get('/api/vote/:taskId/:voterId', (req: Request, res: Response) => {
+  const { taskId, voterId } = req.params;
+  const vote = getVote(taskId, voterId);
+  res.json({ vote });
+});
+
+/**
+ * GET /api/reputation/:specialist - Get reputation stats for a specialist
+ */
+app.get('/api/reputation/:specialist', (req: Request, res: Response) => {
+  const { specialist } = req.params;
+  const stats = getReputationStats(specialist);
+  res.json(stats);
+});
+
+/**
+ * GET /api/reputation - Get all reputation data
+ */
+app.get('/api/reputation', (req: Request, res: Response) => {
+  const all = getAllReputation();
+  res.json(all);
 });
 
 app.use(authMiddleware);

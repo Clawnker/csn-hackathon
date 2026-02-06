@@ -71,6 +71,7 @@ export default function CommandCenter() {
     result: string;
     cost: number;
     specialist: string;
+    taskId?: string;
   } | null>(null);
   
   // Approval popup state
@@ -173,6 +174,7 @@ export default function CommandCenter() {
               result: content || 'Task completed',
               cost: totalCost,
               specialist: r.data?.isMultiHop ? r.data.hops.map((h: string) => h.charAt(0).toUpperCase() + h.slice(1)).join(' → ') : (SPECIALIST_NAMES[specialistId] || specialistId),
+              taskId: currentTaskId || undefined,
               isMultiHop: r.data?.isMultiHop
             } as any);
 
@@ -203,7 +205,8 @@ export default function CommandCenter() {
             status: 'failure',
             result: error || 'An unexpected error occurred',
             cost: totalCostFailed,
-            specialist: SPECIALIST_NAMES[specialistIdFailed] || specialistIdFailed
+            specialist: SPECIALIST_NAMES[specialistIdFailed] || specialistIdFailed,
+            taskId: currentTaskId || undefined,
           });
 
           // Add to query history

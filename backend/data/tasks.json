@@ -8693,5 +8693,317 @@
       "timestamp": "2026-02-06T01:35:51.905Z",
       "executionTimeMs": 709
     }
+  },
+  "dae45dab-ab75-4f57-8647-fa88d92e8a52": {
+    "id": "dae45dab-ab75-4f57-8647-fa88d92e8a52",
+    "prompt": "send 0.01 sol to Bq48PaxtoWv62QHeX3WYfmHHw9E7hJp38sx5t6tugDyd",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-06T01:36:04.677Z",
+    "updatedAt": "2026-02-06T01:36:07.897Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:36:07.895Z"
+      },
+      {
+        "amount": "0.000005",
+        "currency": "SOL",
+        "network": "solana",
+        "recipient": "network",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:36:07.896Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341765283-vo06",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"send 0.01 sol to Bq48PaxtoWv62QHeX3WYfmHHw9E7hJp38sx5t6tugDyd...\"",
+        "timestamp": "2026-02-06T01:36:05.283Z"
+      },
+      {
+        "id": "msg-1770341765285-gpo6",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:36:05.285Z"
+      },
+      {
+        "id": "msg-1770341766106-bkyv",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:36:06.106Z"
+      },
+      {
+        "id": "msg-1770341767773-8q1m",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "✅ Successfully sent 0.01 SOL to Bq48Paxt...",
+        "timestamp": "2026-02-06T01:36:07.773Z"
+      },
+      {
+        "id": "msg-1770341767895-rdda",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-06T01:36:07.895Z"
+      },
+      {
+        "id": "msg-1770341767897-opo4",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "Payment: 0.000005 SOL",
+        "timestamp": "2026-02-06T01:36:07.897Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "transfer",
+        "status": "confirmed",
+        "txSignature": "CmfZ5kEm5qAn9NysFRPMaM1YQ2NcxirXB5DWr941GKdJtpVCiKqEXwM7ZWgPgiRs8BdkC7NxuYLzqYgCAhegz4f",
+        "details": {
+          "to": "Bq48PaxtoWv62QHeX3WYfmHHw9E7hJp38sx5t6tugDyd",
+          "amount": "0.01",
+          "explorer": "https://solscan.io/tx/CmfZ5kEm5qAn9NysFRPMaM1YQ2NcxirXB5DWr941GKdJtpVCiKqEXwM7ZWgPgiRs8BdkC7NxuYLzqYgCAhegz4f?cluster=devnet",
+          "network": "devnet"
+        },
+        "summary": "✅ Successfully sent 0.01 SOL to Bq48Paxt..."
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T01:36:07.773Z",
+      "executionTimeMs": 866,
+      "cost": {
+        "amount": "0.000005",
+        "currency": "SOL",
+        "network": "solana",
+        "recipient": "network"
+      }
+    }
+  },
+  "5a9b2abe-13c0-4c11-84ab-8edfd36214f4": {
+    "id": "5a9b2abe-13c0-4c11-84ab-8edfd36214f4",
+    "prompt": "sell 100,000 BONK for sol",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-06T01:36:56.634Z",
+    "updatedAt": "2026-02-06T01:36:59.294Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:36:59.293Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341817239-pcg3",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"sell 100,000 BONK for sol...\"",
+        "timestamp": "2026-02-06T01:36:57.239Z"
+      },
+      {
+        "id": "msg-1770341817241-7u01",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:36:57.241Z"
+      },
+      {
+        "id": "msg-1770341818196-iwkh",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:36:58.196Z"
+      },
+      {
+        "id": "msg-1770341819130-gdlf",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 000 BONK\n• Output: 0.000000 USDC\n• Route: Mock routing (Jupiter API unavailable)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• BONK: 534237.7303\n• USDC: 15.2965",
+        "timestamp": "2026-02-06T01:36:59.130Z"
+      },
+      {
+        "id": "msg-1770341819293-sp9f",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-06T01:36:59.293Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "BONK",
+          "to": "USDC",
+          "amount": "000",
+          "estimatedOutput": "0.000000",
+          "route": "Mock routing (Jupiter API unavailable)",
+          "network": "devnet (simulated)",
+          "balancesAfter": {
+            "BONK": "534237.7303",
+            "USDC": "15.2965"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 000 BONK\n• Output: 0.000000 USDC\n• Route: Mock routing (Jupiter API unavailable)\n• Price Impact: <0.01%\n\n📊 **Updated Balances:**\n• BONK: 534237.7303\n• USDC: 15.2965"
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T01:36:59.130Z",
+      "executionTimeMs": 133
+    }
+  },
+  "d3e2ad5c-b3d3-44cb-ac41-9df3ffd8f4f2": {
+    "id": "d3e2ad5c-b3d3-44cb-ac41-9df3ffd8f4f2",
+    "prompt": "swap 100000 BONK for SOL",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-06T01:37:21.430Z",
+    "updatedAt": "2026-02-06T01:37:23.860Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:37:23.860Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341842036-9io3",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"swap 100000 BONK for SOL...\"",
+        "timestamp": "2026-02-06T01:37:22.036Z"
+      },
+      {
+        "id": "msg-1770341842039-g3kp",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:37:22.039Z"
+      },
+      {
+        "id": "msg-1770341842828-mt1t",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:37:22.828Z"
+      },
+      {
+        "id": "msg-1770341843727-ymsa",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 100000 BONK\n• Output: 0.074598 SOL\n• Route: Bonkswap → SolFi V2 → PancakeSwap\n• Price Impact: 0%\n\n📊 **Updated Balances:**\n• BONK: 434237.7303\n• SOL: 4.2741",
+        "timestamp": "2026-02-06T01:37:23.727Z"
+      },
+      {
+        "id": "msg-1770341843860-l36c",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-06T01:37:23.860Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "BONK",
+          "to": "SOL",
+          "amount": "100000",
+          "inputMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+          "outputMint": "So11111111111111111111111111111111111111112",
+          "estimatedOutput": "0.074598",
+          "priceImpact": "0",
+          "slippageBps": 100,
+          "route": "Bonkswap → SolFi V2 → PancakeSwap",
+          "routePlan": [
+            {
+              "dex": "Bonkswap",
+              "inputMint": "DezXAZ8z...",
+              "outputMint": "EPjFWdd5...",
+              "inAmount": "100000000000",
+              "outAmount": "5822586",
+              "percent": 100
+            },
+            {
+              "dex": "SolFi V2",
+              "inputMint": "EPjFWdd5...",
+              "outputMint": "pumpCmXq...",
+              "inAmount": "5822586",
+              "outAmount": "2995592966",
+              "percent": 100
+            },
+            {
+              "dex": "PancakeSwap",
+              "inputMint": "pumpCmXq...",
+              "outputMint": "So111111...",
+              "inAmount": "2995592966",
+              "outAmount": "74597963",
+              "percent": 100
+            }
+          ],
+          "network": "devnet (simulated)",
+          "balancesBefore": {
+            "BONK": "534237.7303",
+            "SOL": "4.1995"
+          },
+          "balancesAfter": {
+            "BONK": "434237.7303",
+            "SOL": "4.2741"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 100000 BONK\n• Output: 0.074598 SOL\n• Route: Bonkswap → SolFi V2 → PancakeSwap\n• Price Impact: 0%\n\n📊 **Updated Balances:**\n• BONK: 434237.7303\n• SOL: 4.2741"
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T01:37:23.727Z",
+      "executionTimeMs": 98
+    }
   }
 }

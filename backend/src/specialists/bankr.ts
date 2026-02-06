@@ -480,7 +480,7 @@ export async function getSimulatedBalances(): Promise<{
   sol: number;
   usdc: number;
   bonk: number;
-  transactions: Array<{ type: string; from: string; to: string; amount: number; output: number; timestamp: number }>;
+  transactions: Array<{ type: string; from: string; to: string; amountIn: number; amountOut: number; timestamp: number; route?: string }>;
 }> {
   const state = await syncWithRealBalance();
   return {
