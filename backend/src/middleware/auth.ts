@@ -11,6 +11,13 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     return next();
   }
 
+  // x402-gated specialist endpoints bypass API key auth (protected by payment instead)
+  if (req.path.startsWith('/api/specialist/')) {
+    // Set a placeholder user for the request
+    (req as any).user = { id: 'x402-payer' };
+    return next();
+  }
+
   // Security: Only accept API key from headers, not query params (prevents logging exposure)
   const apiKey = req.headers['x-api-key'] as string;
   const apiKeysEnv = process.env.API_KEYS || '';
