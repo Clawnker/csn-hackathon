@@ -1,4 +1,4 @@
-# Technical Spike Results: CSN Backend
+# Technical Spike Results: Hivemind Backend
 
 ## 1. AgentWallet Integration
 - **Status**: ✅ **Verified**

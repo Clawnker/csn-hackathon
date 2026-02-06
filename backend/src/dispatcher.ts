@@ -1,5 +1,5 @@
 /**
- * CSN Dispatcher Core
+ * Hivemind Dispatcher Core
  * Routes prompts to specialists and orchestrates multi-agent workflows
  */
 

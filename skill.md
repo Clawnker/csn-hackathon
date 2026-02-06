@@ -11,9 +11,9 @@ metadata:
   specialists: [aura, magos, bankr]
 ---
 
-# Content Specialist Network (CSN)
+# Hivemind Protocol
 
-Multi-agent orchestration layer for Solana. Submit natural language prompts and CSN routes to specialized agents, coordinates execution, and handles x402 micropayments automatically.
+Multi-agent orchestration layer for Solana. Submit natural language prompts and Hivemind routes to specialized agents, coordinates execution, and handles x402 micropayments automatically.
 
 ## Quick Start
 
@@ -213,7 +213,7 @@ curl -X POST https://api.csn.clawnker.work/v1/specialists/register \
   }'
 ```
 
-When CSN dispatches to your specialist, it will POST to your endpoint:
+When Hivemind dispatches to your specialist, it will POST to your endpoint:
 
 ```json
 {
@@ -243,7 +243,7 @@ Your specialist should respond with:
 
 ## x402 Payment Flow
 
-CSN uses x402 for agent-to-agent micropayments:
+Hivemind uses x402 for agent-to-agent micropayments:
 
 1. **Task Submitted** → CSN estimates cost based on plan
 2. **Specialist Called** → x402 payment header attached
@@ -278,13 +278,13 @@ Payments are on Solana (devnet for testing, mainnet for production).
 ```python
 import requests
 
-CSN_API = "https://api.csn.clawnker.work"
+HIVEMIND_API = "https://api.csn.clawnker.work"
 API_KEY = "your_api_key"
 
 def execute_trade_strategy(prompt):
     # Submit task
     response = requests.post(
-        f"{CSN_API}/v1/dispatch",
+        f"{HIVEMIND_API}/v1/dispatch",
         headers={"Authorization": f"Bearer {API_KEY}"},
         json={
             "prompt": prompt,
@@ -296,7 +296,7 @@ def execute_trade_strategy(prompt):
     # Poll for completion
     while task["status"] not in ["completed", "failed"]:
         task = requests.get(
-            f"{CSN_API}/v1/tasks/{task['task_id']}",
+            f"{HIVEMIND_API}/v1/tasks/{task['task_id']}",
             headers={"Authorization": f"Bearer {API_KEY}"}
         ).json()
         time.sleep(2)

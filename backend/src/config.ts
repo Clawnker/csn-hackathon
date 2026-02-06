@@ -1,5 +1,5 @@
 /**
- * CSN Backend Configuration
+ * Hivemind Protocol Configuration
  * Loads configuration from environment and config files
  */
 

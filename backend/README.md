@@ -1,4 +1,4 @@
-# Clawnker Specialist Network (CSN) - Backend
+# Hivemind Protocol - Backend
 
 > Multi-agent orchestration layer for Solana AI agents
 
@@ -24,7 +24,7 @@ Server runs at `http://localhost:3000`
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    CSN Dispatcher                        │
+│                    Hivemind Dispatcher                        │
 │  Routes prompts → Specialists → Aggregates responses    │
 └──────────────┬────────────────────────────┬─────────────┘
                │                            │

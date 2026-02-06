@@ -69,7 +69,7 @@ const CORE_AGENTS = [
 const MARKETPLACE_AGENTS = [
   {
     id: 'magos',
-    name: 'Magos',
+    name: 'Market Oracle',
     tagline: 'Predictive Oracle',
     description: 'Expert in technical analysis and market prediction. Uses advanced heuristics to forecast price action.',
     icon: Compass,
@@ -84,7 +84,7 @@ const MARKETPLACE_AGENTS = [
   },
   {
     id: 'aura',
-    name: 'Aura',
+    name: 'Social Analyst',
     tagline: 'Social Sentinel',
     description: 'Specializes in real-time sentiment analysis across X, Telegram, and news feeds.',
     icon: Eye,

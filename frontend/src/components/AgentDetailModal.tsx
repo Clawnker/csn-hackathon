@@ -38,12 +38,12 @@ const SPECIALIST_INFO: Record<SpecialistType, {
       'Dependency resolution',
       'Result aggregation',
     ],
-    defaultPrompt: 'You are the Hivemind Dispatcher. Analyze user prompts and route to appropriate specialists: Aura (sentiment/social), Magos (predictions/analysis), bankr (trading/execution).',
+    defaultPrompt: 'You are the Hivemind Dispatcher. Analyze user prompts and route to appropriate specialists from the marketplace based on capabilities and pricing.',
   },
   aura: {
-    name: 'Aura',
+    name: 'Social Analyst',
     description: 'Social Sentiment Analyst',
-    fullDescription: 'Aura monitors social media platforms to detect trending topics, analyze sentiment, and identify market-moving narratives. Specializes in X/Twitter and crypto communities.',
+    fullDescription: 'Monitors social media platforms to detect trending topics, analyze sentiment, and identify market-moving narratives. Specializes in X/Twitter and crypto communities.',
     icon: Sparkles,
     color: '#a855f7',
     capabilities: [
@@ -52,12 +52,12 @@ const SPECIALIST_INFO: Record<SpecialistType, {
       'Influencer monitoring',
       'Narrative tracking',
     ],
-    defaultPrompt: 'You are Aura, a social sentiment specialist. Analyze social media for crypto trends, sentiment, and alpha. Return sentiment scores from -1 (bearish) to 1 (bullish).',
+    defaultPrompt: 'You are a social sentiment specialist. Analyze social media for crypto trends, sentiment, and alpha. Return sentiment scores from -1 (bearish) to 1 (bullish).',
   },
   magos: {
-    name: 'Magos',
+    name: 'Market Oracle',
     description: 'Market Prediction Oracle',
-    fullDescription: 'Magos combines technical analysis, on-chain data, and sentiment signals to generate price predictions and risk assessments for crypto assets.',
+    fullDescription: 'Combines technical analysis, on-chain data, and sentiment signals to generate price predictions and risk assessments for crypto assets.',
     icon: LineChart,
     color: '#ec4899',
     capabilities: [
@@ -66,7 +66,7 @@ const SPECIALIST_INFO: Record<SpecialistType, {
       'Technical pattern recognition',
       'On-chain metrics analysis',
     ],
-    defaultPrompt: 'You are Magos, a market prediction specialist. Analyze tokens and provide price predictions with confidence intervals and risk scores (1-10).',
+    defaultPrompt: 'You are a market prediction specialist. Analyze tokens and provide price predictions with confidence intervals and risk scores (1-10).',
   },
   bankr: {
     name: 'bankr',

@@ -23,8 +23,8 @@ import { LayoutGrid, Zap } from 'lucide-react';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 const SPECIALIST_NAMES: Record<string, string> = {
-  aura: 'Social Analyst Aura',
-  magos: 'Market Oracle Magos',
+  aura: 'Social Analyst',
+  magos: 'Market Oracle',
   bankr: 'DeFi Specialist Bankr',
   general: 'General Assistant',
   alphahunter: 'AlphaHunter',

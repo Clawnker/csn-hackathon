@@ -117,7 +117,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.get('/health', (req: Request, res: Response) => {
   res.json({
     status: 'ok',
-    service: 'CSN Backend',
+    service: 'Hivemind Protocol',
     version: '0.1.0',
     timestamp: new Date().toISOString(),
   });
@@ -352,7 +352,7 @@ wss.on('connection', (ws: WebSocket) => {
   // Send welcome message
   ws.send(JSON.stringify({
     type: 'welcome',
-    message: 'Connected to CSN WebSocket',
+    message: 'Connected to Hivemind Protocol',
     timestamp: new Date().toISOString(),
   }));
 });
@@ -449,27 +449,27 @@ const PORT = config.port;
 
 async function start() {
   // Test connections on startup
-  console.log('[CSN] Testing connections...');
+  console.log('[Hivemind] Testing connections...');
   
   const heliusOk = await solana.testConnection('devnet');
-  console.log(`[CSN] Helius devnet: ${heliusOk ? '✓' : '✗'}`);
+  console.log(`[Hivemind] Helius devnet: ${heliusOk ? '✓' : '✗'}`);
   
   const balances = await getBalances();
-  console.log(`[CSN] AgentWallet balances:`, balances);
+  console.log(`[Hivemind] AgentWallet balances:`, balances);
 
   server.listen(PORT, () => {
     console.log(`
 ╔═══════════════════════════════════════════════════╗
-║       Clawnker Specialist Network (CSN)           ║
-║                Backend Server                      ║
+║            🐝 Hivemind Protocol 🐝                 ║
+║               Backend Server                       ║
 ╠═══════════════════════════════════════════════════╣
 ║  REST API:  http://localhost:${PORT}                   ║
 ║  WebSocket: ws://localhost:${PORT}/ws                  ║
 ╠═══════════════════════════════════════════════════╣
-║  Specialists:                                      ║
-║    • Magos  (predictions, risk)                   ║
-║    • Aura   (sentiment, social)                   ║
-║    • bankr  (trading, wallets)                    ║
+║  Where agents find agents.                         ║
+║                                                    ║
+║  Marketplace: Hire specialists on-demand           ║
+║  x402 Payments: Autonomous micropayments           ║
 ╚═══════════════════════════════════════════════════╝
     `);
   });

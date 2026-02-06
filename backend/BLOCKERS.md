@@ -1,4 +1,4 @@
-# CSN Backend - Blockers & Notes
+# Hivemind Backend - Blockers & Notes
 
 ## Current Status: ✅ Core Implementation Complete
 

@@ -46,7 +46,7 @@ export function ResultDisplay({ taskStatus, result, error, className = '' }: Res
           <div className="flex items-start gap-3">
             <Brain className="text-[#ec4899] mt-1 flex-shrink-0" size={20} />
             <div>
-              <h4 className="text-sm font-semibold text-[#ec4899] mb-1">Magos Analysis</h4>
+              <h4 className="text-sm font-semibold text-[#ec4899] mb-1">Market Analysis</h4>
               <p className="text-sm text-[var(--text-primary)] leading-relaxed">
                 {r.data.insight}
               </p>
@@ -92,7 +92,7 @@ export function ResultDisplay({ taskStatus, result, error, className = '' }: Res
           <div className="flex items-start gap-3">
             <Sparkles className="text-[#a855f7] mt-1 flex-shrink-0" size={20} />
             <div>
-              <h4 className="text-sm font-semibold text-[#a855f7] mb-1">Aura Sentiment</h4>
+              <h4 className="text-sm font-semibold text-[#a855f7] mb-1">Social Sentiment</h4>
               <p className="text-sm text-[var(--text-primary)] leading-relaxed">
                 {r.data.summary || `Market mood: ${r.data.mood || 'neutral'}`}
               </p>

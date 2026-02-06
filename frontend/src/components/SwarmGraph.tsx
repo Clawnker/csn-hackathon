@@ -39,14 +39,14 @@ const SPECIALISTS: Record<SpecialistType, {
     glowColor: 'rgba(0, 245, 255, 0.6)',
   },
   aura: {
-    name: 'Aura',
+    name: 'Social Analyst',
     description: 'Sentiment',
     icon: Sparkles,
     color: '#a855f7',
     glowColor: 'rgba(168, 85, 247, 0.6)',
   },
   magos: {
-    name: 'Magos',
+    name: 'Market Oracle',
     description: 'Prediction',
     icon: LineChart,
     color: '#ec4899',

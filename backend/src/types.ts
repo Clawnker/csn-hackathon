@@ -1,6 +1,6 @@
 /**
- * CSN Types
- * Core type definitions for the Clawnker Specialist Network
+ * Hivemind Types
+ * Core type definitions for the Hivemind Protocol
  */
 
 export type SpecialistType = 'magos' | 'aura' | 'bankr' | 'general' | 'scribe' | 'seeker' | 'multi-hop';

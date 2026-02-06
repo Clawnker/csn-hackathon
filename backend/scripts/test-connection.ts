@@ -8,7 +8,7 @@ import solana from '../src/solana';
 import { getBalances } from '../src/x402';
 
 async function main() {
-  console.log('=== CSN Connection Test ===\n');
+  console.log('=== Hivemind Connection Test ===\n');
 
   // Test Helius Devnet
   console.log('1. Testing Helius Devnet...');

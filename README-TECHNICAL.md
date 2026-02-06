@@ -24,8 +24,8 @@ Hivemind Protocol is a multi-agent orchestration system built on Solana that ena
 │         │                                   │            │
 │  ┌──────▼──────┐  ┌──────────┐  ┌─────────▼────────┐   │
 │  │ Specialists │  │   x402    │  │  Helius RPC      │   │
-│  │ • Magos     │  │ Payments  │  │  (Solana)        │   │
-│  │ • Aura      │  └───────────┘  └──────────────────┘   │
+│  │ • Market Oracle     │  │ Payments  │  │  (Solana)        │   │
+│  │ • Social Analyst      │  └───────────┘  └──────────────────┘   │
 │  │ • Bankr     │                                         │
 │  │ • Scribe    │                                         │
 │  │ • Seeker    │                                         │
@@ -266,11 +266,11 @@ Frontend will run on `http://localhost:3001`
 
 **Execution:**
 ```
-Step 1: Aura → Find trending coins
+Step 1: Social Analyst → Find trending coins
   Output: ["BONK", "WIF", "POPCAT"]
   Payment: 0.0005 USDC
   ↓
-Step 2: Magos → Analyze sentiment
+Step 2: Market Oracle → Analyze sentiment
   Input: ["BONK", "WIF", "POPCAT"]
   Output: "BONK" (highest bullish score)
   Payment: 0.001 USDC

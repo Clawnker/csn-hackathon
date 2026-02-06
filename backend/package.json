@@ -1,7 +1,7 @@
 {
   "name": "csn-backend",
   "version": "0.1.0",
-  "description": "Clawnker Specialist Network Backend - Multi-Agent Orchestration Layer",
+  "description": "Hivemind Protocol Backend - Multi-Agent Orchestration Layer",
   "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",

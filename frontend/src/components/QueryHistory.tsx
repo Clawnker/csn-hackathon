@@ -11,8 +11,8 @@ interface QueryHistoryProps {
 }
 
 const SPECIALIST_NAMES: Record<string, string> = {
-  aura: 'Aura',
-  magos: 'Magos',
+  aura: 'Social Analyst',
+  magos: 'Market Oracle',
   bankr: 'Bankr',
   general: 'Assistant',
   alphahunter: 'AlphaHunter',

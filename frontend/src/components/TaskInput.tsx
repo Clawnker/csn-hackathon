@@ -24,8 +24,8 @@ const SUGGESTED_PROMPTS = [
 ];
 
 const SPECIALIST_NAMES: Record<string, string> = {
-  aura: 'Social Analyst Aura',
-  magos: 'Market Oracle Magos',
+  aura: 'Social Analyst',
+  magos: 'Market Oracle',
   bankr: 'DeFi Specialist Bankr',
   general: 'General Assistant',
   alphahunter: 'AlphaHunter',

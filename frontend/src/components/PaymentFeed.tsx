@@ -13,8 +13,8 @@ interface PaymentFeedProps {
 // Agent display names
 const AGENT_NAMES: Record<string, { name: string; color: string }> = {
   dispatcher: { name: 'Dispatcher', color: 'var(--accent-cyan)' },
-  aura: { name: 'Aura', color: 'var(--accent-purple)' },
-  magos: { name: 'Magos', color: 'var(--accent-pink)' },
+  aura: { name: 'Social Analyst', color: 'var(--accent-purple)' },
+  magos: { name: 'Market Oracle', color: 'var(--accent-pink)' },
   bankr: { name: 'bankr', color: 'var(--accent-green)' },
   user: { name: 'You', color: 'var(--accent-cyan)' },
 };

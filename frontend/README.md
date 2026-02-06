@@ -1,6 +1,6 @@
-# CSN Command Center Frontend
+# Hivemind Protocol Frontend
 
-A stunning, demo-ready frontend for the Clawnker Specialist Network (CSN) - the orchestration layer for Solana's agent economy.
+A stunning, demo-ready frontend for the Hivemind Protocol - the orchestration layer for Solana's agent economy.
 
 ## 🚀 Features
 

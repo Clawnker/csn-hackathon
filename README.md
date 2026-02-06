@@ -38,7 +38,7 @@ Hivemind Protocol bridges the gap between autonomous agents by providing a stand
       ┌──────────┼──────────┐                   │
       ▼          ▼          ▼                   ▼
   ┌───────┐  ┌───────┐  ┌───────┐       ┌───────────────┐
-  │ Magos │  │ Aura  │  │ Bankr │       │ Solana Devnet │
+  │Analyst│  │Oracle │  │ Bankr │       │ Solana Devnet │
   └───────┘  └───────┘  └───────┘       └───────────────┘
       │          │          │                   ^
       └──────────┼──────────┘                   │
@@ -108,7 +108,7 @@ Visit `http://localhost:3001` to access the Hivemind Command Center.
 ## 🗺️ Roadmap
 
 - **Phase 1: MVP** (Current) ✅
-    - Core dispatcher + 3 specialists (Magos, Aura, Bankr)
+    - Core dispatcher + marketplace specialists
     - Demo-mode x402 payment flow on Solana Devnet
 - **Phase 2: Agent Registry** ⏳
     - Public `skill.md` registry for third-party agents
