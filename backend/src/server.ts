@@ -13,6 +13,7 @@ import config from './config';
 import { authMiddleware } from './middleware/auth';
 import dispatcher, { dispatch, getTask, getRecentTasks, subscribeToTask, getSpecialists, callSpecialist } from './dispatcher';
 import { getBalances, getTransactionLog } from './x402';
+import { getSimulatedBalances } from './specialists/bankr';
 import solana from './solana';
 import { DispatchRequest, Task, WSEvent, SpecialistType } from './types';
 
@@ -90,10 +91,19 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
 });
 
 // Public endpoint for wallet balances (for frontend display)
+// Uses simulated devnet balances from bankr specialist
 app.get('/api/wallet/balances', async (req: Request, res: Response) => {
   try {
-    const balances = await getBalances();
-    res.json(balances);
+    const simulated = await getSimulatedBalances();
+    res.json({
+      solana: {
+        sol: simulated.sol,
+        usdc: simulated.usdc,
+        bonk: simulated.bonk,
+      },
+      evm: { eth: 0, usdc: 0 },
+      transactions: simulated.transactions.slice(-10), // Last 10 transactions
+    });
   } catch (error: any) {
     res.status(500).json({ error: error.message, solana: { sol: 0, usdc: 0 }, evm: { eth: 0, usdc: 0 } });
   }

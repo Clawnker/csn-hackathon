@@ -7270,5 +7270,962 @@
       "timestamp": "2026-02-06T01:18:13.684Z",
       "executionTimeMs": 0
     }
+  },
+  "d1a6d994-820b-4bf6-a10e-ef7bf64b7ab9": {
+    "id": "d1a6d994-820b-4bf6-a10e-ef7bf64b7ab9",
+    "prompt": "Price prediction for BONK",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T01:22:35.825Z",
+    "updatedAt": "2026-02-06T01:22:38.155Z",
+    "payments": [
+      {
+        "amount": "0.001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "magos",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:22:38.155Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770340956429-hv2n",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"Price prediction for BONK...\"",
+        "timestamp": "2026-02-06T01:22:36.429Z"
+      },
+      {
+        "id": "msg-1770340956431-olpr",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:22:36.431Z"
+      },
+      {
+        "id": "msg-1770340957243-axn8",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T01:22:37.243Z"
+      },
+      {
+        "id": "msg-1770340958044-pg78",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "BONK 4h outlook: Bearish. Distribution pattern, resistance rejection, take profits. Target: $0.00002584",
+        "timestamp": "2026-02-06T01:22:38.044Z"
+      },
+      {
+        "id": "msg-1770340958155-7lgg",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.001 USDC → magos",
+        "timestamp": "2026-02-06T01:22:38.155Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "token": "BONK",
+        "currentPrice": 0.000028,
+        "predictedPrice": 0.000025836005089466993,
+        "timeHorizon": "4h",
+        "confidence": 0.8113564259431503,
+        "direction": "bearish",
+        "reasoning": "BONK 4h outlook: Bearish. Distribution pattern, resistance rejection, take profits. Target: $0.00002584"
+      },
+      "confidence": 0.8113564259431503,
+      "timestamp": "2026-02-06T01:22:38.044Z",
+      "executionTimeMs": 0
+    }
+  },
+  "a364b692-7768-46f7-b3bf-8aca4f6662e4": {
+    "id": "a364b692-7768-46f7-b3bf-8aca4f6662e4",
+    "prompt": "Find a trending memecoin on X",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T01:23:23.101Z",
+    "updatedAt": "2026-02-06T01:23:25.463Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:23:25.463Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341003706-lrps",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find a trending memecoin on X...\"",
+        "timestamp": "2026-02-06T01:23:23.706Z"
+      },
+      {
+        "id": "msg-1770341003709-o7ty",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:23:23.709Z"
+      },
+      {
+        "id": "msg-1770341004537-fti1",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:23:24.537Z"
+      },
+      {
+        "id": "msg-1770341005338-g2rt",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"Find a trending memecoin on X\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-06T01:23:25.339Z"
+      },
+      {
+        "id": "msg-1770341005463-8j5y",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T01:23:25.463Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"Find a trending memecoin on X\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "Find a trending memecoin on X",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-06T01:23:25.338Z",
+      "executionTimeMs": 0
+    }
+  },
+  "a685164a-1675-4dc5-9855-c7a9be72f9b8": {
+    "id": "a685164a-1675-4dc5-9855-c7a9be72f9b8",
+    "prompt": "Find a trending memecoin on X",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T01:23:35.345Z",
+    "updatedAt": "2026-02-06T01:23:37.579Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:23:37.579Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341015951-lk66",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find a trending memecoin on X...\"",
+        "timestamp": "2026-02-06T01:23:35.951Z"
+      },
+      {
+        "id": "msg-1770341015953-xmcr",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:23:35.953Z"
+      },
+      {
+        "id": "msg-1770341016675-g952",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:23:36.675Z"
+      },
+      {
+        "id": "msg-1770341017475-7eyx",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"Find a trending memecoin on X\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-06T01:23:37.475Z"
+      },
+      {
+        "id": "msg-1770341017579-9vdo",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T01:23:37.579Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"Find a trending memecoin on X\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "Find a trending memecoin on X",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-06T01:23:37.475Z",
+      "executionTimeMs": 0
+    }
+  },
+  "cab0913d-659c-407b-8bf4-991f435cbda5": {
+    "id": "cab0913d-659c-407b-8bf4-991f435cbda5",
+    "prompt": "Find a trending memecoin on X",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T01:23:58.284Z",
+    "updatedAt": "2026-02-06T01:24:00.667Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:24:00.667Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341038890-fjgl",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find a trending memecoin on X...\"",
+        "timestamp": "2026-02-06T01:23:58.890Z"
+      },
+      {
+        "id": "msg-1770341038892-3f1k",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:23:58.892Z"
+      },
+      {
+        "id": "msg-1770341039720-6oti",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:23:59.720Z"
+      },
+      {
+        "id": "msg-1770341040520-nl9r",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"Find a trending memecoin on X\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-06T01:24:00.520Z"
+      },
+      {
+        "id": "msg-1770341040667-7oow",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T01:24:00.667Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"Find a trending memecoin on X\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "Find a trending memecoin on X",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-06T01:24:00.520Z",
+      "executionTimeMs": 0
+    }
+  },
+  "8113ca7f-9ec2-4c3b-aef1-7ec35cf4c4aa": {
+    "id": "8113ca7f-9ec2-4c3b-aef1-7ec35cf4c4aa",
+    "prompt": "what's happening on facebook",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "general",
+    "createdAt": "2026-02-06T01:24:11.234Z",
+    "updatedAt": "2026-02-06T01:24:13.685Z",
+    "payments": [],
+    "messages": [
+      {
+        "id": "msg-1770341051839-5d5t",
+        "from": "dispatcher",
+        "to": "general",
+        "content": "Routing task: \"what's happening on facebook...\"",
+        "timestamp": "2026-02-06T01:24:11.839Z"
+      },
+      {
+        "id": "msg-1770341051848-drvh",
+        "from": "dispatcher",
+        "to": "general",
+        "content": "Processing with general... (fee: 0 USDC)",
+        "timestamp": "2026-02-06T01:24:11.848Z"
+      },
+      {
+        "id": "msg-1770341053685-guyv",
+        "from": "general",
+        "to": "dispatcher",
+        "content": "I'm not sure how to help with that. Try asking about wallet balances, market analysis, or social sentiment.",
+        "timestamp": "2026-02-06T01:24:13.685Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "magos": {
+          "insight": "📊 **Meme coin analysis:** Based on recent social activity, top mentions are $BONK, $WIF, and $POPCAT. $BONK showing strongest momentum with cross-platform mentions. Consider small position with stop-loss.",
+          "confidence": 0.65,
+          "trending": [
+            {
+              "token": "BONK",
+              "mentions": 42,
+              "sentiment": "bullish"
+            },
+            {
+              "token": "WIF",
+              "mentions": 28,
+              "sentiment": "bullish"
+            },
+            {
+              "token": "POPCAT",
+              "mentions": 15,
+              "sentiment": "neutral"
+            }
+          ],
+          "relatedTokens": [
+            "BONK",
+            "WIF",
+            "POPCAT"
+          ]
+        },
+        "aura": {
+          "market": "crypto",
+          "mood": "cautious",
+          "topMentions": [
+            "SOL",
+            "BTC",
+            "memecoins",
+            "DeFi"
+          ],
+          "summary": "Current market vibes: cautious. Social volume is below average. Standard market conditions.",
+          "confidence": 0.68
+        },
+        "combined": "I'm not sure how to help with that. Try asking about wallet balances, market analysis, or social sentiment."
+      },
+      "confidence": 0.665,
+      "timestamp": "2026-02-06T01:24:13.685Z",
+      "executionTimeMs": 1036
+    }
+  },
+  "a74b5747-178c-4f85-a5f2-c894e4600ea4": {
+    "id": "a74b5747-178c-4f85-a5f2-c894e4600ea4",
+    "prompt": "Price prediction for BONK",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T01:26:02.852Z",
+    "updatedAt": "2026-02-06T01:26:05.136Z",
+    "payments": [
+      {
+        "amount": "0.001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "magos",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:26:05.136Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341163457-up6q",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"Price prediction for BONK...\"",
+        "timestamp": "2026-02-06T01:26:03.457Z"
+      },
+      {
+        "id": "msg-1770341163467-99fk",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:26:03.467Z"
+      },
+      {
+        "id": "msg-1770341164211-ljkx",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T01:26:04.211Z"
+      },
+      {
+        "id": "msg-1770341165011-qkvo",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00002982",
+        "timestamp": "2026-02-06T01:26:05.011Z"
+      },
+      {
+        "id": "msg-1770341165136-bju4",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.001 USDC → magos",
+        "timestamp": "2026-02-06T01:26:05.136Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura"
+      ],
+      "wasApproved": true
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "token": "BONK",
+        "currentPrice": 0.000028,
+        "predictedPrice": 0.00002981842243893004,
+        "timeHorizon": "4h",
+        "confidence": 0.7609774313226052,
+        "direction": "bullish",
+        "reasoning": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00002982"
+      },
+      "confidence": 0.7609774313226052,
+      "timestamp": "2026-02-06T01:26:05.011Z",
+      "executionTimeMs": 0
+    }
+  },
+  "196823a8-20bf-4c35-aa0f-4dc9829e3a3f": {
+    "id": "196823a8-20bf-4c35-aa0f-4dc9829e3a3f",
+    "prompt": "Price prediction for BONK",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T01:27:47.563Z",
+    "updatedAt": "2026-02-06T01:27:49.967Z",
+    "payments": [
+      {
+        "amount": "0.001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "magos",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:27:49.966Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341268168-xd7g",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"Price prediction for BONK...\"",
+        "timestamp": "2026-02-06T01:27:48.168Z"
+      },
+      {
+        "id": "msg-1770341268170-yl6z",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:27:48.170Z"
+      },
+      {
+        "id": "msg-1770341268999-b1g0",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T01:27:48.999Z"
+      },
+      {
+        "id": "msg-1770341269800-fu9f",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00003008",
+        "timestamp": "2026-02-06T01:27:49.800Z"
+      },
+      {
+        "id": "msg-1770341269966-mkxu",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.001 USDC → magos",
+        "timestamp": "2026-02-06T01:27:49.966Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura"
+      ],
+      "wasApproved": true
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "token": "BONK",
+        "currentPrice": 0.000028,
+        "predictedPrice": 0.00003008036222442686,
+        "timeHorizon": "4h",
+        "confidence": 0.8160350134427947,
+        "direction": "bullish",
+        "reasoning": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00003008"
+      },
+      "confidence": 0.8160350134427947,
+      "timestamp": "2026-02-06T01:27:49.800Z",
+      "executionTimeMs": 1
+    }
+  },
+  "719817ae-6119-4bcd-a9d0-a337e59cc453": {
+    "id": "719817ae-6119-4bcd-a9d0-a337e59cc453",
+    "prompt": "buy 0.1 sol of BONK",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-06T01:28:44.870Z",
+    "updatedAt": "2026-02-06T01:28:47.854Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:28:47.854Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341325474-212w",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"buy 0.1 sol of BONK...\"",
+        "timestamp": "2026-02-06T01:28:45.474Z"
+      },
+      {
+        "id": "msg-1770341325476-09t6",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:28:45.476Z"
+      },
+      {
+        "id": "msg-1770341326281-65j9",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:28:46.281Z"
+      },
+      {
+        "id": "msg-1770341327731-aeku",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 7.705877 USDC\n• Route: Byreal\n• Price Impact: 0.0016280477025070000000000001%\n\n📊 **Updated Balances:**\n• SOL: 4.6995\n• USDC: 15.2965",
+        "timestamp": "2026-02-06T01:28:47.731Z"
+      },
+      {
+        "id": "msg-1770341327854-rywb",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-06T01:28:47.854Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "USDC",
+          "amount": "0.1",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "estimatedOutput": "7.705877",
+          "priceImpact": "0.0016280477025070000000000001",
+          "slippageBps": 100,
+          "route": "Byreal",
+          "routePlan": [
+            {
+              "dex": "Byreal",
+              "inputMint": "So111111...",
+              "outputMint": "EPjFWdd5...",
+              "inAmount": "100000000",
+              "outAmount": "7705877",
+              "percent": 100
+            }
+          ],
+          "network": "devnet (simulated)",
+          "balancesBefore": {
+            "SOL": "4.7995",
+            "USDC": "7.5906"
+          },
+          "balancesAfter": {
+            "SOL": "4.6995",
+            "USDC": "15.2965"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 7.705877 USDC\n• Route: Byreal\n• Price Impact: 0.0016280477025070000000000001%\n\n📊 **Updated Balances:**\n• SOL: 4.6995\n• USDC: 15.2965"
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T01:28:47.731Z",
+      "executionTimeMs": 649
+    }
+  },
+  "2b71b27e-8e93-4e55-a2c4-d06ae0991ec2": {
+    "id": "2b71b27e-8e93-4e55-a2c4-d06ae0991ec2",
+    "prompt": "buy 0.1 sol of BONK",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-06T01:31:03.479Z",
+    "updatedAt": "2026-02-06T01:31:06.618Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:31:06.618Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341464084-jb2i",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"buy 0.1 sol of BONK...\"",
+        "timestamp": "2026-02-06T01:31:04.084Z"
+      },
+      {
+        "id": "msg-1770341464086-09m9",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:31:04.086Z"
+      },
+      {
+        "id": "msg-1770341465334-g6qh",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:31:05.334Z"
+      },
+      {
+        "id": "msg-1770341466455-mqtc",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 133350.988153 BONK\n• Route: PancakeSwap → TesseraV → ZeroFi\n• Price Impact: 0%\n\n📊 **Updated Balances:**\n• SOL: 4.5995\n• BONK: 133350.9882",
+        "timestamp": "2026-02-06T01:31:06.455Z"
+      },
+      {
+        "id": "msg-1770341466618-8scx",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-06T01:31:06.618Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "aura"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "BONK",
+          "amount": "0.1",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+          "estimatedOutput": "133350.988153",
+          "priceImpact": "0",
+          "slippageBps": 100,
+          "route": "PancakeSwap → TesseraV → ZeroFi",
+          "routePlan": [
+            {
+              "dex": "PancakeSwap",
+              "inputMint": "So111111...",
+              "outputMint": "pumpCmXq...",
+              "inAmount": "100000000",
+              "outAmount": "3983245107",
+              "percent": 100
+            },
+            {
+              "dex": "TesseraV",
+              "inputMint": "pumpCmXq...",
+              "outputMint": "EPjFWdd5...",
+              "inAmount": "3983245107",
+              "outAmount": "7735457",
+              "percent": 100
+            },
+            {
+              "dex": "ZeroFi",
+              "inputMint": "EPjFWdd5...",
+              "outputMint": "DezXAZ8z...",
+              "inAmount": "7735457",
+              "outAmount": "133350988153",
+              "percent": 100
+            }
+          ],
+          "network": "devnet (simulated)",
+          "balancesBefore": {
+            "SOL": "4.6995",
+            "BONK": "0.0000"
+          },
+          "balancesAfter": {
+            "SOL": "4.5995",
+            "BONK": "133350.9882"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 133350.988153 BONK\n• Route: PancakeSwap → TesseraV → ZeroFi\n• Price Impact: 0%\n\n📊 **Updated Balances:**\n• SOL: 4.5995\n• BONK: 133350.9882"
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T01:31:06.455Z",
+      "executionTimeMs": 320
+    }
+  },
+  "f36b55ba-c69e-4c2d-ad35-3f122f3c45fa": {
+    "id": "f36b55ba-c69e-4c2d-ad35-3f122f3c45fa",
+    "prompt": "buy 0.1 sol of BONK",
+    "userId": "test",
+    "status": "completed",
+    "specialist": "bankr",
+    "createdAt": "2026-02-06T01:32:10.594Z",
+    "updatedAt": "2026-02-06T01:32:13.084Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "bankr",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:32:13.084Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770341531199-bx1f",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Routing task: \"buy 0.1 sol of BONK...\"",
+        "timestamp": "2026-02-06T01:32:11.199Z"
+      },
+      {
+        "id": "msg-1770341531209-6wk1",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:32:11.209Z"
+      },
+      {
+        "id": "msg-1770341532000-iseb",
+        "from": "dispatcher",
+        "to": "bankr",
+        "content": "Processing with bankr... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:32:12.000Z"
+      },
+      {
+        "id": "msg-1770341532945-bgay",
+        "from": "bankr",
+        "to": "dispatcher",
+        "content": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 133398.340291 BONK\n• Route: PancakeSwap → GoonFi → ZeroFi\n• Price Impact: 0%\n\n📊 **Updated Balances:**\n• SOL: 4.4995\n• BONK: 266749.3284",
+        "timestamp": "2026-02-06T01:32:12.945Z"
+      },
+      {
+        "id": "msg-1770341533084-d12u",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → bankr",
+        "timestamp": "2026-02-06T01:32:13.084Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "type": "swap",
+        "status": "executed",
+        "details": {
+          "from": "SOL",
+          "to": "BONK",
+          "amount": "0.1",
+          "inputMint": "So11111111111111111111111111111111111111112",
+          "outputMint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+          "estimatedOutput": "133398.340291",
+          "priceImpact": "0",
+          "slippageBps": 100,
+          "route": "PancakeSwap → GoonFi → ZeroFi",
+          "routePlan": [
+            {
+              "dex": "PancakeSwap",
+              "inputMint": "So111111...",
+              "outputMint": "7vfCXTUX...",
+              "inAmount": "100000000",
+              "outAmount": "408223",
+              "percent": 100
+            },
+            {
+              "dex": "GoonFi",
+              "inputMint": "7vfCXTUX...",
+              "outputMint": "EPjFWdd5...",
+              "inAmount": "408223",
+              "outAmount": "7724846",
+              "percent": 100
+            },
+            {
+              "dex": "ZeroFi",
+              "inputMint": "EPjFWdd5...",
+              "outputMint": "DezXAZ8z...",
+              "inAmount": "7724846",
+              "outAmount": "133398340291",
+              "percent": 100
+            }
+          ],
+          "network": "devnet (simulated)",
+          "balancesBefore": {
+            "SOL": "4.5995",
+            "BONK": "133350.9882"
+          },
+          "balancesAfter": {
+            "SOL": "4.4995",
+            "BONK": "266749.3284"
+          }
+        },
+        "summary": "🔄 **Swap Executed via Jupiter**\n• Input: 0.1 SOL\n• Output: 133398.340291 BONK\n• Route: PancakeSwap → GoonFi → ZeroFi\n• Price Impact: 0%\n\n📊 **Updated Balances:**\n• SOL: 4.4995\n• BONK: 266749.3284"
+      },
+      "confidence": 0.95,
+      "timestamp": "2026-02-06T01:32:12.944Z",
+      "executionTimeMs": 143
+    }
   }
 }

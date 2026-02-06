@@ -402,6 +402,7 @@ function parseIntent(prompt: string): {
   const isAdvice = lower.includes('good') || lower.includes('should') || lower.includes('recommend');
   
   if (!isAdvice && (lower.includes('swap') || lower.includes('buy') || lower.includes('sell') || lower.includes('trade') || lower.includes('exchange'))) {
+    // Pattern: "swap/buy/trade 0.1 SOL for/to/with BONK"
     const swapMatch = prompt.match(/(?:swap|buy|trade|sell|exchange)\s+(?:([\d.]+)\s+)?(\w+)\s+(?:for|to|with)\s+(\w+)/i);
     if (swapMatch) {
       let from = swapMatch[2].toUpperCase();
@@ -413,6 +414,24 @@ function parseIntent(prompt: string): {
       }
       
       return { type: 'swap', amount: amt, from, to };
+    }
+    
+    // Pattern: "buy 0.1 SOL of BONK" means use 0.1 SOL to buy BONK
+    const buyOfMatch = prompt.match(/buy\s+([\d.]+)\s+(\w+)\s+of\s+(\w+)/i);
+    if (buyOfMatch) {
+      const inputAmount = buyOfMatch[1];
+      const inputToken = buyOfMatch[2].toUpperCase();
+      const outputToken = buyOfMatch[3].toUpperCase();
+      return { type: 'swap', amount: inputAmount, from: inputToken, to: outputToken };
+    }
+    
+    // Pattern: "buy BONK with 0.1 SOL"
+    const buyWithMatch = prompt.match(/buy\s+(\w+)\s+with\s+([\d.]+)\s+(\w+)/i);
+    if (buyWithMatch) {
+      const outputToken = buyWithMatch[1].toUpperCase();
+      const inputAmount = buyWithMatch[2];
+      const inputToken = buyWithMatch[3].toUpperCase();
+      return { type: 'swap', amount: inputAmount, from: inputToken, to: outputToken };
     }
     
     if (amountMatch) {
@@ -452,6 +471,24 @@ async function resetSimulatedBalances(): Promise<SimulatedBalances> {
   };
   saveSimulatedState(state);
   return state;
+}
+
+/**
+ * Get current simulated balances (for wallet display)
+ */
+export async function getSimulatedBalances(): Promise<{
+  sol: number;
+  usdc: number;
+  bonk: number;
+  transactions: Array<{ type: string; from: string; to: string; amount: number; output: number; timestamp: number }>;
+}> {
+  const state = await syncWithRealBalance();
+  return {
+    sol: state.balances.SOL || 0,
+    usdc: state.balances.USDC || 0,
+    bonk: state.balances.BONK || 0,
+    transactions: state.transactions || [],
+  };
 }
 
 /**

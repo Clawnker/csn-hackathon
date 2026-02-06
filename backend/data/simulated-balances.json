@@ -1,9 +1,10 @@
 {
-  "lastRealBalanceCheck": 1770339687313,
+  "lastRealBalanceCheck": 1770341327083,
   "realSOL": 4.8995,
   "balances": {
-    "SOL": 4.7995,
-    "USDC": 7.590577
+    "SOL": 4.499500000000001,
+    "USDC": 15.296454,
+    "BONK": 266749.328444
   },
   "transactions": [
     {
@@ -14,6 +15,33 @@
       "amountOut": 7.590577,
       "timestamp": 1770339983711,
       "route": "PancakeSwap"
+    },
+    {
+      "type": "swap",
+      "from": "SOL",
+      "to": "USDC",
+      "amountIn": 0.1,
+      "amountOut": 7.705877,
+      "timestamp": 1770341327731,
+      "route": "Byreal"
+    },
+    {
+      "type": "swap",
+      "from": "SOL",
+      "to": "BONK",
+      "amountIn": 0.1,
+      "amountOut": 133350.988153,
+      "timestamp": 1770341466455,
+      "route": "PancakeSwap → TesseraV → ZeroFi"
+    },
+    {
+      "type": "swap",
+      "from": "SOL",
+      "to": "BONK",
+      "amountIn": 0.1,
+      "amountOut": 133398.340291,
+      "timestamp": 1770341532944,
+      "route": "PancakeSwap → GoonFi → ZeroFi"
     }
   ]
 }

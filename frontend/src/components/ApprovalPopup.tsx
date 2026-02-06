@@ -120,10 +120,10 @@ export function ApprovalPopup({
                 </div>
 
                 {/* Info Banner */}
-                <div className="flex items-start gap-2 text-cyan-400/80 text-sm bg-cyan-500/10 rounded-lg p-3">
+                <div className="flex items-start gap-2 text-amber-400/80 text-sm bg-amber-500/10 rounded-lg p-3">
                   <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
                   <p>
-                    Adding to your swarm is free. You only pay the per-request fee when tasks are executed.
+                    This is a one-time route. You can add this agent to your swarm after the task completes.
                   </p>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export function ApprovalPopup({
                   className="flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-medium hover:shadow-lg hover:shadow-cyan-500/20 transition-all flex items-center justify-center gap-2"
                 >
                   <CheckCircle className="w-4 h-4" />
-                  Add to Swarm & Run
+                  Approve & Run
                 </button>
               </div>
             </div>
