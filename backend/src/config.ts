@@ -85,6 +85,13 @@ export const config = {
       apiUrl: 'https://api.bankr.bot',
     },
   },
+
+  // Jupiter API for swap routing
+  jupiter: {
+    apiKey: process.env.JUPITER_API_KEY || '',
+    baseUrl: process.env.JUPITER_API_URL || 'https://api.jup.ag',
+    ultraUrl: process.env.JUPITER_ULTRA_URL || 'https://api.jup.ag/ultra',
+  },
   
   // Specialist Fees (USDC)
   fees: {

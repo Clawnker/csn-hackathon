@@ -16,8 +16,10 @@ const AGENTWALLET_TOKEN = config.agentWallet.token;
 // AgentWallet Solana address (devnet)
 const SOLANA_ADDRESS = config.agentWallet.solanaAddress || '5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1';
 
-// Jupiter API for quotes (mainnet reference pricing)
-const JUPITER_API = 'https://api.jup.ag/swap/v1';
+// Jupiter API for quotes (with API key for authenticated access)
+const JUPITER_API = config.jupiter?.baseUrl || 'https://api.jup.ag';
+const JUPITER_ULTRA_API = config.jupiter?.ultraUrl || 'https://api.jup.ag/ultra';
+const JUPITER_API_KEY = config.jupiter?.apiKey || '';
 
 // Well-known token mints
 const TOKEN_MINTS: Record<string, string> = {
@@ -56,7 +58,16 @@ async function getJupiterQuote(
   console.log(`[bankr] Jupiter quote: ${amount} (${amountInSmallestUnit} lamports) ${inputMint.slice(0,8)}... -> ${outputMint.slice(0,8)}...`);
   
   try {
-    const response = await axios.get(`${JUPITER_API}/quote`, {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    
+    // Add API key if available
+    if (JUPITER_API_KEY) {
+      headers['x-api-key'] = JUPITER_API_KEY;
+    }
+    
+    const response = await axios.get(`${JUPITER_API}/swap/v1/quote`, {
       params: {
         inputMint,
         outputMint,
@@ -64,13 +75,18 @@ async function getJupiterQuote(
         slippageBps: 100, // 1% slippage
         restrictIntermediateTokens: true,
       },
+      headers,
       timeout: 10000,
     });
     
+    console.log(`[bankr] Jupiter quote received: ${response.data.outAmount} output`);
     return response.data;
   } catch (error: any) {
     // Jupiter API might require API key or be rate limited
     console.log(`[bankr] Jupiter API error: ${error.response?.status || error.message}`);
+    if (error.response?.data) {
+      console.log(`[bankr] Jupiter error details:`, error.response.data);
+    }
     return null;
   }
 }
