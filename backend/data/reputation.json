@@ -1,9 +1,9 @@
 {
   "specialists": {
     "magos": {
-      "successCount": 37,
+      "successCount": 39,
       "failureCount": 2,
-      "upvotes": 37,
+      "upvotes": 39,
       "downvotes": 2,
       "votes": []
     },

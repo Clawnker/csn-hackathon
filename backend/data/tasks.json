@@ -13621,5 +13621,131 @@
       "timestamp": "2026-02-06T15:38:28.191Z",
       "executionTimeMs": 445
     }
+  },
+  "378e5812-83ea-41b2-a11d-6b68f312b20f": {
+    "id": "378e5812-83ea-41b2-a11d-6b68f312b20f",
+    "prompt": "Price prediction for BONK",
+    "userId": "demo-key",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T15:39:06.312Z",
+    "updatedAt": "2026-02-06T15:39:08.566Z",
+    "payments": [],
+    "messages": [
+      {
+        "id": "msg-1770392346922-okmq",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"Price prediction for BONK...\"",
+        "timestamp": "2026-02-06T15:39:06.922Z"
+      },
+      {
+        "id": "msg-1770392346932-s9c8",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T15:39:06.932Z"
+      },
+      {
+        "id": "msg-1770392347765-rngx",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T15:39:07.765Z"
+      },
+      {
+        "id": "msg-1770392348566-ujux",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "BONK 4h outlook: Bearish. Distribution pattern, resistance rejection, take profits. Target: $0.00002544",
+        "timestamp": "2026-02-06T15:39:08.566Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "token": "BONK",
+        "currentPrice": 0.000028,
+        "predictedPrice": 0.000025441566067729975,
+        "timeHorizon": "4h",
+        "confidence": 0.7617671959098149,
+        "direction": "bearish",
+        "reasoning": "BONK 4h outlook: Bearish. Distribution pattern, resistance rejection, take profits. Target: $0.00002544"
+      },
+      "confidence": 0.7617671959098149,
+      "timestamp": "2026-02-06T15:39:08.566Z",
+      "executionTimeMs": 1
+    }
+  },
+  "dad34d73-e5f2-4381-836c-4e88bd82d04d": {
+    "id": "dad34d73-e5f2-4381-836c-4e88bd82d04d",
+    "prompt": "WIF sentiment analysis",
+    "userId": "demo-key",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T15:39:33.050Z",
+    "updatedAt": "2026-02-06T15:39:36.907Z",
+    "payments": [],
+    "messages": [
+      {
+        "id": "msg-1770392373660-ih6s",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"WIF sentiment analysis...\"",
+        "timestamp": "2026-02-06T15:39:33.660Z"
+      },
+      {
+        "id": "msg-1770392373670-w0ys",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T15:39:33.670Z"
+      },
+      {
+        "id": "msg-1770392374574-bjzj",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T15:39:34.574Z"
+      },
+      {
+        "id": "msg-1770392376907-onp7",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "Sentiment for **WIF**: NEUTRAL (0 bullish signals, 0 bearish). Mixed signals, wait for confirmation.",
+        "timestamp": "2026-02-06T15:39:36.907Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "insight": "Sentiment for **WIF**: NEUTRAL (0 bullish signals, 0 bearish). Mixed signals, wait for confirmation.",
+        "confidence": 0.5,
+        "sentiment": "neutral",
+        "score": 0,
+        "relatedTokens": [
+          "WIF"
+        ]
+      },
+      "confidence": 0.5,
+      "timestamp": "2026-02-06T15:39:36.907Z",
+      "executionTimeMs": 1532
+    }
   }
 }

@@ -308,7 +308,7 @@ export default function CommandCenter() {
         return [...prev, {
           id: latestMessage.id,
           type: 'processing',
-          message: latestMessage.content,
+          message: latestMessage.content ?? '',
           specialist: latestMessage.from,
           timestamp: new Date(latestMessage.timestamp),
         }];
