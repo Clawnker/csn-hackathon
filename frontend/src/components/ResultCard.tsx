@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, XCircle, ArrowRight, RotateCcw, Coins, Sparkles, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { CheckCircle2, XCircle, ArrowRight, RotateCcw, Coins, Sparkles, ThumbsUp, ThumbsDown, ChevronDown, ChevronUp } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 interface ResultCardProps {
   query: string;
@@ -122,9 +123,33 @@ export function ResultCard({
               </span>
             </div>
           </div>
-          <p className="text-[var(--text-secondary)] leading-relaxed whitespace-pre-wrap">
-            {displayResult}
-          </p>
+          <div className={`text-[var(--text-secondary)] leading-relaxed max-h-80 overflow-y-auto pr-2 ${isExpanded ? '' : 'max-h-48'}`}>
+            <ReactMarkdown
+              components={{
+                strong: ({ children }) => <strong className="text-white font-semibold">{children}</strong>,
+                em: ({ children }) => <em className="text-gray-400 italic">{children}</em>,
+                p: ({ children }) => <p className="mb-2">{children}</p>,
+                a: ({ href, children }) => (
+                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-[var(--accent-cyan)] hover:underline">
+                    {children}
+                  </a>
+                ),
+                ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1">{children}</ol>,
+                li: ({ children }) => <li className="text-sm">{children}</li>,
+              }}
+            >
+              {displayResult}
+            </ReactMarkdown>
+          </div>
+          {result.length > (result.includes('**') ? 500 : 200) && (
+            <button 
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="flex items-center gap-1 text-sm text-[var(--accent-cyan)] hover:text-[var(--accent-gold)] mt-2 transition-colors"
+            >
+              {isExpanded ? <><ChevronUp size={16} /> Show Less</> : <><ChevronDown size={16} /> Show More</>}
+            </button>
+          )}
         </div>
       </div>
 

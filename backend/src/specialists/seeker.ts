@@ -215,6 +215,12 @@ async function searchNews(query: string): Promise<{
       if (r.age) summary += `   _${r.age}_\n`;
       summary += `\n`;
     });
+    
+    // Add sources section
+    summary += `**Sources:**\n`;
+    results.forEach((r, i) => {
+      summary += `[${i + 1}] ${r.url}\n`;
+    });
   } else {
     summary += 'No recent news found for this topic.\n';
   }

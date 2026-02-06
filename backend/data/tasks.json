@@ -10687,5 +10687,227 @@
       ],
       "wasApproved": false
     }
+  },
+  "a0e4d217-477f-4df7-bcdc-7487e1c0dd4b": {
+    "id": "a0e4d217-477f-4df7-bcdc-7487e1c0dd4b",
+    "prompt": "Research: crypto news today",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T02:34:28.926Z",
+    "updatedAt": "2026-02-06T02:34:32.051Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:34:32.050Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770345269532-y86r",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Research: crypto news today...\"",
+        "timestamp": "2026-02-06T02:34:29.532Z"
+      },
+      {
+        "id": "msg-1770345269536-gtvz",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:34:29.536Z"
+      },
+      {
+        "id": "msg-1770345270320-8pav",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:34:30.320Z"
+      },
+      {
+        "id": "msg-1770345271915-glmz",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Bitcoin experienced significant volatility today, plunging below the $63,000 mark, primarily due to market uncertainty and investor sentiment amid rising regulatory scrutiny. U.S. Treasury Secretary Scott Bessent's comments on cryptocurrency have sparked speculation regarding China potentially ...",
+        "timestamp": "2026-02-06T02:34:31.915Z"
+      },
+      {
+        "id": "msg-1770345272051-60er",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T02:34:32.051Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "📰 **Latest News: Research: crypto news today**\n\n1. **[LIVE] February 5, 2026: Bitcoin and Crypto News — Daily Highlights - Bitcoin Sistemi**\n   Bitcoin experienced significant volatility today, plunging below the $63,000 mark, primarily due to market uncertainty and investor sentiment amid rising regulatory scrutiny. U.S. Treasury Secretary Scott Bessent's comments on cryptocurrency have sparked speculation regarding China potentially ...\n   _4 hours ago_\n\n2. **Bitcoin Drops to Lowest Price Since Trump Was Elected as Crypto Faces Slump - The New York Times**\n   The price of Bitcoin is now lower than when President Trump was elected in 2024, raising concerns of a new “crypto winter\" in the industry.\n   _3 hours ago_\n\n3. **Why Crypto Crashed Today: $184 Billion Wiped Out in One Day**\n   Global financial markets saw heavy losses over the past 24 hours, with cryptocurrencies leading a sharp sell-off that wiped out trillions of dollars in\n   _12 hours ago_\n\n4. **Crypto News Today [Live] Updates**\n   ARK Invest CEO Cathie Wood has blamed a Binance software issue for last year’s crypto flash crash, which saw Bitcoin fall from $122K to $105K, triggering $28 billion in forced margin calls and wiping out $19 billion in leveraged positions. The crash coincided with U.S.\n   _2 days ago_\n\n5. **Crypto crash accelerates as investors flee risky assets**\n   Bitcoin’s plunge accelerated on Thursday, as the world’s largest cryptocurrency fell more than 12% to below $64,000 in late afternoon trading, a level not seen since October 2024.\n   _3 hours ago_\n\n",
+        "insight": "Bitcoin experienced significant volatility today, plunging below the $63,000 mark, primarily due to market uncertainty and investor sentiment amid rising regulatory scrutiny. U.S. Treasury Secretary Scott Bessent's comments on cryptocurrency have sparked speculation regarding China potentially ...",
+        "results": [
+          {
+            "title": "[LIVE] February 5, 2026: Bitcoin and Crypto News — Daily Highlights - Bitcoin Sistemi",
+            "url": "https://en.bitcoinsistemi.com/live/live-february-5-2026-bitcoin-and-crypto-news-daily-highlights/",
+            "description": "Bitcoin experienced significant volatility today, plunging below the $63,000 mark, primarily due to market uncertainty and investor sentiment amid rising regulatory scrutiny. U.S. Treasury Secretary Scott Bessent's comments on cryptocurrency have sparked speculation regarding China potentially ...",
+            "age": "4 hours ago"
+          },
+          {
+            "title": "Bitcoin Drops to Lowest Price Since Trump Was Elected as Crypto Faces Slump - The New York Times",
+            "url": "https://www.nytimes.com/2026/02/05/technology/bitcoin-price-drop-crypto-market.html",
+            "description": "The price of Bitcoin is now lower than when President Trump was elected in 2024, raising concerns of a new “crypto winter\" in the industry.",
+            "age": "3 hours ago"
+          },
+          {
+            "title": "Why Crypto Crashed Today: $184 Billion Wiped Out in One Day",
+            "url": "https://coinpedia.org/news/why-crypto-crashed-today-184-billion-wiped-out-in-one-day/",
+            "description": "Global financial markets saw heavy losses over the past 24 hours, with cryptocurrencies leading a sharp sell-off that wiped out trillions of dollars in",
+            "age": "12 hours ago"
+          },
+          {
+            "title": "Crypto News Today [Live] Updates",
+            "url": "https://coinpedia.org/news/crypto-news-today-live-updates-2/",
+            "description": "ARK Invest CEO Cathie Wood has blamed a Binance software issue for last year’s crypto flash crash, which saw Bitcoin fall from $122K to $105K, triggering $28 billion in forced margin calls and wiping out $19 billion in leveraged positions. The crash coincided with U.S.",
+            "age": "2 days ago"
+          },
+          {
+            "title": "Crypto crash accelerates as investors flee risky assets",
+            "url": "https://www.nbcnews.com/business/markets/crypto-crash-bitcoin-gold-rcna257556",
+            "description": "Bitcoin’s plunge accelerated on Thursday, as the world’s largest cryptocurrency fell more than 12% to below $64,000 in late afternoon trading, a level not seen since October 2024.",
+            "age": "3 hours ago"
+          }
+        ],
+        "confidence": 0.8,
+        "details": {
+          "type": "news",
+          "query": "Research: crypto news today",
+          "count": 5
+        }
+      },
+      "confidence": 0.8,
+      "timestamp": "2026-02-06T02:34:31.915Z",
+      "executionTimeMs": 794
+    }
+  },
+  "96eaa451-18da-40ca-806e-13abcce723b4": {
+    "id": "96eaa451-18da-40ca-806e-13abcce723b4",
+    "prompt": "who is michael saylor?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T02:36:08.449Z",
+    "updatedAt": "2026-02-06T02:36:11.395Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:36:11.395Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770345369054-lfpn",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"who is michael saylor?...\"",
+        "timestamp": "2026-02-06T02:36:09.054Z"
+      },
+      {
+        "id": "msg-1770345369064-8xmk",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:36:09.064Z"
+      },
+      {
+        "id": "msg-1770345369974-1rx2",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:36:09.974Z"
+      },
+      {
+        "id": "msg-1770345371260-4l5d",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Michael J. Saylor (born February 4, 1965) is an American entrepreneur and billionaire business executive. He is the executive chairman and co-founder of MicroStrategy, a company that provides business intelligence, mobile software, and cloud-based services. Saylor was MicroStrategy's chief ... Michael Saylor is an American entrepreneur, executive, inventor, author, and philanthropist. He was born to a military family in Lincoln, Nebraska, in 1965 and spent his childhood living on various U.S. Air Force bases around the world. @Strategy Founder & Chairman | bio http://michael.com | $MSTR $STRC $STRK $STRF $STRD http://strategy.com/offerings\n\n**Headlines:**\n1. Michael J. Saylor - Wikipedia (10 hours ago)\n2. Michael J. Saylor\n3. Michael Saylor (@saylor) / X (January 29, 2011)\n4. Michael J. Saylor\n5. Michael Saylor: AI Is Your Advantage - YouTube (3 days ago)",
+        "timestamp": "2026-02-06T02:36:11.260Z"
+      },
+      {
+        "id": "msg-1770345371395-q7rc",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T02:36:11.395Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "🔍 **Research: michael saylor**\n\n**Key Findings:**\n1. **Michael J. Saylor - Wikipedia** _(10 hours ago)_\n   Michael J. Saylor (born February 4, 1965) is an American entrepreneur and billionaire business executive. He is the executive chairman and co-founder of MicroStrategy, a company that provides business intelligence, mobile software, and cloud-based services. Saylor was MicroStrategy's chief ...\n\n2. **Michael J. Saylor**\n   Michael Saylor is an American entrepreneur, executive, inventor, author, and philanthropist. He was born to a military family in Lincoln, Nebraska, in 1965 and spent his childhood living on various U.S. Air Force bases around the world.\n\n3. **Michael Saylor (@saylor) / X** _(January 29, 2011)_\n   @Strategy Founder & Chairman | bio http://michael.com | $MSTR $STRC $STRK $STRF $STRD http://strategy.com/offerings\n\n4. **Michael J. Saylor**\n   Michael Saylor is the Founder & Executive Chairman of Strategy (MSTR), a publicly traded business intelligence firm & holder of ₿649,870 that he founded in 1989. He is also the founder of Alarm.com (ALRM), named inventor on 48+ patents, & ...\n\n5. **Michael Saylor: AI Is Your Advantage - YouTube** _(3 days ago)_\n   Michael Saylor explains why artificial intelligence is the ultimate advantage at Bitcoin 2025 Conference and how using AI first can level the playing field f...\n\n**Sources:**\n[1] https://en.wikipedia.org/wiki/Michael_J._Saylor\n[2] https://www.strategy.com/investor-relations/executive-team/michael-saylor\n[3] https://x.com/saylor?lang=en\n[4] https://www.michael.com/\n[5] https://www.youtube.com/watch?v=fMS-QWoAgkI\n",
+        "insight": "Michael J. Saylor (born February 4, 1965) is an American entrepreneur and billionaire business executive. He is the executive chairman and co-founder of MicroStrategy, a company that provides business intelligence, mobile software, and cloud-based services. Saylor was MicroStrategy's chief ... Michael Saylor is an American entrepreneur, executive, inventor, author, and philanthropist. He was born to a military family in Lincoln, Nebraska, in 1965 and spent his childhood living on various U.S. Air Force bases around the world. @Strategy Founder & Chairman | bio http://michael.com | $MSTR $STRC $STRK $STRF $STRD http://strategy.com/offerings\n\n**Headlines:**\n1. Michael J. Saylor - Wikipedia (10 hours ago)\n2. Michael J. Saylor\n3. Michael Saylor (@saylor) / X (January 29, 2011)\n4. Michael J. Saylor\n5. Michael Saylor: AI Is Your Advantage - YouTube (3 days ago)",
+        "results": [
+          {
+            "title": "Michael J. Saylor - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Michael_J._Saylor",
+            "description": "Michael J. Saylor (born February 4, 1965) is an American entrepreneur and billionaire business executive. He is the executive chairman and co-founder of MicroStrategy, a company that provides business intelligence, mobile software, and cloud-based services. Saylor was MicroStrategy's chief ...",
+            "age": "10 hours ago"
+          },
+          {
+            "title": "Michael J. Saylor",
+            "url": "https://www.strategy.com/investor-relations/executive-team/michael-saylor",
+            "description": "Michael Saylor is an American entrepreneur, executive, inventor, author, and philanthropist. He was born to a military family in Lincoln, Nebraska, in 1965 and spent his childhood living on various U.S. Air Force bases around the world."
+          },
+          {
+            "title": "Michael Saylor (@saylor) / X",
+            "url": "https://x.com/saylor?lang=en",
+            "description": "@Strategy Founder & Chairman | bio http://michael.com | $MSTR $STRC $STRK $STRF $STRD http://strategy.com/offerings",
+            "age": "January 29, 2011"
+          },
+          {
+            "title": "Michael J. Saylor",
+            "url": "https://www.michael.com/",
+            "description": "Michael Saylor is the Founder & Executive Chairman of Strategy (MSTR), a publicly traded business intelligence firm & holder of ₿649,870 that he founded in 1989. He is also the founder of Alarm.com (ALRM), named inventor on 48+ patents, & ..."
+          },
+          {
+            "title": "Michael Saylor: AI Is Your Advantage - YouTube",
+            "url": "https://www.youtube.com/watch?v=fMS-QWoAgkI",
+            "description": "Michael Saylor explains why artificial intelligence is the ultimate advantage at Bitcoin 2025 Conference and how using AI first can level the playing field f...",
+            "age": "3 days ago"
+          }
+        ],
+        "confidence": 0.85,
+        "details": {
+          "type": "search",
+          "query": "michael saylor",
+          "count": 5
+        }
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T02:36:11.260Z",
+      "executionTimeMs": 485
+    }
   }
 }
