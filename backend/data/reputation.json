@@ -1,9 +1,9 @@
 {
   "specialists": {
     "magos": {
-      "successCount": 32,
+      "successCount": 35,
       "failureCount": 2,
-      "upvotes": 32,
+      "upvotes": 35,
       "downvotes": 2,
       "votes": []
     },
@@ -22,9 +22,9 @@
       "votes": []
     },
     "bankr": {
-      "successCount": 20,
+      "successCount": 22,
       "failureCount": 0,
-      "upvotes": 20,
+      "upvotes": 22,
       "downvotes": 1,
       "votes": [
         {
@@ -42,9 +42,92 @@
       "upvotes": 13,
       "downvotes": 0,
       "votes": []
+    },
+    "DeFi Specialist Bankr": {
+      "successCount": 0,
+      "failureCount": 0,
+      "upvotes": 1,
+      "downvotes": 0,
+      "votes": [
+        {
+          "taskId": "d86ea43d-cd0c-41f3-9e62-041f1e53c8a0",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "up",
+          "timestamp": 1770342632129
+        }
+      ]
+    },
+    "Market Oracle": {
+      "successCount": 0,
+      "failureCount": 0,
+      "upvotes": 2,
+      "downvotes": 1,
+      "votes": [
+        {
+          "taskId": "ae1bdde4-5358-4968-9818-c098781d8716",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "up",
+          "timestamp": 1770342662972
+        },
+        {
+          "taskId": "ae1bdde4-5358-4968-9818-c098781d8716",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "down",
+          "timestamp": 1770342667074
+        },
+        {
+          "taskId": "ae1bdde4-5358-4968-9818-c098781d8716",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "up",
+          "timestamp": 1770342668552
+        },
+        {
+          "taskId": "ae1bdde4-5358-4968-9818-c098781d8716",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "down",
+          "timestamp": 1770342671308
+        },
+        {
+          "taskId": "ae1bdde4-5358-4968-9818-c098781d8716",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "up",
+          "timestamp": 1770342672113
+        },
+        {
+          "taskId": "25a56ef8-905f-4a7e-9ef8-94053f1ff8b0",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "up",
+          "timestamp": 1770342691654
+        },
+        {
+          "taskId": "25a56ef8-905f-4a7e-9ef8-94053f1ff8b0",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "down",
+          "timestamp": 1770342694784
+        },
+        {
+          "taskId": "db1b868f-851f-4331-9e5b-55696bfb880f",
+          "voterId": "demo-user",
+          "voterType": "human",
+          "vote": "up",
+          "timestamp": 1770342718975
+        }
+      ]
     }
   },
   "voterTaskIndex": {
-    "demo-user:test-123": "down"
+    "demo-user:test-123": "down",
+    "demo-user:d86ea43d-cd0c-41f3-9e62-041f1e53c8a0": "up",
+    "demo-user:ae1bdde4-5358-4968-9818-c098781d8716": "up",
+    "demo-user:25a56ef8-905f-4a7e-9ef8-94053f1ff8b0": "down",
+    "demo-user:db1b868f-851f-4331-9e5b-55696bfb880f": "up"
   }
 }

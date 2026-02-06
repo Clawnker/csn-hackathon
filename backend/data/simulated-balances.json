@@ -1,11 +1,11 @@
 {
-  "lastRealBalanceCheck": 1770341637761,
-  "realSOL": 4.8995,
+  "lastRealBalanceCheck": 1770342969588,
+  "realSOL": 4.8895,
   "balances": {
-    "SOL": 4.274097963000003,
+    "SOL": 4.2895,
     "USDC": 15.296454,
     "BONK": 434237.73033000005,
-    "TOP": 0.0995
+    "TOP": 0.199
   },
   "transactions": [
     {
@@ -88,6 +88,33 @@
       "amountOut": 0.074597963,
       "timestamp": 1770341843727,
       "route": "Bonkswap → SolFi V2 → PancakeSwap"
+    },
+    {
+      "type": "swap",
+      "from": "SOL",
+      "to": "TOP",
+      "amountIn": 0.1,
+      "amountOut": 0.0995,
+      "timestamp": 1770342627397,
+      "route": "Mock"
+    },
+    {
+      "type": "swap",
+      "from": "SOL",
+      "to": "BONK",
+      "amountIn": 0.5,
+      "amountOut": 669672.215705,
+      "timestamp": 1770343002163,
+      "route": "Raydium CLMM → Stabble Stable Swap → Bonkswap"
+    },
+    {
+      "type": "transfer",
+      "from": "BONK",
+      "to": "EXTERNAL",
+      "amountIn": 669672.215705,
+      "amountOut": 0,
+      "timestamp": 1770343002164,
+      "route": "Bq48Paxt..."
     }
   ]
 }

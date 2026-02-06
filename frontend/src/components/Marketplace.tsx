@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
@@ -170,9 +170,28 @@ export function Marketplace({ hiredAgents, onHire }: MarketplaceProps) {
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'popularity' | 'price' | 'reputation'>('popularity');
   const [filterType, setFilterType] = useState<string>('all');
+  const [reputationData, setReputationData] = useState<Record<string, { successRate: number; upvotes: number; downvotes: number }>>({});
+
+  // Fetch live reputation data
+  useEffect(() => {
+    fetch('http://localhost:3000/api/reputation')
+      .then(res => res.json())
+      .then(data => setReputationData(data))
+      .catch(() => {});
+  }, []);
+
+  // Merge reputation data with static agent data
+  const agentsWithReputation = useMemo(() => {
+    return MARKETPLACE_AGENTS.map(agent => ({
+      ...agent,
+      successRate: reputationData[agent.id]?.successRate ?? agent.successRate,
+      upvotes: reputationData[agent.id]?.upvotes ?? 0,
+      downvotes: reputationData[agent.id]?.downvotes ?? 0,
+    }));
+  }, [reputationData]);
 
   const filteredAndSortedAgents = useMemo(() => {
-    let result = MARKETPLACE_AGENTS.filter(agent => {
+    let result = agentsWithReputation.filter(agent => {
       const matchesSearch = agent.name.toLowerCase().includes(search.toLowerCase()) || 
                             agent.description.toLowerCase().includes(search.toLowerCase()) ||
                             agent.capabilities.some(c => c.includes(search.toLowerCase()));
@@ -189,7 +208,7 @@ export function Marketplace({ hiredAgents, onHire }: MarketplaceProps) {
     });
 
     return result;
-  }, [search, sortBy, filterType]);
+  }, [search, sortBy, filterType, agentsWithReputation]);
 
   const allCapabilities = Array.from(new Set(MARKETPLACE_AGENTS.flatMap(a => a.capabilities)));
 

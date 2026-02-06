@@ -382,8 +382,87 @@ function estimateOutput(from: string, to: string, amount: string): string {
   return (parseFloat(amount) * rate * 0.995).toFixed(6); // 0.5% slippage
 }
 
+type ParsedAction = {
+  type: 'swap' | 'transfer' | 'balance';
+  from?: string;
+  to?: string;
+  amount?: string;
+  address?: string;
+  token?: string;
+};
+
 /**
- * Parse user intent from prompt
+ * Parse compound intents - handles "buy X and send to Y" patterns
+ * Returns array of sequential actions
+ */
+function parseCompoundIntent(prompt: string): ParsedAction[] {
+  const lower = prompt.toLowerCase();
+  const actions: ParsedAction[] = [];
+  
+  // Pattern: "buy X SOL worth of BONK and send/transfer to <address>"
+  const buyAndSendMatch = prompt.match(
+    /buy\s+([\d.]+)\s+(\w+)\s+(?:worth\s+)?of\s+(\w+)\s+(?:and|then)\s+(?:send|transfer)\s+(?:it\s+)?to\s+([1-9A-HJ-NP-Za-km-z]{32,44})/i
+  );
+  
+  if (buyAndSendMatch) {
+    const inputAmount = buyAndSendMatch[1];
+    const inputToken = buyAndSendMatch[2].toUpperCase();
+    const outputToken = buyAndSendMatch[3].toUpperCase();
+    const address = buyAndSendMatch[4];
+    
+    // First action: swap
+    actions.push({
+      type: 'swap',
+      amount: inputAmount,
+      from: inputToken,
+      to: outputToken,
+    });
+    
+    // Second action: transfer the output (use 'ALL' as special marker)
+    actions.push({
+      type: 'transfer',
+      token: outputToken,
+      amount: 'ALL', // Will use the output from swap
+      address,
+    });
+    
+    return actions;
+  }
+  
+  // Pattern: "swap X for Y and send to <address>"
+  const swapAndSendMatch = prompt.match(
+    /(?:swap|trade)\s+([\d.]+)\s+(\w+)\s+(?:for|to)\s+(\w+)\s+(?:and|then)\s+(?:send|transfer)\s+(?:it\s+)?to\s+([1-9A-HJ-NP-Za-km-z]{32,44})/i
+  );
+  
+  if (swapAndSendMatch) {
+    const inputAmount = swapAndSendMatch[1];
+    const inputToken = swapAndSendMatch[2].toUpperCase();
+    const outputToken = swapAndSendMatch[3].toUpperCase();
+    const address = swapAndSendMatch[4];
+    
+    actions.push({
+      type: 'swap',
+      amount: inputAmount,
+      from: inputToken,
+      to: outputToken,
+    });
+    
+    actions.push({
+      type: 'transfer',
+      token: outputToken,
+      amount: 'ALL',
+      address,
+    });
+    
+    return actions;
+  }
+  
+  return actions;
+}
+
+/**
+ * Parse user intent from prompt - supports compound actions
+ * e.g., "buy 1 sol worth of BONK and send it to <address>"
  */
 function parseIntent(prompt: string): {
   type: 'swap' | 'transfer' | 'balance';
@@ -392,6 +471,13 @@ function parseIntent(prompt: string): {
   amount?: string;
   address?: string;
 } {
+  // First check for compound "buy X and send to Y" pattern
+  const compound = parseCompoundIntent(prompt);
+  if (compound.length > 0) {
+    // Return first action - we'll handle compound in the handler
+    return compound[0];
+  }
+  
   const lower = prompt.toLowerCase();
   
   // Extract amount
@@ -502,6 +588,13 @@ export const bankr = {
     const startTime = Date.now();
     
     try {
+      // Check for compound actions first
+      const compoundActions = parseCompoundIntent(prompt);
+      if (compoundActions.length > 1) {
+        console.log(`[bankr] Compound intent detected: ${compoundActions.length} actions`);
+        return await this.handleCompoundActions(prompt, compoundActions, startTime);
+      }
+      
       const intent = parseIntent(prompt);
       console.log(`[bankr] Intent: ${intent.type}`, intent);
       
@@ -654,6 +747,149 @@ export const bankr = {
         executionTimeMs: Date.now() - startTime,
       };
     }
+  },
+
+  /**
+   * Handle compound/multi-step actions (e.g., buy BONK and send to address)
+   */
+  async handleCompoundActions(
+    prompt: string,
+    actions: ParsedAction[],
+    startTime: number
+  ): Promise<SpecialistResult> {
+    const results: any[] = [];
+    let lastSwapOutput: { token: string; amount: number } | null = null;
+    let state = await syncWithRealBalance();
+    
+    for (let i = 0; i < actions.length; i++) {
+      const action = actions[i];
+      console.log(`[bankr] Executing step ${i + 1}/${actions.length}: ${action.type}`);
+      
+      try {
+        if (action.type === 'swap') {
+          const swapResult = await executeJupiterSwap(action.from!, action.to!, action.amount!);
+          results.push({
+            step: i + 1,
+            type: 'swap',
+            status: swapResult.status,
+            from: action.from,
+            to: action.to,
+            input: action.amount,
+            output: swapResult.details.estimatedOutput,
+            route: swapResult.details.route,
+          });
+          
+          if (swapResult.status === 'executed' || swapResult.status === 'simulated') {
+            lastSwapOutput = {
+              token: action.to!,
+              amount: parseFloat(swapResult.details.estimatedOutput || '0'),
+            };
+          }
+        } else if (action.type === 'transfer') {
+          // Use output from previous swap if amount is 'ALL'
+          let transferAmount = action.amount;
+          let transferToken = action.token || 'SOL';
+          
+          if (transferAmount === 'ALL' && lastSwapOutput) {
+            transferAmount = lastSwapOutput.amount.toFixed(6);
+            transferToken = lastSwapOutput.token;
+          }
+          
+          // Simulate transfer for demo
+          state = await syncWithRealBalance();
+          const currentBalance = state.balances[transferToken] || 0;
+          const sendAmount = parseFloat(transferAmount || '0');
+          
+          if (currentBalance < sendAmount) {
+            results.push({
+              step: i + 1,
+              type: 'transfer',
+              status: 'failed',
+              error: `Insufficient ${transferToken} balance`,
+              available: currentBalance,
+              required: sendAmount,
+            });
+          } else {
+            // Simulate the transfer (deduct from balance)
+            state.balances[transferToken] = currentBalance - sendAmount;
+            state.transactions.push({
+              type: 'transfer',
+              from: transferToken,
+              to: 'EXTERNAL',
+              amountIn: sendAmount,
+              amountOut: 0,
+              timestamp: Date.now(),
+              route: action.address?.slice(0, 8) + '...',
+            });
+            saveSimulatedState(state);
+            
+            results.push({
+              step: i + 1,
+              type: 'transfer',
+              status: 'simulated',
+              token: transferToken,
+              amount: sendAmount,
+              recipient: action.address,
+              txHash: `sim_${Date.now().toString(36)}`,
+            });
+          }
+        }
+      } catch (error: any) {
+        results.push({
+          step: i + 1,
+          type: action.type,
+          status: 'failed',
+          error: error.message,
+        });
+      }
+    }
+    
+    // Build summary
+    const allSuccess = results.every(r => r.status !== 'failed');
+    const swapStep = results.find(r => r.type === 'swap');
+    const transferStep = results.find(r => r.type === 'transfer');
+    
+    let summary = `📦 **Multi-Step Transaction** (${results.length} steps)\n\n`;
+    
+    if (swapStep) {
+      summary += `**Step 1: Swap**\n`;
+      summary += `• Input: ${swapStep.input} ${swapStep.from}\n`;
+      summary += `• Output: ${swapStep.output} ${swapStep.to}\n`;
+      summary += `• Route: ${swapStep.route}\n\n`;
+    }
+    
+    if (transferStep) {
+      summary += `**Step 2: Transfer**\n`;
+      if (transferStep.status === 'failed') {
+        summary += `• ❌ ${transferStep.error}\n`;
+      } else {
+        summary += `• Amount: ${transferStep.amount} ${transferStep.token}\n`;
+        summary += `• To: ${transferStep.recipient}\n`;
+        summary += `• Status: Simulated ✓\n`;
+      }
+    }
+    
+    summary += `\n📊 **Final Balances:**\n`;
+    summary += `• SOL: ${state.balances.SOL?.toFixed(4) || '0'}\n`;
+    summary += `• USDC: ${state.balances.USDC?.toFixed(4) || '0'}\n`;
+    if (state.balances.BONK) {
+      summary += `• BONK: ${(state.balances.BONK / 1000).toFixed(1)}K\n`;
+    }
+    
+    return {
+      success: allSuccess,
+      data: {
+        type: 'compound',
+        status: allSuccess ? 'success' : 'partial',
+        steps: results,
+        details: {
+          response: summary,
+          balancesAfter: state.balances,
+        },
+      },
+      timestamp: new Date(),
+      executionTimeMs: Date.now() - startTime,
+    };
   },
 };
 
