@@ -136,6 +136,78 @@ function mockSearch(query: string, count: number, startTime: number): SearchResp
         age: '2 weeks ago',
       },
     ];
+  } else if (lowerQuery.includes('capital') && lowerQuery.includes('france')) {
+    results = [
+      {
+        title: 'Paris - Capital of France - Wikipedia',
+        url: 'https://en.wikipedia.org/wiki/Paris',
+        description: 'Paris is the capital and most populous city of France. With an estimated population of 2.1 million in the city proper and over 12 million in the metropolitan area.',
+        age: '1 week ago',
+      },
+      {
+        title: 'Paris | History, Geography, Facts | Britannica',
+        url: 'https://britannica.com/place/Paris',
+        description: 'Paris, capital city of France, located in north-central France along the Seine River. One of the world\'s most visited cities.',
+        age: '2 weeks ago',
+      },
+    ];
+  } else if (lowerQuery.includes('capital')) {
+    // Generic capital question - extract country
+    const capitals: Record<string, { capital: string; info: string }> = {
+      'germany': { capital: 'Berlin', info: 'Berlin is the capital and largest city of Germany with 3.6 million residents.' },
+      'japan': { capital: 'Tokyo', info: 'Tokyo is the capital of Japan and the world\'s most populous metropolitan area.' },
+      'uk': { capital: 'London', info: 'London is the capital and largest city of England and the United Kingdom.' },
+      'italy': { capital: 'Rome', info: 'Rome is the capital of Italy, known for its ancient history and architecture.' },
+      'spain': { capital: 'Madrid', info: 'Madrid is the capital and most populous city of Spain.' },
+      'canada': { capital: 'Ottawa', info: 'Ottawa is the capital of Canada, located in Ontario.' },
+      'australia': { capital: 'Canberra', info: 'Canberra is the capital of Australia, planned as a purpose-built capital.' },
+      'brazil': { capital: 'Brasília', info: 'Brasília is the federal capital of Brazil, inaugurated in 1960.' },
+      'china': { capital: 'Beijing', info: 'Beijing is the capital of China and the world\'s most populous national capital.' },
+      'india': { capital: 'New Delhi', info: 'New Delhi is the capital of India, serving as the seat of government.' },
+    };
+    
+    let foundCapital: { country: string; capital: string; info: string } | null = null;
+    for (const [country, data] of Object.entries(capitals)) {
+      if (lowerQuery.includes(country)) {
+        foundCapital = { country, ...data };
+        break;
+      }
+    }
+    
+    if (foundCapital) {
+      results = [
+        {
+          title: `${foundCapital.capital} - Capital of ${foundCapital.country.charAt(0).toUpperCase() + foundCapital.country.slice(1)}`,
+          url: `https://en.wikipedia.org/wiki/${foundCapital.capital}`,
+          description: foundCapital.info,
+          age: '1 week ago',
+        },
+      ];
+    }
+  } else if (lowerQuery.includes('bitcoin') || lowerQuery.includes('btc')) {
+    results = [
+      {
+        title: 'Bitcoin - Wikipedia',
+        url: 'https://en.wikipedia.org/wiki/Bitcoin',
+        description: 'Bitcoin is a decentralized digital currency created in 2009 by pseudonymous developer Satoshi Nakamoto.',
+        age: '1 day ago',
+      },
+      {
+        title: 'Bitcoin Price | BTC Price Index | CoinGecko',
+        url: 'https://coingecko.com/en/coins/bitcoin',
+        description: 'Get the latest Bitcoin price, BTC market cap, trading pairs, charts and data.',
+        age: '1 hour ago',
+      },
+    ];
+  } else if (lowerQuery.includes('ethereum') || lowerQuery.includes('eth')) {
+    results = [
+      {
+        title: 'Ethereum - Wikipedia',
+        url: 'https://en.wikipedia.org/wiki/Ethereum',
+        description: 'Ethereum is a decentralized blockchain platform featuring smart contract functionality, founded by Vitalik Buterin.',
+        age: '2 days ago',
+      },
+    ];
   } else {
     // Generic results
     results = [

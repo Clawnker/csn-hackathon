@@ -9627,5 +9627,545 @@
       "timestamp": "2026-02-06T02:07:52.771Z",
       "executionTimeMs": 1
     }
+  },
+  "be758ab2-0257-4d08-9286-0c3f173da6ea": {
+    "id": "be758ab2-0257-4d08-9286-0c3f173da6ea",
+    "prompt": "Price prediction for BONK",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T02:13:45.683Z",
+    "updatedAt": "2026-02-06T02:13:48.338Z",
+    "payments": [
+      {
+        "amount": "0.001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "magos",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:13:48.337Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770344026289-1kgc",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"Price prediction for BONK...\"",
+        "timestamp": "2026-02-06T02:13:46.289Z"
+      },
+      {
+        "id": "msg-1770344026298-hioi",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:13:46.298Z"
+      },
+      {
+        "id": "msg-1770344027290-dyvq",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T02:13:47.290Z"
+      },
+      {
+        "id": "msg-1770344028091-3xf2",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00003072",
+        "timestamp": "2026-02-06T02:13:48.091Z"
+      },
+      {
+        "id": "msg-1770344028337-wqln",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.001 USDC → magos",
+        "timestamp": "2026-02-06T02:13:48.337Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "token": "BONK",
+        "currentPrice": 0.000028,
+        "predictedPrice": 0.00003072089479452718,
+        "timeHorizon": "4h",
+        "confidence": 0.8713040774919589,
+        "direction": "bullish",
+        "reasoning": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00003072"
+      },
+      "confidence": 0.8713040774919589,
+      "timestamp": "2026-02-06T02:13:48.091Z",
+      "executionTimeMs": 0
+    }
+  },
+  "e5e25220-77a9-43a1-af51-4e64a517f0d7": {
+    "id": "e5e25220-77a9-43a1-af51-4e64a517f0d7",
+    "prompt": "Find trending meme coins",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T02:14:17.350Z",
+    "updatedAt": "2026-02-06T02:14:20.324Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:14:20.323Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770344057957-h1tu",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find trending meme coins...\"",
+        "timestamp": "2026-02-06T02:14:17.957Z"
+      },
+      {
+        "id": "msg-1770344057959-nsb1",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:14:17.959Z"
+      },
+      {
+        "id": "msg-1770344058755-l34a",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:14:18.755Z"
+      },
+      {
+        "id": "msg-1770344060206-k11f",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Information about trending meme coins. This is a mock result for demonstration purposes.",
+        "timestamp": "2026-02-06T02:14:20.206Z"
+      },
+      {
+        "id": "msg-1770344060324-7tg7",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T02:14:20.324Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "🔍 **Research: trending meme coins**\n\n**Summary**: Found 2 relevant results.\n\n**Key Findings**:\n1. **Search results for: trending meme coins**\n   Information about trending meme coins. This is a mock result for demonstration purposes.\n\n2. **trending meme coins - Latest News and Updates**\n   Stay updated with the latest news about trending meme coins.\n\n**Sources**:\n• [Search results for: trending meme coins](https://example.com/search?q=trending%20meme%20coins)\n• [trending meme coins - Latest News and Updates](https://news.example.com/trending-meme-coins)\n",
+        "insight": "Information about trending meme coins. This is a mock result for demonstration purposes.",
+        "results": [
+          {
+            "title": "Search results for: trending meme coins",
+            "url": "https://example.com/search?q=trending%20meme%20coins",
+            "description": "Information about trending meme coins. This is a mock result for demonstration purposes.",
+            "age": "1 day ago"
+          },
+          {
+            "title": "trending meme coins - Latest News and Updates",
+            "url": "https://news.example.com/trending-meme-coins",
+            "description": "Stay updated with the latest news about trending meme coins.",
+            "age": "6 hours ago"
+          }
+        ],
+        "confidence": 0.85,
+        "details": {
+          "type": "search",
+          "query": "trending meme coins",
+          "count": 2
+        }
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T02:14:20.206Z",
+      "executionTimeMs": 651
+    }
+  },
+  "39b86236-71b0-422d-a8bc-d1ee4e9b036b": {
+    "id": "39b86236-71b0-422d-a8bc-d1ee4e9b036b",
+    "prompt": "What is the capital of France",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T02:14:34.281Z",
+    "updatedAt": "2026-02-06T02:14:37.083Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:14:37.083Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770344074886-ldrd",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"What is the capital of France...\"",
+        "timestamp": "2026-02-06T02:14:34.886Z"
+      },
+      {
+        "id": "msg-1770344074896-pej7",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:14:34.896Z"
+      },
+      {
+        "id": "msg-1770344075701-sas8",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:14:35.701Z"
+      },
+      {
+        "id": "msg-1770344076951-409g",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Information about the capital of France. This is a mock result for demonstration purposes.",
+        "timestamp": "2026-02-06T02:14:36.951Z"
+      },
+      {
+        "id": "msg-1770344077083-lli9",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T02:14:37.083Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "🔍 **Research: the capital of France**\n\n**Summary**: Found 2 relevant results.\n\n**Key Findings**:\n1. **Search results for: the capital of France**\n   Information about the capital of France. This is a mock result for demonstration purposes.\n\n2. **the capital of France - Latest News and Updates**\n   Stay updated with the latest news about the capital of France.\n\n**Sources**:\n• [Search results for: the capital of France](https://example.com/search?q=the%20capital%20of%20France)\n• [the capital of France - Latest News and Updates](https://news.example.com/the-capital-of-france)\n",
+        "insight": "Information about the capital of France. This is a mock result for demonstration purposes.",
+        "results": [
+          {
+            "title": "Search results for: the capital of France",
+            "url": "https://example.com/search?q=the%20capital%20of%20France",
+            "description": "Information about the capital of France. This is a mock result for demonstration purposes.",
+            "age": "1 day ago"
+          },
+          {
+            "title": "the capital of France - Latest News and Updates",
+            "url": "https://news.example.com/the-capital-of-france",
+            "description": "Stay updated with the latest news about the capital of France.",
+            "age": "6 hours ago"
+          }
+        ],
+        "confidence": 0.85,
+        "details": {
+          "type": "search",
+          "query": "the capital of France",
+          "count": 2
+        }
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T02:14:36.951Z",
+      "executionTimeMs": 449
+    }
+  },
+  "9e88b6fc-d5db-4893-899e-48ed1d9492dc": {
+    "id": "9e88b6fc-d5db-4893-899e-48ed1d9492dc",
+    "prompt": "Can you summarize the crypto news from today?",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "scribe",
+    "createdAt": "2026-02-06T02:15:22.556Z",
+    "updatedAt": "2026-02-06T02:15:24.926Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "scribe",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:15:24.926Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770344123161-emka",
+        "from": "dispatcher",
+        "to": "scribe",
+        "content": "Routing task: \"Can you summarize the crypto news from today?...\"",
+        "timestamp": "2026-02-06T02:15:23.161Z"
+      },
+      {
+        "id": "msg-1770344123163-rabl",
+        "from": "dispatcher",
+        "to": "scribe",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:15:23.163Z"
+      },
+      {
+        "id": "msg-1770344124021-zz54",
+        "from": "dispatcher",
+        "to": "scribe",
+        "content": "Processing with scribe... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:15:24.021Z"
+      },
+      {
+        "id": "msg-1770344124822-o426",
+        "from": "scribe",
+        "to": "dispatcher",
+        "content": "the crypto news from today",
+        "timestamp": "2026-02-06T02:15:24.822Z"
+      },
+      {
+        "id": "msg-1770344124926-e0yx",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → scribe",
+        "timestamp": "2026-02-06T02:15:24.926Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "📝 **Summary**\n\n**TL;DR**: the crypto news from today\n\n**Key Points**:\n• the crypto news from today",
+        "insight": "the crypto news from today",
+        "keyPoints": [
+          "the crypto news from today"
+        ],
+        "wordCount": {
+          "original": 5,
+          "summary": 5
+        },
+        "confidence": 0.85,
+        "details": {
+          "type": "summary",
+          "response": "📝 **Summary**\n\n**TL;DR**: the crypto news from today\n\n**Key Points**:\n• the crypto news from today"
+        }
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T02:15:24.822Z",
+      "executionTimeMs": 1
+    }
+  },
+  "f2316ddd-949d-4622-835c-99e11432d8b3": {
+    "id": "f2316ddd-949d-4622-835c-99e11432d8b3",
+    "prompt": "What is the capital of France?",
+    "userId": "test",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T02:16:24.542Z",
+    "updatedAt": "2026-02-06T02:16:27.426Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:16:27.425Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770344185149-7qhc",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"What is the capital of France?...\"",
+        "timestamp": "2026-02-06T02:16:25.149Z"
+      },
+      {
+        "id": "msg-1770344185159-l9xi",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:16:25.159Z"
+      },
+      {
+        "id": "msg-1770344186037-kvv9",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:16:26.037Z"
+      },
+      {
+        "id": "msg-1770344187276-g3nv",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Paris is the capital and most populous city of France. With an estimated population of 2.1 million in the city proper and over 12 million in the metropolitan area.",
+        "timestamp": "2026-02-06T02:16:27.276Z"
+      },
+      {
+        "id": "msg-1770344187426-zs0z",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T02:16:27.426Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "🔍 **Research: the capital of France**\n\n**Summary**: Found 2 relevant results.\n\n**Key Findings**:\n1. **Paris - Capital of France - Wikipedia**\n   Paris is the capital and most populous city of France. With an estimated population of 2.1 million in the city proper and over 12 million in the metropolitan area.\n\n2. **Paris | History, Geography, Facts | Britannica**\n   Paris, capital city of France, located in north-central France along the Seine River. One of the world's most visited cities.\n\n**Sources**:\n• [Paris - Capital of France - Wikipedia](https://en.wikipedia.org/wiki/Paris)\n• [Paris | History, Geography, Facts | Britannica](https://britannica.com/place/Paris)\n",
+        "insight": "Paris is the capital and most populous city of France. With an estimated population of 2.1 million in the city proper and over 12 million in the metropolitan area.",
+        "results": [
+          {
+            "title": "Paris - Capital of France - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Paris",
+            "description": "Paris is the capital and most populous city of France. With an estimated population of 2.1 million in the city proper and over 12 million in the metropolitan area.",
+            "age": "1 week ago"
+          },
+          {
+            "title": "Paris | History, Geography, Facts | Britannica",
+            "url": "https://britannica.com/place/Paris",
+            "description": "Paris, capital city of France, located in north-central France along the Seine River. One of the world's most visited cities.",
+            "age": "2 weeks ago"
+          }
+        ],
+        "confidence": 0.85,
+        "details": {
+          "type": "search",
+          "query": "the capital of France",
+          "count": 2
+        }
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T02:16:27.276Z",
+      "executionTimeMs": 438
+    }
+  },
+  "1c2e0505-93b4-4862-bb5a-a385d8544734": {
+    "id": "1c2e0505-93b4-4862-bb5a-a385d8544734",
+    "prompt": "What is the capital of France?",
+    "userId": "test",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T02:16:29.457Z",
+    "updatedAt": "2026-02-06T02:16:32.181Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:16:32.180Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770344190063-jlt2",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"What is the capital of France?...\"",
+        "timestamp": "2026-02-06T02:16:30.063Z"
+      },
+      {
+        "id": "msg-1770344190072-oql9",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:16:30.072Z"
+      },
+      {
+        "id": "msg-1770344190806-5o5k",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:16:30.806Z"
+      },
+      {
+        "id": "msg-1770344192070-yep4",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Paris is the capital and most populous city of France. With an estimated population of 2.1 million in the city proper and over 12 million in the metropolitan area.",
+        "timestamp": "2026-02-06T02:16:32.070Z"
+      },
+      {
+        "id": "msg-1770344192181-v629",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T02:16:32.181Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "🔍 **Research: the capital of France**\n\n**Summary**: Found 2 relevant results.\n\n**Key Findings**:\n1. **Paris - Capital of France - Wikipedia**\n   Paris is the capital and most populous city of France. With an estimated population of 2.1 million in the city proper and over 12 million in the metropolitan area.\n\n2. **Paris | History, Geography, Facts | Britannica**\n   Paris, capital city of France, located in north-central France along the Seine River. One of the world's most visited cities.\n\n**Sources**:\n• [Paris - Capital of France - Wikipedia](https://en.wikipedia.org/wiki/Paris)\n• [Paris | History, Geography, Facts | Britannica](https://britannica.com/place/Paris)\n",
+        "insight": "Paris is the capital and most populous city of France. With an estimated population of 2.1 million in the city proper and over 12 million in the metropolitan area.",
+        "results": [
+          {
+            "title": "Paris - Capital of France - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Paris",
+            "description": "Paris is the capital and most populous city of France. With an estimated population of 2.1 million in the city proper and over 12 million in the metropolitan area.",
+            "age": "1 week ago"
+          },
+          {
+            "title": "Paris | History, Geography, Facts | Britannica",
+            "url": "https://britannica.com/place/Paris",
+            "description": "Paris, capital city of France, located in north-central France along the Seine River. One of the world's most visited cities.",
+            "age": "2 weeks ago"
+          }
+        ],
+        "confidence": 0.85,
+        "details": {
+          "type": "search",
+          "query": "the capital of France",
+          "count": 2
+        }
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T02:16:32.070Z",
+      "executionTimeMs": 463
+    }
   }
 }

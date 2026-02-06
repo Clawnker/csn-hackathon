@@ -1,9 +1,9 @@
 {
   "specialists": {
     "magos": {
-      "successCount": 35,
+      "successCount": 36,
       "failureCount": 2,
-      "upvotes": 35,
+      "upvotes": 36,
       "downvotes": 2,
       "votes": []
     },
@@ -37,9 +37,9 @@
       ]
     },
     "seeker": {
-      "successCount": 14,
+      "successCount": 18,
       "failureCount": 0,
-      "upvotes": 14,
+      "upvotes": 18,
       "downvotes": 0,
       "votes": []
     },
@@ -128,6 +128,13 @@
           "timestamp": 1770342718975
         }
       ]
+    },
+    "scribe": {
+      "successCount": 1,
+      "failureCount": 0,
+      "upvotes": 1,
+      "downvotes": 0,
+      "votes": []
     }
   },
   "voterTaskIndex": {

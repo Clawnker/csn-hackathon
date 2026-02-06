@@ -25,16 +25,16 @@ interface MCPTool {
 const MCP_SERVERS: Record<string, MCPServer> = {
   'brave-search': {
     command: 'npx',
-    args: ['-y', '@anthropic/mcp-server-brave-search'],
+    args: ['-y', '@modelcontextprotocol/server-brave-search'],
     env: { BRAVE_API_KEY: process.env.BRAVE_API_KEY || '' },
   },
   'fetch': {
     command: 'npx',
-    args: ['-y', '@anthropic/mcp-server-fetch'],
+    args: ['-y', '@modelcontextprotocol/server-fetch'],
   },
   'filesystem': {
     command: 'npx',
-    args: ['-y', '@anthropic/mcp-server-filesystem', '/tmp'],
+    args: ['-y', '@modelcontextprotocol/server-filesystem', '/tmp'],
   },
 };
 
