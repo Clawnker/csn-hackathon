@@ -179,6 +179,36 @@ export default function CommandCenter() {
               isMultiHop: r.data?.isMultiHop
             } as any);
 
+            // Extract transaction details from bankr results
+            const transactions: any[] = [];
+            if (r.data?.details?.type === 'swap' || r.data?.details?.type === 'compound') {
+              if (r.data.details.swap) {
+                transactions.push({
+                  type: 'swap',
+                  inputToken: r.data.details.swap.inputToken,
+                  outputToken: r.data.details.swap.outputToken,
+                  inputAmount: r.data.details.swap.inputAmount,
+                  outputAmount: r.data.details.swap.outputAmount,
+                });
+              }
+              if (r.data.details.transfer) {
+                transactions.push({
+                  type: 'transfer',
+                  inputToken: r.data.details.transfer.token,
+                  inputAmount: r.data.details.transfer.amount,
+                  recipient: r.data.details.transfer.recipient,
+                });
+              }
+            }
+
+            // Format payments for history
+            const historyPayments = payments.map(p => ({
+              specialist: p.specialist || specialistId,
+              amount: p.amount,
+              currency: 'USDC',
+              status: p.status || 'pending',
+            }));
+
             // Add to query history
             setQueryHistory(prev => {
               const newItem: QueryHistoryItem = {
@@ -188,7 +218,9 @@ export default function CommandCenter() {
                 cost: totalCost,
                 status: 'success' as const,
                 timestamp: new Date(),
-                result: content
+                result: content,
+                payments: historyPayments.length > 0 ? historyPayments : undefined,
+                transactions: transactions.length > 0 ? transactions : undefined,
               };
               return [newItem, ...prev].slice(0, 20);
             });

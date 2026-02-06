@@ -1,12 +1,25 @@
 export interface Payment {
-  id: string;
+  id?: string;
+  specialist?: string;
   amount: number;
-  token: string;
-  from: string;
-  to: string;
+  currency?: string;
+  token?: string;
+  from?: string;
+  to?: string;
+  status?: string;
   txSignature?: string;
   createdAt?: string;
   timestamp?: string;
+}
+
+export interface TransactionDetails {
+  type: 'swap' | 'transfer';
+  inputToken?: string;
+  outputToken?: string;
+  inputAmount?: number;
+  outputAmount?: number;
+  recipient?: string;
+  txHash?: string;
 }
 
 export interface QueryHistoryItem {
@@ -17,6 +30,8 @@ export interface QueryHistoryItem {
   status: 'success' | 'failed';
   timestamp: Date;
   result?: string;
+  payments?: Payment[];
+  transactions?: TransactionDetails[];
 }
 
 export interface AgentMessage {

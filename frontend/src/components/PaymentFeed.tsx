@@ -33,8 +33,8 @@ function getAgentDisplay(id: string) {
 }
 
 function PaymentCard({ payment, index }: { payment: Payment; index: number }) {
-  const from = getAgentDisplay(payment.from);
-  const to = getAgentDisplay(payment.to);
+  const from = getAgentDisplay(payment.from || payment.specialist || 'unknown');
+  const to = getAgentDisplay(payment.to || 'agent');
   
   const openExplorer = () => {
     window.open(
