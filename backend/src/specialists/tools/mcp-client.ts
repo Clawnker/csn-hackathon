@@ -187,10 +187,10 @@ export async function braveSearch(query: string, count: number = 5): Promise<any
  */
 export async function fetchUrl(url: string, maxLength?: number): Promise<string | null> {
   try {
-    return await callTool('fetch', 'fetch', { 
+    return (await callTool('fetch', 'fetch', { 
       url,
       max_length: maxLength || 50000,
-    });
+    })) as string;
   } catch (error: any) {
     console.log('[MCP] Fetch failed:', error.message);
     return null;

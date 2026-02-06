@@ -45,13 +45,13 @@ export function ResultCard({
   useEffect(() => {
     if (taskId && specialist) {
       // Get existing vote
-      fetch(`http://localhost:3000/api/vote/${taskId}/${USER_ID}`)
+      fetch(`http://localhost:3001/api/vote/${taskId}/${USER_ID}`)
         .then(res => res.json())
         .then(data => setUserVote(data.vote))
         .catch(() => {});
       
       // Get reputation stats
-      fetch(`http://localhost:3000/api/reputation/${specialist}`)
+      fetch(`http://localhost:3001/api/reputation/${specialist}`)
         .then(res => res.json())
         .then(data => setVoteStats({
           upvotes: data.upvotes || 0,
@@ -67,7 +67,7 @@ export function ResultCard({
     
     setIsVoting(true);
     try {
-      const response = await fetch('http://localhost:3000/api/vote', {
+      const response = await fetch('http://localhost:3001/api/vote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

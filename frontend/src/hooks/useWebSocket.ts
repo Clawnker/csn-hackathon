@@ -50,6 +50,14 @@ export function useWebSocket(): UseWebSocketReturn {
         socket.onopen = () => {
           console.log('WebSocket connected');
           setIsConnected(true);
+          
+          // Authenticate immediately
+          const apiKey = process.env.NEXT_PUBLIC_API_KEY || 'demo-key';
+          socket.send(JSON.stringify({ 
+            type: 'auth', 
+            apiKey 
+          }));
+
           // Re-subscribe if we had a task
           if (subscribedTaskRef.current) {
             socket.send(JSON.stringify({ 

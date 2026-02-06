@@ -28,9 +28,98 @@ const wss = new WebSocketServer({ server, path: '/ws' });
 app.use(cors());
 app.use(express.json());
 
+// Request logging
+app.use((req: Request, res: Response, next: NextFunction) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  next();
+});
+
+// Simple In-memory Rate Limiting
+const rateLimitMap = new Map<string, { count: number, lastReset: number }>();
+const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 60;
+
+const rateLimiter = (req: Request, res: Response, next: NextFunction) => {
+  const ip = req.ip || 'unknown';
+  const now = Date.now();
+  const userData = rateLimitMap.get(ip) || { count: 0, lastReset: now };
+
+  if (now - userData.lastReset > RATE_LIMIT_WINDOW_MS) {
+    userData.count = 1;
+    userData.lastReset = now;
+  } else {
+    userData.count++;
+  }
+
+  rateLimitMap.set(ip, userData);
+
+  if (userData.count > MAX_REQUESTS_PER_WINDOW) {
+    return res.status(429).json({ error: 'Too many requests, please try again later.' });
+  }
+
+  next();
+};
+
+app.use(rateLimiter);
+
+// Replay protection: track used payment signatures
+const usedSignatures = new Set<string>();
+// Cleanup old signatures every hour to prevent memory bloat
+setInterval(() => {
+  if (usedSignatures.size > 10000) {
+    usedSignatures.clear();
+  }
+}, 3600000);
+
 // Treasury wallet for receiving payments
 const TREASURY_WALLET = '5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1';
 const DEVNET_USDC_MINT = '4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU';
+
+// --- PUBLIC ROUTES ---
+
+/**
+ * Health check
+ */
+app.get('/health', (req: Request, res: Response) => {
+  res.json({
+    status: 'ok',
+    service: 'Hivemind Protocol',
+    version: '0.1.0',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+/**
+ * Get specialist pricing (Public)
+ */
+app.get('/api/pricing', (req: Request, res: Response) => {
+  const pricing = dispatcher.getSpecialistPricing();
+  res.json({ 
+    pricing,
+    note: 'Fees in USDC, paid via x402 protocol on Solana'
+  });
+});
+
+/**
+ * GET /api/reputation/:specialist - Get reputation stats for a specialist (Public)
+ */
+app.get('/api/reputation/:specialist', (req: Request, res: Response) => {
+  const { specialist } = req.params;
+  const stats = getReputationStats(specialist);
+  res.json(stats);
+});
+
+/**
+ * GET /api/reputation - Get all reputation data (Public)
+ */
+app.get('/api/reputation', (req: Request, res: Response) => {
+  const all = getAllReputation();
+  res.json(all);
+});
+
+// --- PROTECTED ROUTES ---
+
+app.use(authMiddleware);
 
 // Specialist endpoints - returns 402 without payment, 200 with payment
 app.post('/api/specialist/:id', async (req: Request, res: Response) => {
@@ -38,6 +127,12 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     const { prompt } = req.body;
     
+    // Validate specialist ID
+    const validSpecialists: SpecialistType[] = ['magos', 'aura', 'bankr', 'scribe', 'seeker', 'general'];
+    if (!validSpecialists.includes(id as SpecialistType)) {
+      return res.status(400).json({ error: 'Invalid specialist ID' });
+    }
+
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt is required' });
     }
@@ -45,9 +140,10 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
     // Check for x402 payment signature
     const paymentSignature = req.headers['payment-signature'] || req.headers['x-payment'];
     
-    if (!paymentSignature) {
+    const fee = (config.fees as any)[id] || 0;
+
+    if (!paymentSignature && fee > 0) {
       // Return 402 with payment requirements (x402 v2 format with accepts array)
-      const fee = (config.fees as any)[id] || 0.001;
       
       // x402 v2 format: root object with accepts array
       const paymentRequired = {
@@ -81,9 +177,51 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
       });
     }
 
-    console.log(`[x402] Payment received for ${id}, signature: ${String(paymentSignature).slice(0, 20)}...`);
+    if (fee > 0) {
+      console.log(`[x402] Verifying payment for ${id}, signature: ${String(paymentSignature).slice(0, 20)}...`);
+      
+      const sig = paymentSignature as string;
+      if (usedSignatures.has(sig)) {
+        return res.status(402).json({ error: 'Payment signature already used (replay protection)' });
+      }
+
+      // REAL SECURITY: Verify the signature on-chain
+      try {
+        const tx = await solana.getEnhancedTransaction(sig, 'devnet');
+        if (!tx) {
+          return res.status(402).json({ error: 'Payment signature not found on chain' });
+        }
+
+        // Verify recipient and amount
+        const tokenTransfer = tx.tokenTransfers?.find((t: any) => 
+          t.toUserAccount === TREASURY_WALLET && 
+          t.mint === DEVNET_USDC_MINT
+        );
+
+        if (!tokenTransfer) {
+          return res.status(402).json({ error: 'Payment to treasury not found in transaction' });
+        }
+
+        const paidAmount = tokenTransfer.tokenAmount;
+        if (paidAmount < fee) {
+          return res.status(402).json({ error: `Insufficient payment: expected ${fee}, got ${paidAmount}` });
+        }
+
+        // Mark signature as used
+        usedSignatures.add(sig);
+        console.log(`[x402] Payment verified: ${paidAmount} USDC`);
+      } catch (verifyError: any) {
+        console.error(`[x402] Verification failed:`, verifyError.message);
+        // For hackathon demo purposes, we might allow it if Helius is down, 
+        // but in production this MUST fail.
+        if (process.env.NODE_ENV === 'production') {
+          return res.status(402).json({ error: 'Payment verification failed' });
+        }
+        console.warn(`[x402] Allowing unverified payment due to error in dev mode`);
+      }
+    }
     
-    // Payment verified - execute specialist
+    // Payment verified or not required - execute specialist
     const result = await callSpecialist(id as SpecialistType, prompt);
     res.json(result);
   } catch (error: any) {
@@ -91,7 +229,7 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Public endpoint for wallet balances (for frontend display)
+// Endpoint for wallet balances (for frontend display)
 // Uses simulated devnet balances from bankr specialist
 app.get('/api/wallet/balances', async (req: Request, res: Response) => {
   try {
@@ -110,21 +248,19 @@ app.get('/api/wallet/balances', async (req: Request, res: Response) => {
   }
 });
 
-// ============================================
-// Reputation Voting API (Public)
-// ============================================
-
 /**
  * POST /api/vote - Submit a vote on a task response
- * Body: { taskId, specialist, voterId, voterType, vote }
+ * Body: { taskId, specialist, vote }
  */
 app.post('/api/vote', (req: Request, res: Response) => {
   try {
-    const { taskId, specialist, voterId, voterType, vote } = req.body;
+    const { taskId, specialist, vote } = req.body;
+    const voterId = (req as any).user.id;
+    const voterType = 'human';
     
-    if (!taskId || !specialist || !voterId || !vote) {
+    if (!taskId || !specialist || !vote) {
       return res.status(400).json({ 
-        error: 'Missing required fields: taskId, specialist, voterId, vote' 
+        error: 'Missing required fields: taskId, specialist, vote' 
       });
     }
     
@@ -136,7 +272,7 @@ app.post('/api/vote', (req: Request, res: Response) => {
       specialist,
       taskId,
       voterId,
-      voterType || 'human',
+      voterType,
       vote
     );
     
@@ -153,47 +289,6 @@ app.get('/api/vote/:taskId/:voterId', (req: Request, res: Response) => {
   const { taskId, voterId } = req.params;
   const vote = getVote(taskId, voterId);
   res.json({ vote });
-});
-
-/**
- * GET /api/reputation/:specialist - Get reputation stats for a specialist
- */
-app.get('/api/reputation/:specialist', (req: Request, res: Response) => {
-  const { specialist } = req.params;
-  const stats = getReputationStats(specialist);
-  res.json(stats);
-});
-
-/**
- * GET /api/reputation - Get all reputation data
- */
-app.get('/api/reputation', (req: Request, res: Response) => {
-  const all = getAllReputation();
-  res.json(all);
-});
-
-app.use(authMiddleware);
-
-// Request logging
-app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
-  next();
-});
-
-// ============================================
-// REST API Endpoints
-// ============================================
-
-/**
- * Health check
- */
-app.get('/health', (req: Request, res: Response) => {
-  res.json({
-    status: 'ok',
-    service: 'Hivemind Protocol',
-    version: '0.1.0',
-    timestamp: new Date().toISOString(),
-  });
 });
 
 /**
@@ -268,6 +363,11 @@ app.get('/status/:taskId', (req: Request, res: Response) => {
     return res.status(404).json({ error: 'Task not found' });
   }
 
+  // Security: only allow task owner to see task status
+  if (task.userId !== (req as any).user.id) {
+    return res.status(403).json({ error: 'Access denied: not your task' });
+  }
+
   res.json(task);
 });
 
@@ -276,24 +376,12 @@ app.get('/status/:taskId', (req: Request, res: Response) => {
  * GET /tasks?limit=10
  */
 app.get('/tasks', (req: Request, res: Response) => {
-  const limit = parseInt(req.query.limit as string) || 10;
+  const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
   const user = (req as any).user;
   
   // Filter tasks to only return those belonging to the authenticated user
   const tasks = getRecentTasks(limit * 5).filter(t => t.userId === user.id).slice(0, limit);
   res.json({ tasks, count: tasks.length });
-});
-
-/**
- * Get specialist pricing
- * GET /pricing
- */
-app.get('/pricing', (req: Request, res: Response) => {
-  const pricing = dispatcher.getSpecialistPricing();
-  res.json({ 
-    pricing,
-    note: 'Fees in USDC, paid via x402 protocol on Solana'
-  });
 });
 
 /**
@@ -353,7 +441,7 @@ app.get('/solana/balance/:address', async (req: Request, res: Response) => {
 app.get('/solana/transactions/:address', async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
-    const limit = parseInt(req.query.limit as string) || 10;
+    const limit = Math.min(parseInt(req.query.limit as string) || 10, 50);
     const network = (req.query.network as 'devnet' | 'mainnet') || 'mainnet';
     
     const transactions = await solana.getRecentTransactions(address, limit, network);
@@ -405,15 +493,22 @@ app.post('/test/:specialist', async (req: Request, res: Response) => {
 // WebSocket Handler
 // ============================================
 
-const wsClients: Map<WebSocket, Set<string>> = new Map();
+interface ExtendedWebSocket extends WebSocket {
+  isAlive: boolean;
+  userId?: string;
+  subscriptions?: Map<string, () => void>; // taskId -> unsubscribe function
+}
 
-wss.on('connection', (ws: WebSocket) => {
+const wsClients: Map<ExtendedWebSocket, Set<string>> = new Map();
+
+wss.on('connection', (ws: ExtendedWebSocket, req: Request) => {
   console.log('[WS] Client connected');
   wsClients.set(ws, new Set());
+  ws.subscriptions = new Map();
 
   // Heartbeat state
-  (ws as any).isAlive = true;
-  ws.on('pong', () => { (ws as any).isAlive = true; });
+  ws.isAlive = true;
+  ws.on('pong', () => { ws.isAlive = true; });
 
   ws.on('message', (data: Buffer) => {
     try {
@@ -426,13 +521,18 @@ wss.on('connection', (ws: WebSocket) => {
 
   ws.on('close', () => {
     console.log('[WS] Client disconnected');
+    // Cleanup subscriptions
+    if (ws.subscriptions) {
+      ws.subscriptions.forEach(unsub => unsub());
+      ws.subscriptions.clear();
+    }
     wsClients.delete(ws);
   });
 
   // Send welcome message
   ws.send(JSON.stringify({
     type: 'welcome',
-    message: 'Connected to Hivemind Protocol',
+    message: 'Connected to Hivemind Protocol. Please authenticate.',
     timestamp: new Date().toISOString(),
   }));
 });
@@ -440,12 +540,13 @@ wss.on('connection', (ws: WebSocket) => {
 // Periodic heartbeat check (every 30s)
 const interval = setInterval(() => {
   wss.clients.forEach((ws: WebSocket) => {
-    if ((ws as any).isAlive === false) {
-      wsClients.delete(ws);
-      return ws.terminate();
+    const extWs = ws as ExtendedWebSocket;
+    if (extWs.isAlive === false) {
+      wsClients.delete(extWs);
+      return extWs.terminate();
     }
-    (ws as any).isAlive = false;
-    ws.ping();
+    extWs.isAlive = false;
+    extWs.ping();
   });
 }, 30000);
 
@@ -453,24 +554,67 @@ wss.on('close', () => {
   clearInterval(interval);
 });
 
-function handleWSMessage(ws: WebSocket, message: any) {
+function handleWSMessage(ws: ExtendedWebSocket, message: any) {
+  // Authentication handler
+  if (message.type === 'auth') {
+    const apiKey = message.apiKey;
+    const apiKeysEnv = process.env.API_KEYS || '';
+    const validKeys = apiKeysEnv.split(',').map(k => k.trim()).filter(k => k.length > 0);
+
+    if (apiKey && validKeys.includes(apiKey)) {
+      ws.userId = apiKey;
+      ws.send(JSON.stringify({ type: 'authenticated', userId: ws.userId }));
+    } else {
+      ws.send(JSON.stringify({ error: 'Authentication failed' }));
+    }
+    return;
+  }
+
+  // Ensure client is authenticated for other messages
+  if (!ws.userId) {
+    ws.send(JSON.stringify({ error: 'Unauthorized: Please authenticate with an API Key' }));
+    return;
+  }
+
   switch (message.type) {
     case 'subscribe':
       // Subscribe to task updates
       if (message.taskId) {
+        const task = getTask(message.taskId);
+        if (!task) {
+          ws.send(JSON.stringify({ error: 'Task not found' }));
+          return;
+        }
+
+        // Security: only allow task owner to subscribe
+        if (task.userId !== ws.userId) {
+          ws.send(JSON.stringify({ error: 'Access denied: not your task' }));
+          return;
+        }
+
+        // Cleanup existing subscription for this task if it exists
+        if (ws.subscriptions?.has(message.taskId)) {
+          ws.subscriptions.get(message.taskId)!();
+        }
+
         const subscriptions = wsClients.get(ws) || new Set();
         subscriptions.add(message.taskId);
         wsClients.set(ws, subscriptions);
 
         // Set up subscription
-        subscribeToTask(message.taskId, (task: Task) => {
+        const unsubscribe = subscribeToTask(message.taskId, (updatedTask: Task) => {
           sendToClient(ws, {
             type: 'task_update',
-            taskId: task.id,
-            payload: task,
+            taskId: updatedTask.id,
+            payload: updatedTask,
             timestamp: new Date(),
           });
         });
+
+        // Store unsubscribe function
+        if (ws.subscriptions) {
+          ws.subscriptions.set(message.taskId, unsubscribe);
+        }
 
         ws.send(JSON.stringify({
           type: 'subscribed',
@@ -483,7 +627,7 @@ function handleWSMessage(ws: WebSocket, message: any) {
       // Handle dispatch via WebSocket
       dispatch({
         prompt: message.prompt,
-        userId: message.userId,
+        userId: ws.userId, // Use verified userId from socket
         preferredSpecialist: message.preferredSpecialist,
         dryRun: message.dryRun,
       }).then(result => {
@@ -511,20 +655,6 @@ function handleWSMessage(ws: WebSocket, message: any) {
 function sendToClient(ws: WebSocket, event: WSEvent) {
   if (ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify(event));
-  }
-}
-
-// Broadcast to all clients subscribed to a task
-function broadcastTaskUpdate(task: Task) {
-  for (const [ws, subscriptions] of wsClients.entries()) {
-    if (subscriptions.has(task.id)) {
-      sendToClient(ws, {
-        type: 'task_update',
-        taskId: task.id,
-        payload: task,
-        timestamp: new Date(),
-      });
-    }
   }
 }
 

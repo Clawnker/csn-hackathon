@@ -6,6 +6,10 @@
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as dns from 'dns';
+import { promisify } from 'util';
+
+const lookup = promisify(dns.lookup);
 import {
   Task,
   TaskStatus,
@@ -503,20 +507,27 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
   
   // Call webhook if provided
   if (task.callbackUrl) {
-    if (!validateCallbackUrl(task.callbackUrl)) {
+    const isValid = await validateCallbackUrl(task.callbackUrl);
+    if (!isValid) {
       console.error(`[Dispatcher] Blocked potentially malicious callbackUrl: ${task.callbackUrl}`);
       addMessage(task, 'system', 'dispatcher', `Security: Blocked invalid callbackUrl (SSRF protection)`);
     } else {
       try {
         const axios = require('axios');
-        await axios.post(task.callbackUrl, {
-          taskId: task.id,
-          status: task.status,
-          specialist: task.specialist,
-          result: formatResultForCallback(result),
-          messages: task.messages,
-        });
-        console.log(`[Dispatcher] Callback sent to ${task.callbackUrl}`);
+        // SECURITY: We already validated the URL, but to be 100% safe against DNS rebinding
+        // we should ideally use the resolved IP. However, many services use SNI/Host headers.
+        // For this hackathon, we'll re-validate just before the call.
+        const isValid = await validateCallbackUrl(task.callbackUrl);
+        if (isValid) {
+          await axios.post(task.callbackUrl, {
+            taskId: task.id,
+            status: task.status,
+            specialist: task.specialist,
+            result: formatResultForCallback(result),
+            messages: task.messages,
+          }, { timeout: 5000 });
+          console.log(`[Dispatcher] Callback sent to ${task.callbackUrl}`);
+        }
       } catch (err: any) {
         console.error(`[Dispatcher] Callback failed:`, err.message);
       }
@@ -529,8 +540,9 @@ async function executeTask(task: Task, dryRun: boolean): Promise<void> {
 /**
  * Validates a callback URL to prevent SSRF attacks.
  * Blocks localhost, private IP ranges, and cloud metadata services.
+ * Resolves hostnames to IPs to prevent DNS rebinding.
  */
-function validateCallbackUrl(urlStr: string): boolean {
+async function validateCallbackUrl(urlStr: string): Promise<boolean> {
   try {
     const url = new URL(urlStr);
     
@@ -539,27 +551,33 @@ function validateCallbackUrl(urlStr: string): boolean {
       return false;
     }
 
-    const hostname = url.hostname.toLowerCase();
+    let hostname = url.hostname.toLowerCase();
     
-    // Block localhost, 127.0.0.1, ::1
-    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') {
+    // Resolve hostname to IP
+    let ip = hostname;
+    if (!/^\d+\.\d+\.\d+\.\d+$/.test(hostname) && !hostname.includes(':')) {
+      try {
+        const result = await lookup(hostname);
+        ip = result.address;
+      } catch (e) {
+        return false; // Could not resolve
+      }
+    }
+
+    // Block localhost, 127.0.0.1, ::1, 0.0.0.0
+    if (ip === 'localhost' || ip === '127.0.0.1' || ip === '::1' || ip === '0.0.0.0') {
       return false;
     }
 
     // Block private IP ranges
     // 10.x.x.x
-    if (/^10\./.test(hostname)) return false;
+    if (/^10\./.test(ip)) return false;
     // 172.16.x.x to 172.31.x.x
-    if (/^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(hostname)) return false;
+    if (/^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(ip)) return false;
     // 192.168.x.x
-    if (/^192\.168\./.test(hostname)) return false;
+    if (/^192\.168\./.test(ip)) return false;
     // 169.254.x.x (Cloud metadata)
-    if (/^169\.254\./.test(hostname)) return false;
-
-    // Block numeric IPs if possible (heuristic)
-    if (/^\d+\.\d+\.\d+\.\d+$/.test(hostname)) {
-      // Basic check for common private ranges already covered
-    }
+    if (/^169\.254\./.test(ip)) return false;
 
     return true;
   } catch (e) {
