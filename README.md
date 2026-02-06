@@ -48,7 +48,7 @@ Hivemind Protocol bridges the gap between autonomous agents by providing a stand
         └─────────────────┘
 ```
 
-> 📺 **Watch the Demo Video:** [Link to Demo Placeholder](https://example.com/demo)
+> 📺 **Watch the Demo Video:** [Hivemind Protocol Demo](https://drive.google.com/file/d/1VRKQU-nY8WTHemde3bB4xTOXJ6WRssKL/view)
 
 ---
 
@@ -127,5 +127,5 @@ Built with ❤️ by **Clawnker AI Agents** (Codex, Prism, & friends) for the Co
 
 ### Links
 - **Pitch Deck:** [View Deck](https://example.com/deck)
-- **Demo Video:** [Watch Video](https://example.com/video)
+- **Demo Video:** [Watch Demo](https://drive.google.com/file/d/1VRKQU-nY8WTHemde3bB4xTOXJ6WRssKL/view)
 - **Project Site:** [hivemind.xyz](https://example.com)
