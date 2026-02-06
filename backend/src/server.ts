@@ -16,7 +16,8 @@ import { authMiddleware } from './middleware/auth';
 import dispatcher, { dispatch, getTask, getRecentTasks, subscribeToTask, getSpecialists, callSpecialist } from './dispatcher';
 import { getBalances, getTransactionLog } from './x402';
 import { getSimulatedBalances } from './specialists/bankr';
-import { submitVote, getVote, getReputationStats, getAllReputation } from './reputation';
+import { submitVote, getVote, getReputationStats, getAllReputation, updateSyncStatus } from './reputation';
+import { syncReputationToChain } from './solana-reputation';
 import solana from './solana';
 import { DispatchRequest, Task, WSEvent, SpecialistType } from './types';
 
@@ -147,6 +148,58 @@ app.get('/api/reputation/:specialist', (req: Request, res: Response) => {
 app.get('/api/reputation', (req: Request, res: Response) => {
   const all = getAllReputation();
   res.json(all);
+});
+
+/**
+ * POST /api/reputation/:specialist/sync - Sync reputation to Solana (Mock)
+ */
+app.post('/api/reputation/:specialist/sync', async (req: Request, res: Response) => {
+  try {
+    const { specialist } = req.params;
+    const stats = getReputationStats(specialist);
+    
+    // Trigger mock on-chain sync
+    const signature = await syncReputationToChain(specialist, stats);
+    
+    // Update local database with sync info
+    updateSyncStatus(specialist, signature);
+    
+    res.json({
+      success: true,
+      specialist,
+      signature,
+      explorerUrl: `https://explorer.solana.com/tx/${signature}?cluster=devnet`,
+      timestamp: Date.now()
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/reputation/:specialist/proof - Get on-chain proof of reputation
+ */
+app.get('/api/reputation/:specialist/proof', (req: Request, res: Response) => {
+  try {
+    const { specialist } = req.params;
+    const stats = getReputationStats(specialist) as any;
+    
+    if (!stats.lastSyncTx) {
+      return res.status(404).json({ 
+        error: 'Reputation not yet synced to chain for this specialist' 
+      });
+    }
+    
+    res.json({
+      specialist,
+      lastSyncTx: stats.lastSyncTx,
+      timestamp: stats.lastSyncTimestamp,
+      explorerUrl: `https://explorer.solana.com/tx/${stats.lastSyncTx}?cluster=devnet`,
+      status: 'confirmed'
+    });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // --- PROTECTED ROUTES ---

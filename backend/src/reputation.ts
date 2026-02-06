@@ -26,6 +26,10 @@ interface SpecialistReputation {
   upvotes: number;
   downvotes: number;
   votes: Vote[];        // Individual vote records
+
+  // On-chain sync data
+  lastSyncTx?: string;
+  lastSyncTimestamp?: number;
 }
 
 interface ReputationData {
@@ -218,6 +222,17 @@ export function submitVote(
 }
 
 /**
+ * Update the on-chain sync status for a specialist
+ */
+export function updateSyncStatus(specialist: string, signature: string): void {
+  const record = getSpecialist(specialist);
+  record.lastSyncTx = signature;
+  record.lastSyncTimestamp = Date.now();
+  saveReputation();
+  console.log(`[Reputation] Sync status updated for ${specialist}: ${signature}`);
+}
+
+/**
  * Get the vote for a specific task by a voter (if any)
  */
 export function getVote(taskId: string, voterId: string): 'up' | 'down' | null {
@@ -248,6 +263,8 @@ export function getReputationStats(specialist: string): {
   downvotes: number;
   totalVotes: number;
   recentVotes: Vote[];
+  lastSyncTx?: string;
+  lastSyncTimestamp?: number;
 } {
   const record = reputationData.specialists[specialist];
   if (!record) {
@@ -266,6 +283,8 @@ export function getReputationStats(specialist: string): {
     downvotes: record.downvotes,
     totalVotes: record.upvotes + record.downvotes,
     recentVotes: record.votes.slice(-10),
+    lastSyncTx: record.lastSyncTx,
+    lastSyncTimestamp: record.lastSyncTimestamp,
   };
 }
 
