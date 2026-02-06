@@ -1,6 +1,6 @@
 {
   "magos": {
-    "successCount": 31,
+    "successCount": 32,
     "failureCount": 2
   },
   "aura": {
@@ -12,7 +12,7 @@
     "failureCount": 0
   },
   "bankr": {
-    "successCount": 13,
+    "successCount": 17,
     "failureCount": 0
   },
   "seeker": {

@@ -1,10 +1,11 @@
 {
-  "lastRealBalanceCheck": 1770341327083,
+  "lastRealBalanceCheck": 1770341637761,
   "realSOL": 4.8995,
   "balances": {
-    "SOL": 4.499500000000001,
+    "SOL": 4.199500000000002,
     "USDC": 15.296454,
-    "BONK": 266749.328444
+    "BONK": 534237.73033,
+    "TOP": 0.0995
   },
   "transactions": [
     {
@@ -42,6 +43,33 @@
       "amountOut": 133398.340291,
       "timestamp": 1770341532944,
       "route": "PancakeSwap → GoonFi → ZeroFi"
+    },
+    {
+      "type": "swap",
+      "from": "SOL",
+      "to": "TOP",
+      "amountIn": 0.1,
+      "amountOut": 0.0995,
+      "timestamp": 1770341583551,
+      "route": "Mock"
+    },
+    {
+      "type": "swap",
+      "from": "SOL",
+      "to": "BONK",
+      "amountIn": 0.1,
+      "amountOut": 133588.406698,
+      "timestamp": 1770341624548,
+      "route": "PancakeSwap → ZeroFi"
+    },
+    {
+      "type": "swap",
+      "from": "SOL",
+      "to": "BONK",
+      "amountIn": 0.1,
+      "amountOut": 133899.995188,
+      "timestamp": 1770341726392,
+      "route": "Meteora DLMM"
     }
   ]
 }
