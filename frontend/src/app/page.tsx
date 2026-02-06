@@ -293,6 +293,7 @@ export default function CommandCenter() {
           prompt,
           userId: 'demo-user',
           customInstructions,
+          hiredAgents,  // Only route to specialists in the user's swarm
         }),
       });
 

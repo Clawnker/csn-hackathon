@@ -176,7 +176,15 @@ function addMessage(task: Task, from: string, to: string, content: string): void
 export async function dispatch(request: DispatchRequest): Promise<DispatchResponse> {
   const taskId = uuidv4();
   const hops = detectMultiHop(request.prompt);
-  const specialist = request.preferredSpecialist || (hops ? 'multi-hop' : routePrompt(request.prompt));
+  
+  // Filter multi-hop to only include hired agents
+  let filteredHops = hops;
+  if (hops && request.hiredAgents) {
+    filteredHops = hops.filter(h => request.hiredAgents!.includes(h));
+    if (filteredHops.length === 0) filteredHops = null;
+  }
+  
+  const specialist = request.preferredSpecialist || (filteredHops ? 'multi-hop' : routePrompt(request.prompt, request.hiredAgents));
   
   // Create task
   const task: Task = {
@@ -191,7 +199,8 @@ export async function dispatch(request: DispatchRequest): Promise<DispatchRespon
     messages: [],
     metadata: { 
       dryRun: request.dryRun,
-      hops: hops || undefined 
+      hops: filteredHops || undefined,
+      hiredAgents: request.hiredAgents,
     },
     callbackUrl: request.callbackUrl,
   };
@@ -563,17 +572,18 @@ function updateTaskStatus(task: Task, status: TaskStatus, extra?: Record<string,
 
 /**
  * Route prompt to appropriate specialist using keyword analysis
+ * Only routes to specialists in the hiredAgents list if provided
  */
-export function routePrompt(prompt: string): SpecialistType {
+export function routePrompt(prompt: string, hiredAgents?: SpecialistType[]): SpecialistType {
   const lower = prompt.toLowerCase();
   
   // Specific intent detection for common mis-routings
   if (lower.includes('good buy') || lower.includes('should i') || lower.includes('recommend') || /is \w+ a good/.test(lower)) {
-    return 'magos';
+    if (!hiredAgents || hiredAgents.includes('magos')) return 'magos';
   }
   
   if (lower.includes('talking about') || lower.includes('mentions') || lower.includes('discussing')) {
-    return 'aura';
+    if (!hiredAgents || hiredAgents.includes('aura')) return 'aura';
   }
 
   // Define routing rules with weights
@@ -626,7 +636,7 @@ export function routePrompt(prompt: string): SpecialistType {
     },
   ];
   
-  // Score each specialist
+  // Score each specialist (only those in hiredAgents if provided)
   const scores: Record<SpecialistType, number> = {
     magos: 0,
     aura: 0,
@@ -638,6 +648,11 @@ export function routePrompt(prompt: string): SpecialistType {
   };
   
   for (const rule of rules) {
+    // Skip specialists not in hiredAgents (if list is provided)
+    if (hiredAgents && !hiredAgents.includes(rule.specialist)) {
+      continue;
+    }
+    
     for (const pattern of rule.patterns) {
       if (pattern.test(lower)) {
         scores[rule.specialist] += rule.weight;
@@ -650,13 +665,18 @@ export function routePrompt(prompt: string): SpecialistType {
   let bestScore = 0;
   
   for (const [specialist, score] of Object.entries(scores)) {
+    // Skip specialists not in hiredAgents (if list is provided)
+    if (hiredAgents && !hiredAgents.includes(specialist as SpecialistType) && specialist !== 'general') {
+      continue;
+    }
+    
     if (score > bestScore) {
       bestScore = score;
       bestSpecialist = specialist as SpecialistType;
     }
   }
   
-  console.log(`[Router] Scores:`, scores, `-> ${bestSpecialist}`);
+  console.log(`[Router] Scores:`, scores, `-> ${bestSpecialist}`, hiredAgents ? `(filtered by swarm: ${hiredAgents.join(', ')})` : '');
   return bestSpecialist;
 }
 

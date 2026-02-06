@@ -65,6 +65,7 @@ export interface DispatchRequest {
   maxPayment?: PaymentInfo;
   dryRun?: boolean;
   callbackUrl?: string;  // Webhook URL to POST result on completion
+  hiredAgents?: SpecialistType[];  // Only route to specialists in the user's swarm
 }
 
 export interface DispatchResponse {
