@@ -11169,5 +11169,335 @@
       "timestamp": "2026-02-06T02:39:37.915Z",
       "executionTimeMs": 0
     }
+  },
+  "12fadd85-da97-4617-bcce-a9219c700d03": {
+    "id": "12fadd85-da97-4617-bcce-a9219c700d03",
+    "prompt": "summarize crypto news today",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T02:40:16.494Z",
+    "updatedAt": "2026-02-06T02:40:20.102Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:40:20.101Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770345617111-8zp3",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"summarize crypto news today...\"",
+        "timestamp": "2026-02-06T02:40:17.111Z"
+      },
+      {
+        "id": "msg-1770345617121-61fe",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:40:17.121Z"
+      },
+      {
+        "id": "msg-1770345618147-9rga",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:40:18.147Z"
+      },
+      {
+        "id": "msg-1770345619781-kjgm",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "What is the biggest crypto news today? Bitcoin dips below $68,000, but JPMorgan says falling volatility strengthens long-term case vs gold.",
+        "timestamp": "2026-02-06T02:40:19.781Z"
+      },
+      {
+        "id": "msg-1770345620102-l9mm",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T02:40:20.102Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "📰 **Latest News: summarize crypto news today**\n\n1. **Bitcoin Crashed JPMorgan Sees Long-Term Upside vs Gold | US Crypto News**\n   What is the biggest crypto news today? Bitcoin dips below $68,000, but JPMorgan says falling volatility strengthens long-term case vs gold.\n   _10 hours ago_\n\n2. **[LIVE] Crypto News Today: Latest Updates for Feb. 05, 2026**\n   The cryptocurrency market is facing ... over 6%. Bitcoin recently dipped below the psychological $72,000 mark, falling nearly 5%, while Ethereum has struggled to maintain its footing above $2,100 following a 4.66% drop...\n   _19 hours ago_\n\n3. **Bitcoin Drops to Lowest Price Since Trump Was Elected as Crypto Faces Slump - The New York Times**\n   The price of Bitcoin is now lower than when President Trump was elected in 2024, raising concerns of a new “crypto winter\" in the industry.\n   _3 hours ago_\n\n4. **BTC price news: Bitcoin spirals toward $60,000, headed for worst drawdown since FTX crash**\n   Bitcoin BTC$71,091.27 tumbled to $63,000 during early afternoon U.S. hours as this week's crypto selloff accelerated into a bloodbath on Thursday.\n   _6 hours ago_\n\n5. **Why Is the Crypto Market Crashing Today?**\n   Crypto market loses $900B as Bitcoin, Ethereum crash; altcoins sink amid liquidations, whale selling, and high interest rates.\n   _15 hours ago_\n\n**Sources:**\n[1. Bitcoin Crashed JPMorgan Sees Long-Term Upside vs Gold | US Crypto News](https://finance.yahoo.com/news/bitcoin-crashed-jpmorgan-sees-long-161810761.html)\n[2. [LIVE] Crypto News Today: Latest Updates for Feb. 05, 2026](https://cryptonews.com/news/live-crypto-news-today-latest-updates-for-feb-05-2026/)\n[3. Bitcoin Drops to Lowest Price Since Trump Was Elected as Crypto Faces Slump - The New York Times](https://www.nytimes.com/2026/02/05/technology/bitcoin-price-drop-crypto-market.html)\n[4. BTC price news: Bitcoin spirals toward $60,000, headed for worst drawdown since FTX crash](https://www.coindesk.com/markets/2026/02/05/bitcoin-drops-below-usd65-000-heading-to-worst-one-day-drawdown-since-ftx-blowup)\n[5. Why Is the Crypto Market Crashing Today?](https://coinpedia.org/news/why-is-the-crypto-market-crashing-today-bitcoin-ethereum-and-altcoins-sink-sharply/)\n",
+        "insight": "What is the biggest crypto news today? Bitcoin dips below $68,000, but JPMorgan says falling volatility strengthens long-term case vs gold.",
+        "results": [
+          {
+            "title": "Bitcoin Crashed JPMorgan Sees Long-Term Upside vs Gold | US Crypto News",
+            "url": "https://finance.yahoo.com/news/bitcoin-crashed-jpmorgan-sees-long-161810761.html",
+            "description": "What is the biggest crypto news today? Bitcoin dips below $68,000, but JPMorgan says falling volatility strengthens long-term case vs gold.",
+            "age": "10 hours ago"
+          },
+          {
+            "title": "[LIVE] Crypto News Today: Latest Updates for Feb. 05, 2026",
+            "url": "https://cryptonews.com/news/live-crypto-news-today-latest-updates-for-feb-05-2026/",
+            "description": "The cryptocurrency market is facing ... over 6%. Bitcoin recently dipped below the psychological $72,000 mark, falling nearly 5%, while Ethereum has struggled to maintain its footing above $2,100 following a 4.66% drop...",
+            "age": "19 hours ago"
+          },
+          {
+            "title": "Bitcoin Drops to Lowest Price Since Trump Was Elected as Crypto Faces Slump - The New York Times",
+            "url": "https://www.nytimes.com/2026/02/05/technology/bitcoin-price-drop-crypto-market.html",
+            "description": "The price of Bitcoin is now lower than when President Trump was elected in 2024, raising concerns of a new “crypto winter\" in the industry.",
+            "age": "3 hours ago"
+          },
+          {
+            "title": "BTC price news: Bitcoin spirals toward $60,000, headed for worst drawdown since FTX crash",
+            "url": "https://www.coindesk.com/markets/2026/02/05/bitcoin-drops-below-usd65-000-heading-to-worst-one-day-drawdown-since-ftx-blowup",
+            "description": "Bitcoin BTC$71,091.27 tumbled to $63,000 during early afternoon U.S. hours as this week's crypto selloff accelerated into a bloodbath on Thursday.",
+            "age": "6 hours ago"
+          },
+          {
+            "title": "Why Is the Crypto Market Crashing Today?",
+            "url": "https://coinpedia.org/news/why-is-the-crypto-market-crashing-today-bitcoin-ethereum-and-altcoins-sink-sharply/",
+            "description": "Crypto market loses $900B as Bitcoin, Ethereum crash; altcoins sink amid liquidations, whale selling, and high interest rates.",
+            "age": "15 hours ago"
+          }
+        ],
+        "confidence": 0.8,
+        "details": {
+          "type": "news",
+          "query": "summarize crypto news today",
+          "count": 5
+        }
+      },
+      "confidence": 0.8,
+      "timestamp": "2026-02-06T02:40:19.781Z",
+      "executionTimeMs": 833
+    }
+  },
+  "24a170a5-d906-4afc-b7f4-fad0565fee1c": {
+    "id": "24a170a5-d906-4afc-b7f4-fad0565fee1c",
+    "prompt": "Who is Vitalik Buterin",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T02:41:10.210Z",
+    "updatedAt": "2026-02-06T02:41:13.080Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:41:13.079Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770345670816-yse2",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Who is Vitalik Buterin...\"",
+        "timestamp": "2026-02-06T02:41:10.816Z"
+      },
+      {
+        "id": "msg-1770345670825-en8p",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:41:10.825Z"
+      },
+      {
+        "id": "msg-1770345671659-3d08",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:41:11.659Z"
+      },
+      {
+        "id": "msg-1770345672945-5gt2",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Vitaly Dmitrievich Buterin (Russian: Вита́лий Дми́триевич Буте́рин; born 31 January 1994), better known as Vitalik Buterin (Russian: Вита́лик Буте́рин), is a Russian-Canadian computer programmer and philanthropist best known for co-founding Ethereum. Click to Follow VitalikButerin · vitalik.eth · @VitalikButerin · I choose balance. First-level balance. mi pinxe lo crino tcati https://slatestarcodex.com/2018/09/12/in-the-balance/… · EntrepreneurEarthJoined May 2011 · 516 Following · 5.8M Followers · Dark Mode Toggle · Vitalik Buterin's website · Blockchains Cryptography Economics Fun General Gitcoin Math Philosophy Translations · 2025 Dec 30 · Balance of power · 2025 Dec 17 · Let a thousand societies bloom · 2025 Nov 25 · Plinko PIR tutorial",
+        "timestamp": "2026-02-06T02:41:12.945Z"
+      },
+      {
+        "id": "msg-1770345673080-ymnw",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T02:41:13.080Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "🔍 **Research: Vitalik Buterin**\n\n**Key Findings:**\n1. **Vitalik Buterin - Wikipedia** _(January 1, 2026)_\n   Vitaly Dmitrievich Buterin (Russian: Вита́лий Дми́триевич Буте́рин; born 31 January 1994), better known as Vitalik Buterin (Russian: Вита́лик Буте́рин), is a Russian-Canadian computer programmer and philanthropist best known for co-founding Ethereum.\n\n2. **vitalik.eth (@VitalikButerin) / X** _(May 8, 2011)_\n   Click to Follow VitalikButerin · vitalik.eth · @VitalikButerin · I choose balance. First-level balance. mi pinxe lo crino tcati https://slatestarcodex.com/2018/09/12/in-the-balance/… · EntrepreneurEarthJoined May 2011 · 516 Following · 5.8M Followers ·\n\n3. **Vitalik Buterin's website**\n   Dark Mode Toggle · Vitalik Buterin's website · Blockchains Cryptography Economics Fun General Gitcoin Math Philosophy Translations · 2025 Dec 30 · Balance of power · 2025 Dec 17 · Let a thousand societies bloom · 2025 Nov 25 · Plinko PIR tutorial\n\n4. **Vitalik Buterin - Founder - Ethereum | LinkedIn**\n   View Vitalik Buterin’s profile on LinkedIn, the world’s largest professional community. Vitalik has 3 jobs listed on their profile. See the complete profile on LinkedIn and discover Vitalik’s connections and jobs at similar companies.\n\n5. **Vitalik Buterin – Medium**\n   Vitalik Buterin · 56K followers · Published in · Infinitism · Sep 29, 2021 · 32 · Sep 29, 2021 · 32 · Apr 1, 2019 · 28 · Apr 1, 2019 · 28 · May 21, 2018 · 53 · May 21, 2018 · 53 · Mar 4, 2017 · 3 · Mar 4, 2017 · 3 · Mar 2, 2017 · 17 · Mar 2, 2017 ·\n\n**Sources:**\n[1. Vitalik Buterin - Wikipedia](https://en.wikipedia.org/wiki/Vitalik_Buterin)\n[2. vitalik.eth (@VitalikButerin) / X](https://x.com/VitalikButerin)\n[3. Vitalik Buterin's website](https://vitalik.eth.limo/)\n[4. Vitalik Buterin - Founder - Ethereum | LinkedIn](https://ca.linkedin.com/in/vitalik-buterin-267a7450)\n[5. Vitalik Buterin – Medium](https://medium.com/@VitalikButerin)\n",
+        "insight": "Vitaly Dmitrievich Buterin (Russian: Вита́лий Дми́триевич Буте́рин; born 31 January 1994), better known as Vitalik Buterin (Russian: Вита́лик Буте́рин), is a Russian-Canadian computer programmer and philanthropist best known for co-founding Ethereum. Click to Follow VitalikButerin · vitalik.eth · @VitalikButerin · I choose balance. First-level balance. mi pinxe lo crino tcati https://slatestarcodex.com/2018/09/12/in-the-balance/… · EntrepreneurEarthJoined May 2011 · 516 Following · 5.8M Followers · Dark Mode Toggle · Vitalik Buterin's website · Blockchains Cryptography Economics Fun General Gitcoin Math Philosophy Translations · 2025 Dec 30 · Balance of power · 2025 Dec 17 · Let a thousand societies bloom · 2025 Nov 25 · Plinko PIR tutorial",
+        "results": [
+          {
+            "title": "Vitalik Buterin - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Vitalik_Buterin",
+            "description": "Vitaly Dmitrievich Buterin (Russian: Вита́лий Дми́триевич Буте́рин; born 31 January 1994), better known as Vitalik Buterin (Russian: Вита́лик Буте́рин), is a Russian-Canadian computer programmer and philanthropist best known for co-founding Ethereum.",
+            "age": "January 1, 2026"
+          },
+          {
+            "title": "vitalik.eth (@VitalikButerin) / X",
+            "url": "https://x.com/VitalikButerin",
+            "description": "Click to Follow VitalikButerin · vitalik.eth · @VitalikButerin · I choose balance. First-level balance. mi pinxe lo crino tcati https://slatestarcodex.com/2018/09/12/in-the-balance/… · EntrepreneurEarthJoined May 2011 · 516 Following · 5.8M Followers ·",
+            "age": "May 8, 2011"
+          },
+          {
+            "title": "Vitalik Buterin's website",
+            "url": "https://vitalik.eth.limo/",
+            "description": "Dark Mode Toggle · Vitalik Buterin's website · Blockchains Cryptography Economics Fun General Gitcoin Math Philosophy Translations · 2025 Dec 30 · Balance of power · 2025 Dec 17 · Let a thousand societies bloom · 2025 Nov 25 · Plinko PIR tutorial"
+          },
+          {
+            "title": "Vitalik Buterin - Founder - Ethereum | LinkedIn",
+            "url": "https://ca.linkedin.com/in/vitalik-buterin-267a7450",
+            "description": "View Vitalik Buterin’s profile on LinkedIn, the world’s largest professional community. Vitalik has 3 jobs listed on their profile. See the complete profile on LinkedIn and discover Vitalik’s connections and jobs at similar companies."
+          },
+          {
+            "title": "Vitalik Buterin – Medium",
+            "url": "https://medium.com/@VitalikButerin",
+            "description": "Vitalik Buterin · 56K followers · Published in · Infinitism · Sep 29, 2021 · 32 · Sep 29, 2021 · 32 · Apr 1, 2019 · 28 · Apr 1, 2019 · 28 · May 21, 2018 · 53 · May 21, 2018 · 53 · Mar 4, 2017 · 3 · Mar 4, 2017 · 3 · Mar 2, 2017 · 17 · Mar 2, 2017 ·"
+          }
+        ],
+        "confidence": 0.85,
+        "details": {
+          "type": "search",
+          "query": "Vitalik Buterin",
+          "count": 5
+        }
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T02:41:12.945Z",
+      "executionTimeMs": 485
+    }
+  },
+  "0cb0a84b-4b6b-4031-b53f-1ed46e2c3eaf": {
+    "id": "0cb0a84b-4b6b-4031-b53f-1ed46e2c3eaf",
+    "prompt": "Who is Vitalik Buterin",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T02:42:05.381Z",
+    "updatedAt": "2026-02-06T02:42:08.474Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T02:42:08.473Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770345725989-5440",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Who is Vitalik Buterin...\"",
+        "timestamp": "2026-02-06T02:42:05.989Z"
+      },
+      {
+        "id": "msg-1770345725999-jl2i",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T02:42:05.999Z"
+      },
+      {
+        "id": "msg-1770345726998-rcf0",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T02:42:06.998Z"
+      },
+      {
+        "id": "msg-1770345728162-5dz0",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Vitaly Dmitrievich Buterin (Russian: Вита́лий Дми́триевич Буте́рин; born 31 January 1994), better known as Vitalik Buterin (Russian: Вита́лик Буте́рин), is a Russian-Canadian computer programmer and philanthropist best known for co-founding Ethereum. Click to Follow VitalikButerin · vitalik.eth · @VitalikButerin · I choose balance. First-level balance. mi pinxe lo crino tcati https://slatestarcodex.com/2018/09/12/in-the-balance/… · EntrepreneurEarthJoined May 2011 · 516 Following · 5.8M Followers · Dark Mode Toggle · Vitalik Buterin's website · Blockchains Cryptography Economics Fun General Gitcoin Math Philosophy Translations · 2025 Dec 30 · Balance of power · 2025 Dec 17 · Let a thousand societies bloom · 2025 Nov 25 · Plinko PIR tutorial",
+        "timestamp": "2026-02-06T02:42:08.162Z"
+      },
+      {
+        "id": "msg-1770345728474-89pz",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T02:42:08.474Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "🔍 **Research: Vitalik Buterin**\n\n**Key Findings:**\n1. **Vitalik Buterin - Wikipedia** _(January 1, 2026)_\n   Vitaly Dmitrievich Buterin (Russian: Вита́лий Дми́триевич Буте́рин; born 31 January 1994), better known as Vitalik Buterin (Russian: Вита́лик Буте́рин), is a Russian-Canadian computer programmer and philanthropist best known for co-founding Ethereum.\n\n2. **vitalik.eth (@VitalikButerin) / X** _(May 8, 2011)_\n   Click to Follow VitalikButerin · vitalik.eth · @VitalikButerin · I choose balance. First-level balance. mi pinxe lo crino tcati https://slatestarcodex.com/2018/09/12/in-the-balance/… · EntrepreneurEarthJoined May 2011 · 516 Following · 5.8M Followers ·\n\n3. **Vitalik Buterin's website**\n   Dark Mode Toggle · Vitalik Buterin's website · Blockchains Cryptography Economics Fun General Gitcoin Math Philosophy Translations · 2025 Dec 30 · Balance of power · 2025 Dec 17 · Let a thousand societies bloom · 2025 Nov 25 · Plinko PIR tutorial\n\n4. **Vitalik Buterin - Founder - Ethereum | LinkedIn**\n   View Vitalik Buterin’s profile on LinkedIn, the world’s largest professional community. Vitalik has 3 jobs listed on their profile. See the complete profile on LinkedIn and discover Vitalik’s connections and jobs at similar companies.\n\n5. **Vitalik Buterin – Medium**\n   Vitalik Buterin · 56K followers · Published in · Infinitism · Sep 29, 2021 · 32 · Sep 29, 2021 · 32 · Apr 1, 2019 · 28 · Apr 1, 2019 · 28 · May 21, 2018 · 53 · May 21, 2018 · 53 · Mar 4, 2017 · 3 · Mar 4, 2017 · 3 · Mar 2, 2017 · 17 · Mar 2, 2017 ·\n\n**Sources:**\n[1. Vitalik Buterin - Wikipedia](https://en.wikipedia.org/wiki/Vitalik_Buterin)\n[2. vitalik.eth (@VitalikButerin) / X](https://x.com/VitalikButerin)\n[3. Vitalik Buterin's website](https://vitalik.eth.limo/)\n[4. Vitalik Buterin - Founder - Ethereum | LinkedIn](https://ca.linkedin.com/in/vitalik-buterin-267a7450)\n[5. Vitalik Buterin – Medium](https://medium.com/@VitalikButerin)\n",
+        "insight": "Vitaly Dmitrievich Buterin (Russian: Вита́лий Дми́триевич Буте́рин; born 31 January 1994), better known as Vitalik Buterin (Russian: Вита́лик Буте́рин), is a Russian-Canadian computer programmer and philanthropist best known for co-founding Ethereum. Click to Follow VitalikButerin · vitalik.eth · @VitalikButerin · I choose balance. First-level balance. mi pinxe lo crino tcati https://slatestarcodex.com/2018/09/12/in-the-balance/… · EntrepreneurEarthJoined May 2011 · 516 Following · 5.8M Followers · Dark Mode Toggle · Vitalik Buterin's website · Blockchains Cryptography Economics Fun General Gitcoin Math Philosophy Translations · 2025 Dec 30 · Balance of power · 2025 Dec 17 · Let a thousand societies bloom · 2025 Nov 25 · Plinko PIR tutorial",
+        "results": [
+          {
+            "title": "Vitalik Buterin - Wikipedia",
+            "url": "https://en.wikipedia.org/wiki/Vitalik_Buterin",
+            "description": "Vitaly Dmitrievich Buterin (Russian: Вита́лий Дми́триевич Буте́рин; born 31 January 1994), better known as Vitalik Buterin (Russian: Вита́лик Буте́рин), is a Russian-Canadian computer programmer and philanthropist best known for co-founding Ethereum.",
+            "age": "January 1, 2026"
+          },
+          {
+            "title": "vitalik.eth (@VitalikButerin) / X",
+            "url": "https://x.com/VitalikButerin",
+            "description": "Click to Follow VitalikButerin · vitalik.eth · @VitalikButerin · I choose balance. First-level balance. mi pinxe lo crino tcati https://slatestarcodex.com/2018/09/12/in-the-balance/… · EntrepreneurEarthJoined May 2011 · 516 Following · 5.8M Followers ·",
+            "age": "May 8, 2011"
+          },
+          {
+            "title": "Vitalik Buterin's website",
+            "url": "https://vitalik.eth.limo/",
+            "description": "Dark Mode Toggle · Vitalik Buterin's website · Blockchains Cryptography Economics Fun General Gitcoin Math Philosophy Translations · 2025 Dec 30 · Balance of power · 2025 Dec 17 · Let a thousand societies bloom · 2025 Nov 25 · Plinko PIR tutorial"
+          },
+          {
+            "title": "Vitalik Buterin - Founder - Ethereum | LinkedIn",
+            "url": "https://ca.linkedin.com/in/vitalik-buterin-267a7450",
+            "description": "View Vitalik Buterin’s profile on LinkedIn, the world’s largest professional community. Vitalik has 3 jobs listed on their profile. See the complete profile on LinkedIn and discover Vitalik’s connections and jobs at similar companies."
+          },
+          {
+            "title": "Vitalik Buterin – Medium",
+            "url": "https://medium.com/@VitalikButerin",
+            "description": "Vitalik Buterin · 56K followers · Published in · Infinitism · Sep 29, 2021 · 32 · Sep 29, 2021 · 32 · Apr 1, 2019 · 28 · Apr 1, 2019 · 28 · May 21, 2018 · 53 · May 21, 2018 · 53 · Mar 4, 2017 · 3 · Mar 4, 2017 · 3 · Mar 2, 2017 · 17 · Mar 2, 2017 ·"
+          }
+        ],
+        "confidence": 0.85,
+        "details": {
+          "type": "search",
+          "query": "Vitalik Buterin",
+          "count": 5
+        }
+      },
+      "confidence": 0.85,
+      "timestamp": "2026-02-06T02:42:08.162Z",
+      "executionTimeMs": 363
+    }
   }
 }

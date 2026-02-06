@@ -32,7 +32,7 @@ export const seeker = {
       
       switch (intent.type) {
         case 'search':
-          data = await performSearch(intent.query);
+          data = await performSearch(intent.query, intent.originalPrompt);
           break;
         case 'news':
           data = await searchNews(intent.query);
@@ -41,7 +41,7 @@ export const seeker = {
           data = await factCheck(intent.query);
           break;
         default:
-          data = await performSearch(prompt);
+          data = await performSearch(prompt, prompt);
       }
       
       return {
@@ -66,24 +66,24 @@ export const seeker = {
 /**
  * Parse user intent from prompt
  */
-function parseIntent(prompt: string): { type: string; query: string } {
+function parseIntent(prompt: string): { type: string; query: string; originalPrompt: string } {
   const lower = prompt.toLowerCase();
   
-  // Clean up the query
+  // Clean up the query for search
   let query = prompt
-    .replace(/^(search|find|look up|google|what is|what are|who is|where is|when did)\s+/i, '')
+    .replace(/^(search|find|look up|google)\s+/i, '') // Only strip search prefixes, not question words
     .replace(/\?$/, '')
     .trim();
   
   if (lower.includes('news') || lower.includes('latest') || lower.includes('recent')) {
-    return { type: 'news', query };
+    return { type: 'news', query, originalPrompt: prompt };
   }
   
   if (lower.includes('true') || lower.includes('fact') || lower.includes('verify') || lower.includes('is it')) {
-    return { type: 'factcheck', query };
+    return { type: 'factcheck', query, originalPrompt: prompt };
   }
   
-  return { type: 'search', query };
+  return { type: 'search', query, originalPrompt: prompt };
 }
 
 /**
@@ -160,7 +160,7 @@ function synthesizeAnswer(query: string, results: SearchResult[]): string {
 /**
  * Perform a general web search
  */
-async function performSearch(query: string): Promise<{
+async function performSearch(query: string, originalPrompt?: string): Promise<{
   summary: string;
   insight: string;
   results: SearchResult[];
@@ -172,22 +172,25 @@ async function performSearch(query: string): Promise<{
   const searchResult = await braveSearch(query, 5);
   const results = searchResult.results;
   
+  // Check if original prompt is a simple factual question
+  const promptToCheck = originalPrompt || query;
+  const isSimple = isSimpleFactualQuery(promptToCheck);
+  console.log(`[Seeker] Simple factual query: ${isSimple} (checked: "${promptToCheck}")`);
+  
   // Generate summary from results
   let summary = '';
   let insight = '';
   
   if (results.length > 0) {
-    const isSimple = isSimpleFactualQuery(query);
-    
     if (isSimple) {
       // For simple questions, synthesize a direct answer
       const answer = synthesizeAnswer(query, results);
       
-      summary = `**${query}**\n\n${answer}\n\n`;
-      summary += `**Sources:** `;
-      summary += results.slice(0, 3).map((r, i) => 
-        `[${r.title}](${r.url})`
-      ).join(' • ');
+      summary = `**${promptToCheck}**\n\n${answer}\n\n`;
+      summary += `**Sources:**\n`;
+      results.slice(0, 3).forEach((r, i) => {
+        summary += `• [${r.title}](${r.url})\n`;
+      });
       
       insight = answer;
     } else {
