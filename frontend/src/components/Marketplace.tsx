@@ -203,7 +203,7 @@ export function Marketplace({ hiredAgents, onHire }: MarketplaceProps) {
             Agent Marketplace
           </h2>
           <p className="text-[var(--text-secondary)]">
-            Discover and hire specialized autonomous agents for your Hivemind swarm.
+            Discover and add specialized autonomous agents to your Hivemind swarm.
           </p>
         </div>
 

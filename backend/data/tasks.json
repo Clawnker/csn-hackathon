@@ -6576,5 +6576,699 @@
       "timestamp": "2026-02-06T01:13:44.262Z",
       "executionTimeMs": 1
     }
+  },
+  "844251b4-639f-4abf-a44b-6fb3f3c5b411": {
+    "id": "844251b4-639f-4abf-a44b-6fb3f3c5b411",
+    "prompt": "Price prediction for BONK",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T01:15:49.906Z",
+    "updatedAt": "2026-02-06T01:15:52.252Z",
+    "payments": [
+      {
+        "amount": "0.001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "magos",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:15:52.252Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770340550511-zzvn",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"Price prediction for BONK...\"",
+        "timestamp": "2026-02-06T01:15:50.511Z"
+      },
+      {
+        "id": "msg-1770340550520-0i5g",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:15:50.520Z"
+      },
+      {
+        "id": "msg-1770340551337-tr1g",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T01:15:51.337Z"
+      },
+      {
+        "id": "msg-1770340552138-mb6j",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "BONK 4h outlook: Bearish. Distribution pattern, resistance rejection, take profits. Target: $0.00002625",
+        "timestamp": "2026-02-06T01:15:52.138Z"
+      },
+      {
+        "id": "msg-1770340552252-lofa",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.001 USDC → magos",
+        "timestamp": "2026-02-06T01:15:52.252Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "token": "BONK",
+        "currentPrice": 0.000028,
+        "predictedPrice": 0.000026249062803858738,
+        "timeHorizon": "4h",
+        "confidence": 0.8853110908875332,
+        "direction": "bearish",
+        "reasoning": "BONK 4h outlook: Bearish. Distribution pattern, resistance rejection, take profits. Target: $0.00002625"
+      },
+      "confidence": 0.8853110908875332,
+      "timestamp": "2026-02-06T01:15:52.138Z",
+      "executionTimeMs": 0
+    }
+  },
+  "0bc04c35-7df7-4a41-8ae2-bfc6c309294a": {
+    "id": "0bc04c35-7df7-4a41-8ae2-bfc6c309294a",
+    "prompt": "Find trending meme coins",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T01:16:32.032Z",
+    "updatedAt": "2026-02-06T01:16:34.392Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:16:34.392Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770340592636-7j35",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find trending meme coins...\"",
+        "timestamp": "2026-02-06T01:16:32.636Z"
+      },
+      {
+        "id": "msg-1770340592647-fiid",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:16:32.647Z"
+      },
+      {
+        "id": "msg-1770340593475-v437",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:16:33.475Z"
+      },
+      {
+        "id": "msg-1770340594276-o11p",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-06T01:16:34.276Z"
+      },
+      {
+        "id": "msg-1770340594392-el5m",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T01:16:34.392Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "Find trending meme coins",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-06T01:16:34.276Z",
+      "executionTimeMs": 0
+    }
+  },
+  "5fcad430-cebf-4a54-a818-8ffd54762c9c": {
+    "id": "5fcad430-cebf-4a54-a818-8ffd54762c9c",
+    "prompt": "WIF sentiment analysis",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T01:16:48.733Z",
+    "updatedAt": "2026-02-06T01:16:52.410Z",
+    "payments": [
+      {
+        "amount": "0.001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "magos",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:16:52.410Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770340609338-32be",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"WIF sentiment analysis...\"",
+        "timestamp": "2026-02-06T01:16:49.338Z"
+      },
+      {
+        "id": "msg-1770340609339-k7nu",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:16:49.339Z"
+      },
+      {
+        "id": "msg-1770340610142-mkcf",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T01:16:50.142Z"
+      },
+      {
+        "id": "msg-1770340612293-z2xy",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "Sentiment for **WIF**: NEUTRAL (0 bullish signals, 0 bearish). Mixed signals, wait for confirmation.",
+        "timestamp": "2026-02-06T01:16:52.293Z"
+      },
+      {
+        "id": "msg-1770340612410-4l4l",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.001 USDC → magos",
+        "timestamp": "2026-02-06T01:16:52.410Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "insight": "Sentiment for **WIF**: NEUTRAL (0 bullish signals, 0 bearish). Mixed signals, wait for confirmation.",
+        "confidence": 0.5,
+        "sentiment": "neutral",
+        "score": 0,
+        "relatedTokens": [
+          "WIF"
+        ]
+      },
+      "confidence": 0.5,
+      "timestamp": "2026-02-06T01:16:52.293Z",
+      "executionTimeMs": 1350
+    }
+  },
+  "e603110b-b1a3-49d1-a65d-7498f59b6c35": {
+    "id": "e603110b-b1a3-49d1-a65d-7498f59b6c35",
+    "prompt": "Find trending meme coins",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T01:17:02.984Z",
+    "updatedAt": "2026-02-06T01:17:05.297Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:17:05.297Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770340623590-lgsf",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find trending meme coins...\"",
+        "timestamp": "2026-02-06T01:17:03.590Z"
+      },
+      {
+        "id": "msg-1770340623600-k3l2",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:17:03.600Z"
+      },
+      {
+        "id": "msg-1770340624400-h92d",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:17:04.400Z"
+      },
+      {
+        "id": "msg-1770340625200-awj2",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-06T01:17:05.200Z"
+      },
+      {
+        "id": "msg-1770340625297-m85r",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T01:17:05.297Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "Find trending meme coins",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-06T01:17:05.200Z",
+      "executionTimeMs": 0
+    }
+  },
+  "54ef2035-a2f4-49ea-a0f9-a980930df21f": {
+    "id": "54ef2035-a2f4-49ea-a0f9-a980930df21f",
+    "prompt": "Find trending meme coins",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T01:17:32.823Z",
+    "updatedAt": "2026-02-06T01:17:35.588Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:17:35.588Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770340653435-cp6o",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find trending meme coins...\"",
+        "timestamp": "2026-02-06T01:17:33.435Z"
+      },
+      {
+        "id": "msg-1770340653445-45hd",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:17:33.445Z"
+      },
+      {
+        "id": "msg-1770340654697-a0zj",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:17:34.697Z"
+      },
+      {
+        "id": "msg-1770340655498-eif5",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-06T01:17:35.498Z"
+      },
+      {
+        "id": "msg-1770340655588-t8yf",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T01:17:35.588Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "Find trending meme coins",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-06T01:17:35.498Z",
+      "executionTimeMs": 0
+    }
+  },
+  "8c350738-140b-4bac-8b01-5fb5397362b6": {
+    "id": "8c350738-140b-4bac-8b01-5fb5397362b6",
+    "prompt": "Find trending meme coins",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "seeker",
+    "createdAt": "2026-02-06T01:17:42.162Z",
+    "updatedAt": "2026-02-06T01:17:44.461Z",
+    "payments": [
+      {
+        "amount": "0.0001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "seeker",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:17:44.460Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770340662766-6x5m",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Routing task: \"Find trending meme coins...\"",
+        "timestamp": "2026-02-06T01:17:42.766Z"
+      },
+      {
+        "id": "msg-1770340662776-35mx",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:17:42.776Z"
+      },
+      {
+        "id": "msg-1770340663553-9enk",
+        "from": "dispatcher",
+        "to": "seeker",
+        "content": "Processing with seeker... (fee: 0.0001 USDC)",
+        "timestamp": "2026-02-06T01:17:43.553Z"
+      },
+      {
+        "id": "msg-1770340664354-xvbz",
+        "from": "seeker",
+        "to": "dispatcher",
+        "content": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "timestamp": "2026-02-06T01:17:44.354Z"
+      },
+      {
+        "id": "msg-1770340664460-o8ok",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.0001 USDC → seeker",
+        "timestamp": "2026-02-06T01:17:44.460Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "summary": "Found relevant results for your search query.",
+        "insight": "Searching for: \"Find trending meme coins\". In production, Seeker would query web search APIs for real-time results.",
+        "results": [
+          {
+            "title": "Solana Ecosystem News",
+            "snippet": "Solana daily active addresses reach new highs in 2026."
+          },
+          {
+            "title": "Hivemind Protocol Docs",
+            "snippet": "The Clawnker Specialist Network enables autonomous agent swarms."
+          },
+          {
+            "title": "Market Update",
+            "snippet": "USDC liquidity increasing across decentralized exchanges."
+          }
+        ],
+        "details": {
+          "type": "search",
+          "query": "Find trending meme coins",
+          "count": 3
+        }
+      },
+      "confidence": 0.9,
+      "timestamp": "2026-02-06T01:17:44.354Z",
+      "executionTimeMs": 0
+    }
+  },
+  "f615a9f4-bff0-41d8-a50f-bcd1587b0824": {
+    "id": "f615a9f4-bff0-41d8-a50f-bcd1587b0824",
+    "prompt": "Price prediction for BONK",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T01:17:51.962Z",
+    "updatedAt": "2026-02-06T01:17:54.200Z",
+    "payments": [
+      {
+        "amount": "0.001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "magos",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:17:54.200Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770340672565-lv2e",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"Price prediction for BONK...\"",
+        "timestamp": "2026-02-06T01:17:52.565Z"
+      },
+      {
+        "id": "msg-1770340672575-18df",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:17:52.575Z"
+      },
+      {
+        "id": "msg-1770340673290-jfsi",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T01:17:53.290Z"
+      },
+      {
+        "id": "msg-1770340674090-wac0",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00002936",
+        "timestamp": "2026-02-06T01:17:54.090Z"
+      },
+      {
+        "id": "msg-1770340674200-s7gg",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.001 USDC → magos",
+        "timestamp": "2026-02-06T01:17:54.200Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker",
+        "magos"
+      ],
+      "wasApproved": false
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "token": "BONK",
+        "currentPrice": 0.000028,
+        "predictedPrice": 0.000029359671633732314,
+        "timeHorizon": "4h",
+        "confidence": 0.8094500085880464,
+        "direction": "bullish",
+        "reasoning": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00002936"
+      },
+      "confidence": 0.8094500085880464,
+      "timestamp": "2026-02-06T01:17:54.090Z",
+      "executionTimeMs": 0
+    }
+  },
+  "c895ece8-c0d9-4fd8-8412-f8a69186998e": {
+    "id": "c895ece8-c0d9-4fd8-8412-f8a69186998e",
+    "prompt": "Price prediction for BONK",
+    "userId": "demo-user",
+    "status": "completed",
+    "specialist": "magos",
+    "createdAt": "2026-02-06T01:18:11.154Z",
+    "updatedAt": "2026-02-06T01:18:13.793Z",
+    "payments": [
+      {
+        "amount": "0.001",
+        "currency": "USDC",
+        "network": "solana",
+        "recipient": "magos",
+        "status": "pending",
+        "timestamp": "2026-02-06T01:18:13.793Z"
+      }
+    ],
+    "messages": [
+      {
+        "id": "msg-1770340691759-x3te",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Routing task: \"Price prediction for BONK...\"",
+        "timestamp": "2026-02-06T01:18:11.759Z"
+      },
+      {
+        "id": "msg-1770340691768-swmx",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Checking x402 payment...",
+        "timestamp": "2026-02-06T01:18:11.768Z"
+      },
+      {
+        "id": "msg-1770340692883-d1rt",
+        "from": "dispatcher",
+        "to": "magos",
+        "content": "Processing with magos... (fee: 0.001 USDC)",
+        "timestamp": "2026-02-06T01:18:12.883Z"
+      },
+      {
+        "id": "msg-1770340693684-o7wq",
+        "from": "magos",
+        "to": "dispatcher",
+        "content": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00003059",
+        "timestamp": "2026-02-06T01:18:13.684Z"
+      },
+      {
+        "id": "msg-1770340693793-uson",
+        "from": "x402",
+        "to": "dispatcher",
+        "content": "💰 x402 Fee (Mock): 0.001 USDC → magos",
+        "timestamp": "2026-02-06T01:18:13.793Z"
+      }
+    ],
+    "metadata": {
+      "hiredAgents": [
+        "bankr",
+        "scribe",
+        "seeker"
+      ],
+      "wasApproved": true
+    },
+    "result": {
+      "success": true,
+      "data": {
+        "token": "BONK",
+        "currentPrice": 0.000028,
+        "predictedPrice": 0.00003059048181311427,
+        "timeHorizon": "4h",
+        "confidence": 0.7294265607936622,
+        "direction": "bullish",
+        "reasoning": "BONK 4h outlook: Bullish. Accumulation detected, volume increasing, support holding. Target: $0.00003059"
+      },
+      "confidence": 0.7294265607936622,
+      "timestamp": "2026-02-06T01:18:13.684Z",
+      "executionTimeMs": 0
+    }
   }
 }

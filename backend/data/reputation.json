@@ -1,6 +1,6 @@
 {
   "magos": {
-    "successCount": 24,
+    "successCount": 28,
     "failureCount": 2
   },
   "aura": {
@@ -16,7 +16,7 @@
     "failureCount": 0
   },
   "seeker": {
-    "successCount": 6,
+    "successCount": 10,
     "failureCount": 0
   }
 }

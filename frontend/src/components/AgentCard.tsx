@@ -125,7 +125,7 @@ export function AgentCard({
             whileTap={{ scale: 0.98 }}
             className="w-full btn-primary flex items-center justify-center gap-2 group/btn"
           >
-            <span>Hire Specialist</span>
+            <span>Add to Swarm</span>
             <ArrowUpRight size={18} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
           </motion.button>
         )}

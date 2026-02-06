@@ -388,7 +388,7 @@ export default function CommandCenter() {
     reset();
   }, [reset]);
 
-  const handleHireAgent = useCallback((agentId: string) => {
+  const handleAddAgentToSwarm = useCallback((agentId: string) => {
     setPreSelectedAgent(agentId);
     setHiredAgents(prev => prev.includes(agentId) ? prev : [...prev, agentId]);
     setActiveView('dispatch');
@@ -663,7 +663,7 @@ export default function CommandCenter() {
             >
               <Marketplace 
                 hiredAgents={hiredAgents} 
-                onHire={handleHireAgent} 
+                onHire={handleAddAgentToSwarm} 
               />
             </motion.div>
           ) : (

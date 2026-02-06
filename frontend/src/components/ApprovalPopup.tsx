@@ -65,7 +65,7 @@ export function ApprovalPopup({
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-white">
-                        Hire {specialistInfo.name}?
+                        Add {specialistInfo.name} to Swarm?
                       </h3>
                       <p className="text-sm text-gray-400">
                         This agent is not in your swarm
@@ -105,7 +105,7 @@ export function ApprovalPopup({
                         <TrendingUp className="w-4 h-4" /> Success rate
                       </span>
                       <span className="text-green-400 font-medium">
-                        {(specialistInfo.successRate * 100).toFixed(0)}%
+                        {specialistInfo.successRate}%
                       </span>
                     </div>
                   )}
@@ -119,11 +119,11 @@ export function ApprovalPopup({
                   </p>
                 </div>
 
-                {/* Warning */}
-                <div className="flex items-start gap-2 text-amber-400/80 text-sm bg-amber-500/10 rounded-lg p-3">
+                {/* Info Banner */}
+                <div className="flex items-start gap-2 text-cyan-400/80 text-sm bg-cyan-500/10 rounded-lg p-3">
                   <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
                   <p>
-                    This is a one-time hire. You can add this agent to your swarm after the task completes.
+                    Adding to your swarm is free. You only pay the per-request fee when tasks are executed.
                   </p>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export function ApprovalPopup({
                   className="flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-medium hover:shadow-lg hover:shadow-cyan-500/20 transition-all flex items-center justify-center gap-2"
                 >
                   <CheckCircle className="w-4 h-4" />
-                  Approve & Run
+                  Add to Swarm & Run
                 </button>
               </div>
             </div>
