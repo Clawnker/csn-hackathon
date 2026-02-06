@@ -35,7 +35,9 @@ export function ResultCard({
   const [isVoting, setIsVoting] = useState(false);
   
   const isSuccess = status === 'success';
-  const summary = result.length > 200 ? result.substring(0, 200) + '...' : result;
+  // Show more content for search/research results
+  const truncateLength = result.includes('**') || result.includes('🔍') ? 500 : 200;
+  const summary = result.length > truncateLength ? result.substring(0, truncateLength) + '...' : result;
   const displayResult = isExpanded ? result : summary;
 
   // Fetch existing vote and stats on mount

@@ -12,6 +12,21 @@ const BRAVE_AI_API_KEY = process.env.BRAVE_AI_API_KEY || '';
 const BRAVE_WEB_URL = 'https://api.search.brave.com/res/v1/web/search';
 const BRAVE_AI_URL = 'https://api.search.brave.com/res/v1/summarizer/search';
 
+/**
+ * Strip HTML tags from text
+ */
+function stripHtml(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, '') // Remove HTML tags
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .trim();
+}
+
 export interface SearchResult {
   title: string;
   url: string;
@@ -56,16 +71,21 @@ export async function braveAISearch(
     });
     
     const webResults = response.data.web?.results || [];
-    const summary = response.data.summarizer?.summary || response.data.summary;
+    let summary = response.data.summarizer?.summary || response.data.summary;
+    
+    // Strip HTML tags from summary
+    if (summary) {
+      summary = stripHtml(summary);
+    }
     
     console.log('[Brave] AI search successful, got summary:', !!summary);
     
     return {
       query,
       results: webResults.slice(0, count).map((r: any) => ({
-        title: r.title,
+        title: stripHtml(r.title || ''),
         url: r.url,
-        description: r.description,
+        description: stripHtml(r.description || ''),
         age: r.age,
       })),
       totalResults: response.data.web?.count || webResults.length,
@@ -118,9 +138,9 @@ export async function braveSearch(
     return {
       query,
       results: webResults.map((r: any) => ({
-        title: r.title,
+        title: stripHtml(r.title || ''),
         url: r.url,
-        description: r.description,
+        description: stripHtml(r.description || ''),
         age: r.age,
       })),
       totalResults: response.data.web?.count || webResults.length,

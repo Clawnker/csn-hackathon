@@ -680,6 +680,8 @@ export function routePrompt(prompt: string, hiredAgents?: SpecialistType[]): Spe
       patterns: [
         /search|find|lookup|what is|who is|where is|news about|latest on/,
         /research|google|brave|internet|web|look up/,
+        /news|happened|today|recent|current events/,
+        /what happened|tell me about/,
       ],
       weight: 1.2,
     },
