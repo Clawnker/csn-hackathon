@@ -14,7 +14,7 @@ interface TaskInputProps {
   initialPrompt?: string;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 const SUGGESTED_PROMPTS = [
   { icon: TrendingUp, text: "Find trending meme coins", color: "cyan" },

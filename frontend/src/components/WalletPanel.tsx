@@ -50,7 +50,8 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
   const fetchBalance = async () => {
     setIsRefreshing(true);
     try {
-      const response = await fetch('http://localhost:3001/api/wallet/balances');
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+      const response = await fetch(`${apiUrl}/api/wallet/balances`);
       if (response.ok) {
         const data = await response.json();
         

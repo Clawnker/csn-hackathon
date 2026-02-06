@@ -174,7 +174,8 @@ export function Marketplace({ hiredAgents, onHire }: MarketplaceProps) {
 
   // Fetch live reputation data
   useEffect(() => {
-    fetch('http://localhost:3001/api/reputation')
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+    fetch(`${apiUrl}/api/reputation`)
       .then(res => res.json())
       .then(data => setReputationData(data))
       .catch(() => {});
