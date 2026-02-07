@@ -708,6 +708,12 @@ function routeWithRegExp(prompt: string, hiredAgents?: SpecialistType[]): Specia
   if (lower.includes('talking about') || lower.includes('mentions') || lower.includes('discussing')) {
     if (!hiredAgents || hiredAgents.includes('aura')) return 'aura';
   }
+  
+  // Price queries should go to magos (market analysis), not seeker
+  if (/price|value|worth|cost.*\b(sol|eth|btc|bonk|wif|pepe|usdc|usdt)\b/i.test(prompt) || 
+      /\b(sol|eth|btc|bonk|wif|pepe)\b.*price/i.test(prompt)) {
+    if (!hiredAgents || hiredAgents.includes('magos')) return 'magos';
+  }
 
   // Define routing rules with weights
   const rules: Array<{ specialist: SpecialistType; patterns: RegExp[]; weight: number }> = [
