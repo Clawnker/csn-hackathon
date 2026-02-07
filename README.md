@@ -105,6 +105,112 @@ Visit `http://localhost:3001` to access the Hivemind Command Center.
 
 ---
 
+## 📖 Usage Examples
+
+### Basic API Calls
+
+#### Submit a Task
+```bash
+curl -X POST http://localhost:3001/api/dispatch \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "What is SOL price?",
+    "userId": "demo"
+  }'
+```
+
+#### Get Task Status
+```bash
+curl http://localhost:3001/api/tasks/TASK_ID
+```
+
+#### Preview Specialist (No Execution)
+```bash
+curl -X POST http://localhost:3001/api/dispatch \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "Find trending meme coins",
+    "userId": "demo",
+    "previewOnly": true
+  }'
+```
+
+### Multi-Hop Workflows
+
+#### Buy Trending Token
+```bash
+# This will trigger Aura → Bankr workflow
+curl -X POST http://localhost:3001/api/dispatch \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "Buy 0.1 SOL of the top trending token",
+    "userId": "demo"
+  }'
+```
+
+### Specialist-Specific Calls
+
+#### Market Analysis (Magos)
+```bash
+curl -X POST http://localhost:3001/api/specialist/magos \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "Is BONK a good buy right now?"}'
+```
+
+#### Social Sentiment (Aura)
+```bash
+curl -X POST http://localhost:3001/api/specialist/aura \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "What are people saying about WIF?"}'
+```
+
+#### Wallet Operations (Bankr)
+```bash
+# Check balance
+curl -X POST http://localhost:3001/api/specialist/bankr \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "What is my wallet balance?"}'
+
+# Swap tokens
+curl -X POST http://localhost:3001/api/specialist/bankr \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "Swap 1 USDC for SOL"}'
+```
+
+### WebSocket Connection
+
+Connect to real-time task updates:
+
+```javascript
+const ws = new WebSocket('ws://localhost:3001');
+
+ws.on('message', (data) => {
+  const update = JSON.parse(data);
+  console.log('Task update:', update);
+});
+
+// Subscribe to a specific task
+ws.send(JSON.stringify({
+  type: 'subscribe',
+  taskId: 'YOUR_TASK_ID'
+}));
+```
+
+### Routing Modes
+
+Toggle between RegExp and LLM-based routing by setting `PLANNING_MODE` in `.env`:
+
+```bash
+# Fast, deterministic routing (default)
+PLANNING_MODE=regexp
+
+# AI-powered intelligent routing
+PLANNING_MODE=llm
+GEMINI_API_KEY=your_key_here
+```
+
+---
+
 ## 🗺️ Roadmap
 
 - **Phase 1: MVP** (Current) ✅
