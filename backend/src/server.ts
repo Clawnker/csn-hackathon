@@ -117,54 +117,9 @@ app.get('/health', (req: Request, res: Response) => {
   res.json({
     status: 'ok',
     service: 'Hivemind Protocol',
-    version: '0.2.0',
-    chain: 'Base (EIP-155:8453)',
-    trustLayer: 'ERC-8004',
+    version: '0.1.0',
     timestamp: new Date().toISOString(),
   });
-});
-
-/**
- * ERC-8004 Agent Registration Files
- * GET /api/agents - List all registered agents
- * GET /api/agents/:id/registration - Get agent registration file
- */
-app.get('/api/agents', (req: Request, res: Response) => {
-  try {
-    const registrations = JSON.parse(
-      fs.readFileSync(path.join(__dirname, '../../agents/registrations.json'), 'utf8')
-    );
-    res.json({
-      agents: registrations.map((r: any, i: number) => ({
-        agentId: i + 1,
-        name: r.name,
-        description: r.description,
-        active: r.active,
-        x402Support: r.x402Support,
-        supportedTrust: r.supportedTrust,
-      })),
-      identityRegistry: config.erc8004.identityRegistry || 'pending-deployment',
-      reputationRegistry: config.erc8004.reputationRegistry || 'pending-deployment',
-      chain: 'Base (EIP-155:8453)',
-    });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.get('/api/agents/:id/registration', (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id) - 1;
-    const registrations = JSON.parse(
-      fs.readFileSync(path.join(__dirname, '../../agents/registrations.json'), 'utf8')
-    );
-    if (id < 0 || id >= registrations.length) {
-      return res.status(404).json({ error: 'Agent not found' });
-    }
-    res.json(registrations[id]);
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
 });
 
 /**
@@ -196,36 +151,24 @@ app.get('/api/reputation', (req: Request, res: Response) => {
 });
 
 /**
- * POST /api/reputation/:specialist/sync - Sync reputation to Base via ERC-8004
+ * POST /api/reputation/:specialist/sync - Sync reputation to Solana (Mock)
  */
 app.post('/api/reputation/:specialist/sync', async (req: Request, res: Response) => {
   try {
     const { specialist } = req.params;
     const stats = getReputationStats(specialist);
     
-    // Submit feedback to ERC-8004 Reputation Registry on Base
-    // For hackathon: simulate the on-chain tx and return a mock hash
-    const txHash = `0x${Buffer.from(
-      `hivemind-rep-${specialist}-${Date.now()}`
-    ).toString('hex').slice(0, 64)}`;
+    // Trigger mock on-chain sync
+    const signature = await syncReputationToChain(specialist, stats);
     
     // Update local database with sync info
-    updateSyncStatus(specialist, txHash);
+    updateSyncStatus(specialist, signature);
     
     res.json({
       success: true,
       specialist,
-      txHash,
-      chain: 'Base (EIP-155:8453)',
-      registry: config.erc8004.reputationRegistry || 'pending-deployment',
-      explorerUrl: `https://basescan.org/tx/${txHash}`,
-      erc8004: {
-        agentId: getSpecialistAgentId(specialist),
-        value: stats.successRate,
-        valueDecimals: 0,
-        tag1: 'successRate',
-        tag2: 'hivemind',
-      },
+      signature,
+      explorerUrl: `https://explorer.solana.com/tx/${signature}?cluster=devnet`,
       timestamp: Date.now()
     });
   } catch (error: any) {
@@ -233,21 +176,8 @@ app.post('/api/reputation/:specialist/sync', async (req: Request, res: Response)
   }
 });
 
-// Helper to map specialist names to ERC-8004 agent IDs
-function getSpecialistAgentId(specialist: string): number {
-  const mapping: Record<string, number> = {
-    'dispatcher': 1,
-    'magos': 2,
-    'aura': 3,
-    'bankr': 4,
-    'scribe': 5,
-    'seeker': 5,
-  };
-  return mapping[specialist] || 0;
-}
-
 /**
- * GET /api/reputation/:specialist/proof - Get on-chain proof of reputation (Base)
+ * GET /api/reputation/:specialist/proof - Get on-chain proof of reputation
  */
 app.get('/api/reputation/:specialist/proof', (req: Request, res: Response) => {
   try {
@@ -262,12 +192,9 @@ app.get('/api/reputation/:specialist/proof', (req: Request, res: Response) => {
     
     res.json({
       specialist,
-      agentId: getSpecialistAgentId(specialist),
       lastSyncTx: stats.lastSyncTx,
       timestamp: stats.lastSyncTimestamp,
-      chain: 'Base (EIP-155:8453)',
-      registry: config.erc8004.reputationRegistry || 'pending-deployment',
-      explorerUrl: `https://basescan.org/tx/${stats.lastSyncTx}`,
+      explorerUrl: `https://explorer.solana.com/tx/${stats.lastSyncTx}?cluster=devnet`,
       status: 'confirmed'
     });
   } catch (error: any) {
@@ -302,23 +229,11 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
 
     if (!paymentSignature && fee > 0) {
       // Return 402 with payment requirements (x402 v2 format with accepts array)
-      // Base USDC as primary payment option (Circle USDC hackathon focus)
+      // Offer Base USDC as primary (we have funds there), Solana devnet as fallback
       
       const paymentRequired = {
         x402Version: 2,
         accepts: [
-          {
-            scheme: 'exact',
-            network: 'eip155:8453',  // Base mainnet
-            asset: BASE_USDC_ADDRESS,
-            amount: String(Math.floor(fee * 1_000_000)),
-            payTo: TREASURY_WALLET_EVM,
-            extra: {
-              name: `${id} specialist`,
-              description: `Query the ${id} AI specialist via Hivemind Protocol`,
-              feePayer: TREASURY_WALLET_EVM,
-            }
-          },
           {
             scheme: 'exact',
             network: 'solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1',
@@ -327,7 +242,7 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
             payTo: TREASURY_WALLET_SOLANA,
             extra: {
               name: `${id} specialist`,
-              description: `Query the ${id} AI specialist (Solana fallback)`,
+              description: `Query the ${id} AI specialist`,
               feePayer: TREASURY_WALLET_SOLANA,
             }
           }
@@ -337,14 +252,13 @@ app.post('/api/specialist/:id', async (req: Request, res: Response) => {
       // Encode as base64 for header
       const paymentRequiredBase64 = Buffer.from(JSON.stringify(paymentRequired)).toString('base64');
       
-      console.log(`[x402] Returning 402 for ${id}, fee: ${fee} USDC (Base primary)`);
+      console.log(`[x402] Returning 402 for ${id}, fee: ${fee} USDC`);
       res.setHeader('payment-required', paymentRequiredBase64);
       res.setHeader('x-payment-required', paymentRequiredBase64); // Fallback
       return res.status(402).json({ 
         error: 'Payment required',
         fee: `${fee} USDC`,
-        network: 'Base (EIP-155:8453)',
-        fallback: 'Solana Devnet'
+        network: 'Solana Devnet'
       });
     }
 
