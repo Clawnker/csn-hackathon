@@ -263,13 +263,13 @@ export function QueryHistory({ history, onReRun, className = '' }: QueryHistoryP
                                       )}
                                       {tx.txHash && (
                                         <a 
-                                          href={`https://sepolia.basescan.org/tx/${tx.txHash}`}
+                                          href={`https://solscan.io/tx/${tx.txHash}?cluster=devnet`}
                                           target="_blank"
                                           rel="noopener noreferrer"
                                           className="flex items-center gap-1 text-xs text-[var(--accent-cyan)] hover:underline mt-2"
                                         >
                                           <ExternalLink size={10} />
-                                          View on Basescan
+                                          View on Solscan
                                         </a>
                                       )}
                                     </div>

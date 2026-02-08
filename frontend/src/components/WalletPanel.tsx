@@ -15,20 +15,21 @@ interface TokenBalance {
   color: string;
 }
 
-const TREASURY_ADDRESS = '0xc7a0445d4149999666b2a2d7G8GuMaH5TnGNWdCQ'; // Placeholder EVM address
+const TREASURY_ADDRESS = '5xUugg8ysgqpcGneM6qpM2AZ8ZGuMaH5TnGNWdCQC1Z1';
 const AGENTWALLET_USERNAME = 'claw';
 
 // Token display config
 const TOKEN_CONFIG: Record<string, { icon: string; color: string; decimals: number }> = {
-  ETH: { icon: 'Ξ', color: 'from-[#627EEA] to-[#627EEA]', decimals: 4 },
+  SOL: { icon: '◎', color: 'from-[#9945FF] to-[#14F195]', decimals: 4 },
   USDC: { icon: '$', color: 'from-[#2775CA] to-[#2775CA]', decimals: 4 },
-  WETH: { icon: 'Ξ', color: 'from-[#627EEA] to-[#EC4899]', decimals: 4 },
-  DAI: { icon: '◈', color: 'from-[#F5AC37] to-[#F5AC37]', decimals: 2 },
+  BONK: { icon: '🐕', color: 'from-[#F5A623] to-[#F5841F]', decimals: 0 },
+  WIF: { icon: '🐶', color: 'from-[#8B5CF6] to-[#EC4899]', decimals: 2 },
+  JUP: { icon: '🪐', color: 'from-[#00D18C] to-[#00A67E]', decimals: 4 },
 };
 
 export function WalletPanel({ className = '' }: WalletPanelProps) {
   const [tokens, setTokens] = useState<TokenBalance[]>([
-    { symbol: 'ETH', amount: 0, icon: 'Ξ', color: 'from-[#627EEA] to-[#627EEA]' },
+    { symbol: 'SOL', amount: 0, icon: '◎', color: 'from-[#9945FF] to-[#14F195]' },
     { symbol: 'USDC', amount: 0, icon: '$', color: 'from-[#2775CA] to-[#2775CA]' },
   ]);
   const [copied, setCopied] = useState(false);
@@ -56,17 +57,17 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
         
         // Build token list from response
         const newTokens: TokenBalance[] = [];
-        const base = data.base || {};
+        const solana = data.solana || {};
         
-        // Always show ETH and USDC first
-        const eth = base.eth || 0;
-        const usdc = base.usdc || 0;
+        // Always show SOL and USDC first
+        const sol = solana.sol || 0;
+        const usdc = solana.usdc || 0;
         
         newTokens.push({
-          symbol: 'ETH',
-          amount: eth,
-          icon: TOKEN_CONFIG.ETH.icon,
-          color: TOKEN_CONFIG.ETH.color,
+          symbol: 'SOL',
+          amount: sol,
+          icon: TOKEN_CONFIG.SOL.icon,
+          color: TOKEN_CONFIG.SOL.color,
         });
         
         newTokens.push({
@@ -77,9 +78,9 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
         });
         
         // Add other tokens with non-zero balances
-        Object.entries(base).forEach(([key, value]) => {
+        Object.entries(solana).forEach(([key, value]) => {
           const symbol = key.toUpperCase();
-          if (symbol !== 'ETH' && symbol !== 'USDC' && (value as number) > 0) {
+          if (symbol !== 'SOL' && symbol !== 'USDC' && (value as number) > 0) {
             const config = TOKEN_CONFIG[symbol] || { 
               icon: '🪙', 
               color: 'from-gray-500 to-gray-600',
@@ -103,9 +104,9 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
     setIsRefreshing(false);
   };
 
-  const openBasescan = () => {
+  const openSolscan = () => {
     window.open(
-      `https://sepolia.basescan.org/address/${TREASURY_ADDRESS}`,
+      `https://solscan.io/account/${TREASURY_ADDRESS}?cluster=devnet`,
       '_blank'
     );
   };
@@ -139,7 +140,7 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
   }, []);
 
   // Determine which tokens to show
-  const primaryTokens = tokens.slice(0, 2); // ETH and USDC
+  const primaryTokens = tokens.slice(0, 2); // SOL and USDC
   const additionalTokens = tokens.slice(2);
   const hasAdditionalTokens = additionalTokens.length > 0;
 
@@ -206,18 +207,18 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
               </AnimatePresence>
             </motion.button>
             <motion.button
-              onClick={openBasescan}
+              onClick={openSolscan}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               className="p-1 text-[var(--text-muted)] hover:text-[var(--accent-cyan)] transition-colors"
-              title="View on Basescan"
+              title="View on Solscan"
             >
               <ExternalLink size={12} />
             </motion.button>
           </div>
         </div>
 
-        {/* Primary Balances (ETH + USDC) */}
+        {/* Primary Balances (SOL + USDC) */}
         <div className="grid grid-cols-2 gap-3">
           {primaryTokens.map((token) => (
             <motion.div
@@ -295,12 +296,12 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
         {/* Footer Links */}
         <div className="flex items-center justify-between pt-2 border-t border-[var(--glass-border)]">
           <motion.button
-            onClick={openBasescan}
+            onClick={openSolscan}
             whileHover={{ scale: 1.02 }}
             className="flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--accent-cyan)] transition-colors"
           >
             <ExternalLink size={10} />
-            <span>Basescan</span>
+            <span>Solscan</span>
           </motion.button>
           
           <motion.button
@@ -316,8 +317,8 @@ export function WalletPanel({ className = '' }: WalletPanelProps) {
         {/* Last Updated */}
         <div className="flex items-center justify-between text-[10px] text-[var(--text-muted)]">
           <div className="flex items-center gap-1">
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-            <span>Base Sepolia</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-purple)]" />
+            <span>Solana Devnet</span>
           </div>
           {lastUpdated && (
             <span>Updated {lastUpdated.toLocaleTimeString()}</span>
